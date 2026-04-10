@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0076CE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="PT Coord">
+<title>Press Tour · Coordenação</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
+  background:#F2F4F7;color:#1C1C1E;
+  -webkit-font-smoothing:antialiased;
+  min-height:100dvh;
+}
+a{color:inherit;text-decoration:none}
+.app{max-width:430px;margin:0 auto;background:#F2F4F7;min-height:100dvh}
+
+/* Topbar */
+.topbar{
+  background:linear-gradient(135deg,#0076CE 0%,#004A93 100%);
+  padding:52px 18px 14px;
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;gap:10px;
+}
+.topbar-back{font-size:20px;cursor:pointer;display:none;background:none;border:none;color:#fff;padding:0 6px 0 0;flex-shrink:0}
+.topbar-title{font-size:15px;font-weight:700;color:#fff;flex:1}
+.topbar-chip{background:rgba(255,255,255,0.22);border-radius:20px;font-size:10px;font-weight:700;color:#fff;padding:3px 10px;letter-spacing:0.05em;flex-shrink:0}
+
+/* Hero */
+.hero{
+  background:linear-gradient(135deg,#0076CE 0%,#004A93 100%);
+  padding:0 18px 20px;
+}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:0.14em;color:rgba(255,255,255,0.6);text-transform:uppercase;margin-bottom:4px}
+.hero-title{font-size:26px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:2px}
+.hero-sub{font-size:12px;color:rgba(255,255,255,0.7)}
+
+/* Nav */
+.nav{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  background:#fff;border-bottom:1px solid #E5E7EB;
+  position:sticky;top:84px;z-index:99;
+  box-shadow:0 1px 4px rgba(0,0,0,0.06);
+}
+.nav-btn{
+  padding:10px 4px 8px;text-align:center;cursor:pointer;
+  border:none;background:none;font-size:17px;line-height:1;position:relative;
+}
+.nav-btn span{display:block;font-size:9px;color:#8E8E93;margin-top:3px;font-family:inherit;font-weight:500}
+.nav-btn.active span{color:#0076CE}
+.nav-btn.active::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;background:#0076CE;border-radius:2px}
+
+/* Sections */
+.section{display:none;padding:0 0 100px}
+.section.active{display:block}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:0.1em;color:#8E8E93;padding:18px 16px 8px;text-transform:uppercase}
+
+/* Card */
+.card{background:#fff;border-radius:14px;margin:0 12px 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+
+/* Day header */
+.day-header{
+  margin:14px 12px 0;padding:0;
+}
+.day-name{font-size:13px;font-weight:800;color:#0076CE;padding:12px 14px 2px;background:#fff;border-radius:14px 14px 0 0;margin-bottom:0}
+.day-date{font-size:11px;color:#8E8E93;padding:0 14px 10px;background:#fff;border-top:none}
+.day-card{background:#fff;border-radius:14px;margin:0 12px 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.day-card-header{padding:10px 14px 8px;border-bottom:2px solid #F2F4F7}
+.day-card-name{font-size:13px;font-weight:800;color:#0076CE}
+.day-card-date{font-size:11px;color:#8E8E93;margin-top:1px}
+
+/* Agenda items */
+.agenda-item{
+  display:flex;gap:10px;padding:11px 14px;
+  border-bottom:1px solid #F2F4F7;
+  align-items:flex-start;
+}
+.agenda-item:last-child{border-bottom:none}
+.ai-time{font-size:12px;font-weight:700;color:#0076CE;min-width:50px;padding-top:1px;flex-shrink:0}
+.ai-body{flex:1;min-width:0}
+.ai-desc{font-size:13px;color:#1C1C1E;line-height:1.35;font-weight:500}
+.ai-loc{font-size:11px;color:#8E8E93;margin-top:2px}
+.ai-note{font-size:10px;font-weight:600;margin-top:3px}
+.ai-note.red{color:#E53935}
+.ai-note.orange{color:#F57C00}
+.ai-note.green{color:#2E7D32}
+.ai-note.blue{color:#0076CE}
+.ai-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:8px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.tag-drive{background:#FFF3E0;color:#E65100}
+.tag-tour{background:#E3F2FD;color:#0076CE}
+.tag-meal{background:#E8F5E9;color:#2E7D32}
+.tag-brief{background:#F3E5F5;color:#7B1FA2}
+.tag-hotel{background:#FFF8E1;color:#F57F17}
+.tag-alert{background:#FFEBEE;color:#C62828}
+.tag-voo{background:#E8EAF6;color:#283593}
+
+/* Drive badge */
+.drive-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:#FFF3E0;border-radius:6px;
+  font-size:10px;font-weight:600;color:#E65100;padding:2px 7px;margin-top:4px;
+}
+
+/* Journalist cards */
+.journo-card{
+  background:#fff;border-radius:14px;margin:0 12px 10px;
+  box-shadow:0 1px 4px rgba(0,0,0,0.06);cursor:pointer;overflow:hidden;
+  transition:transform 0.1s,box-shadow 0.1s;
+}
+.journo-card:active{transform:scale(0.985);box-shadow:0 0 2px rgba(0,0,0,0.08)}
+.journo-head{padding:14px;display:flex;align-items:center;gap:12px}
+.j-avatar{
+  width:46px;height:46px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:#fff;
+}
+.j-name{font-size:14px;font-weight:700;color:#1C1C1E;margin-bottom:2px}
+.j-outlet{font-size:11px;color:#8E8E93}
+.j-flag{font-size:18px;margin-left:auto;flex-shrink:0}
+
+/* Key messages */
+.km-card{background:#fff;border-radius:14px;margin:0 12px 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.km-head{padding:12px 14px;background:linear-gradient(135deg,#0076CE,#004A93);display:flex;align-items:center;gap:8px}
+.km-head-title{font-size:13px;font-weight:700;color:#fff}
+.km-item{padding:10px 14px;border-bottom:1px solid #F2F4F7;font-size:12px;color:#3C3C43;line-height:1.5;padding-left:26px;position:relative}
+.km-item:last-child{border-bottom:none}
+.km-item::before{content:'›';position:absolute;left:14px;color:#0076CE;font-weight:800;font-size:14px;top:9px}
+.km-soundbite{
+  margin:8px 14px;padding:10px 12px;
+  background:#F0F7FF;border-left:3px solid #0076CE;
+  border-radius:0 8px 8px 0;font-size:12px;color:#1C1C1E;
+  font-style:italic;line-height:1.55;
+}
+.km-dontsay{background:#FFF5F5;border-left:3px solid #E53935;border-radius:0 8px 8px 0;margin:8px 14px;padding:10px 12px;font-size:12px;color:#B71C1C;line-height:1.5}
+
+/* Restaurant card */
+.rest-card{background:#fff;border-radius:14px;margin:0 12px 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);cursor:pointer}
+.rest-head{padding:14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #F2F4F7}
+.rest-emoji{font-size:28px;flex-shrink:0}
+.rest-name{font-size:14px;font-weight:700;color:#1C1C1E}
+.rest-tag{font-size:10px;background:#F2F4F7;color:#636366;border-radius:6px;padding:2px 7px;font-weight:600;margin-top:3px;display:inline-block}
+.rest-when{font-size:10px;color:#0076CE;font-weight:700;margin-top:4px}
+.rest-body{padding:12px 14px;font-size:12px;color:#3C3C43;line-height:1.55}
+.rest-maps{padding:10px 14px 12px}
+
+/* Flight card */
+.flight-card{background:#fff;border-radius:14px;margin:0 12px 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.flight-head{background:linear-gradient(135deg,#0076CE,#004A93);padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.flight-dir{color:#fff;font-size:13px;font-weight:700}
+.flight-note{color:rgba(255,255,255,0.75);font-size:10px}
+.flight-body{padding:14px;display:flex;align-items:center}
+.flight-city{flex:1}
+.f-code{font-size:22px;font-weight:800;color:#1C1C1E}
+.f-name{font-size:10px;color:#8E8E93;margin-top:1px}
+.f-time{font-size:18px;font-weight:700;color:#1C1C1E;margin-top:5px}
+.f-date{font-size:10px;color:#8E8E93}
+.flight-mid{flex:1;text-align:center;padding:0 6px}
+.f-via{font-size:10px;color:#8E8E93;margin-bottom:4px}
+.f-arr{display:flex;align-items:center;gap:3px;justify-content:center}
+.f-line{flex:1;height:1px;background:#E5E7EB}
+.f-arrow{color:#0076CE;font-size:14px;font-weight:700}
+
+/* Contact rows */
+.contact-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid #F2F4F7}
+.contact-row:last-child{border-bottom:none}
+.c-name{font-size:13px;font-weight:600;color:#1C1C1E}
+.c-role{font-size:11px;color:#8E8E93;margin-top:1px}
+.c-val{font-size:11px;color:#0076CE;font-weight:600;text-align:right}
+
+/* WA / LI buttons */
+.wa-btn{display:inline-flex;align-items:center;gap:5px;background:#25D366;color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px}
+.li-btn{display:inline-flex;align-items:center;gap:5px;background:#0A66C2;color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px}
+
+/* Detail view */
+.dv-hero{background:linear-gradient(135deg,#0076CE,#004A93);padding:20px 18px 24px;color:#fff}
+.dv-tag{font-size:11px;opacity:0.75;margin-bottom:5px}
+.dv-title{font-size:21px;font-weight:800;line-height:1.2;margin-bottom:12px}
+.dv-section{background:#fff;padding:14px 16px;border-bottom:1px solid #F2F4F7;margin-bottom:1px}
+.dv-label{font-size:10px;font-weight:700;letter-spacing:0.08em;color:#8E8E93;text-transform:uppercase;margin-bottom:8px}
+.dv-text{font-size:13px;color:#3C3C43;line-height:1.6;margin-bottom:7px}
+.dv-text:last-child{margin-bottom:0}
+.dv-bullet{font-size:13px;color:#3C3C43;line-height:1.5;padding-left:14px;position:relative;margin-bottom:5px}
+.dv-bullet::before{content:'›';position:absolute;left:0;color:#0076CE;font-weight:800}
+.pr-box{background:#F0F0FF;border-left:3px solid #7B1FA2;border-radius:0 8px 8px 0;padding:12px;margin-top:10px}
+.pr-box-label{font-size:9px;font-weight:800;letter-spacing:0.12em;color:#7B1FA2;text-transform:uppercase;margin-bottom:5px}
+.pr-box-text{font-size:12px;color:#3C3C43;line-height:1.6}
+.story-item{background:#F0F7FF;border-radius:8px;padding:9px 11px;margin-top:6px;font-size:12px;color:#1C1C1E;line-height:1.5;border-left:3px solid #0076CE}
+.loc-box{background:#F0F7FF;border-radius:10px;padding:12px 14px;margin-top:8px;display:flex;justify-content:space-between}
+.loc-code{font-size:22px;font-weight:800;color:#0076CE;letter-spacing:0.06em}
+.loc-label{font-size:9px;font-weight:700;letter-spacing:0.1em;color:#8E8E93;text-transform:uppercase;margin-bottom:2px}
+
+#route-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.5);align-items:flex-end;justify-content:center}
+#route-modal.open{display:flex}
+.route-sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:430px;padding:20px 20px 32px;position:relative;animation:slideUp 0.25s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.route-close{position:absolute;top:16px;right:16px;background:#F2F4F7;border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:15px;color:#636366}
+.route-handle{width:40px;height:4px;background:#E5E7EB;border-radius:2px;margin:0 auto 16px}
+.route-title{font-size:16px;font-weight:800;color:#1C1C1E;margin-bottom:10px}
+.route-leg{font-size:12px;color:#636366;margin-bottom:5px}
+.route-time-row{background:#FFF3E0;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:12px;margin:12px 0}
+.route-time-num{font-size:24px;font-weight:800;color:#E65100}
+.route-time-sub{font-size:11px;color:#7A5C00;line-height:1.4}
+.route-map-box{width:100%;height:180px;border-radius:12px;overflow:hidden;background:#F2F4F7;margin-bottom:14px;display:flex;align-items:center;justify-content:center}
+.route-map-box img{width:100%;height:100%;object-fit:cover}
+.route-map-box iframe{width:100%;height:100%;border:none}
+.route-gmaps-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#0076CE;color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:12px;width:100%;text-decoration:none}
+
+#sp-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.5);align-items:flex-end;justify-content:center}
+#sp-modal.open{display:flex}
+.sp-sheet{background:#F2F4F7;border-radius:20px 20px 0 0;width:100%;max-width:430px;max-height:88vh;overflow-y:auto;position:relative;animation:slideUp 0.25s ease}
+.sp-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.25);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:15px;color:#fff;z-index:10}
+.sp-hero{background:linear-gradient(135deg,#7B1FA2,#4A148C);padding:24px 18px 20px;border-radius:20px 20px 0 0;color:#fff}
+.sp-hero-row{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.sp-photo{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center 15%;border:2px solid rgba(255,255,255,0.35);flex-shrink:0}
+.sp-photo-placeholder{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0}
+.sp-name{font-size:18px;font-weight:800;line-height:1.2}
+.sp-role{font-size:11px;opacity:0.8;margin-top:3px;line-height:1.4}
+.sp-time-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.2);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:700;color:#fff;margin-top:6px}
+.sp-section{background:#fff;padding:14px 16px;border-bottom:1px solid #F2F4F7;margin-bottom:1px}
+.sp-label{font-size:10px;font-weight:700;letter-spacing:0.08em;color:#8E8E93;text-transform:uppercase;margin-bottom:8px}
+.sp-text{font-size:13px;color:#3C3C43;line-height:1.6;margin-bottom:7px}
+.sp-text:last-child{margin-bottom:0}
+.sp-bullet{font-size:13px;color:#3C3C43;line-height:1.5;padding-left:14px;position:relative;margin-bottom:5px}
+.sp-bullet::before{content:'›';position:absolute;left:0;color:#7B1FA2;font-weight:800}
+.sp-hint{background:#F3E5F5;border-left:3px solid #7B1FA2;border-radius:0 8px 8px 0;padding:10px 12px;font-size:12px;color:#4A148C;line-height:1.55;margin-top:8px}
+.sp-dontsay{background:#FFF5F5;border-left:3px solid #E53935;border-radius:0 8px 8px 0;padding:10px 12px;font-size:12px;color:#B71C1C;line-height:1.55;margin-top:6px}
+.sp-li-btn{display:inline-flex;align-items:center;gap:5px;background:#0A66C2;color:#fff;font-size:12px;font-weight:700;padding:7px 14px;border-radius:20px;text-decoration:none;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="topbar" id="topbar">
+  <button class="topbar-back" id="backBtn" onclick="goBack()">&#8592;</button>
+  <div style="flex:1">
+    <div style="font-size:10px;font-weight:600;letter-spacing:0.12em;color:rgba(255,255,255,0.65);text-transform:uppercase">Dell Technologies</div>
+    <div class="topbar-title" id="topbarTitle">Press Tour · Coordenação</div>
+  </div>
+  <div class="topbar-chip">HOST</div>
+</div>
+
+<div id="homeView">
+
+  <div class="hero">
+    <div class="hero-tag">Coordinator Command Center</div>
+    <div class="hero-title">Austin Press Tour 2026</div>
+    <div class="hero-sub">14–17 Abril · Mathias Simon &amp; Michelle Wendling</div>
+  </div>
+
+  <nav class="nav">
+    <button class="nav-btn active" onclick="switchTab('agenda',this)">📋<span>Agenda</span></button>
+    <button class="nav-btn" onclick="switchTab('grupo',this)">👥<span>Grupo</span></button>
+    <button class="nav-btn" onclick="switchTab('keymsg',this)">💡<span>Key Msgs</span></button>
+    <button class="nav-btn" onclick="switchTab('voos',this)">✈<span>Voos</span></button>
+    <button class="nav-btn" onclick="switchTab('contatos',this)">📞<span>Contatos</span></button>
+  </nav>
+
+  <!-- ══ AGENDA ══ -->
+  <div class="section active" id="sec-agenda">
+
+    <div class="sec-label">Dom 12 — Saída de São Paulo</div>
+    <div class="day-card">
+      <div class="agenda-item">
+        <div class="ai-time">21:50</div>
+        <div class="ai-body">
+          <div class="ai-desc">Voo GRU → IAH · UA 063</div>
+          <div class="ai-loc">São Paulo Guarulhos · United Airlines</div>
+          <div class="drive-badge">🚗 Uber Dell corporativo ao aeroporto</div>
+        </div>
+        <div class="ai-tag tag-voo">Voo</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Seg 13 — Chegada em Austin</div>
+    <div class="day-card">
+      <div class="agenda-item">
+        <div class="ai-time">05:45</div>
+        <div class="ai-body">
+          <div class="ai-desc">Chegada em Houston (IAH)</div>
+          <div class="ai-loc">Conexão United · aguardar próximo voo</div>
+        </div>
+        <div class="ai-tag tag-voo">Conexão</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">10:13</div>
+        <div class="ai-body">
+          <div class="ai-desc">IAH → AUS · UA 1823</div>
+          <div class="ai-loc">Houston → Austin Bergstrom</div>
+        </div>
+        <div class="ai-tag tag-voo">Voo</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('aus_to_hotel')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">11:19</div>
+        <div class="ai-body">
+          <div class="ai-desc">Chegada em Austin · Check-in no Hyatt</div>
+          <div class="ai-loc">3612 Tudor Blvd — check-in dia 13 (antes dos jornalistas)</div>
+          <div class="ai-note blue">⚡ Um dia de antecedência para preparar a chegada do grupo</div>
+          <div class="drive-badge">🚗 Uber Dell corporativo hotel</div>
+        </div>
+        <div class="ai-tag tag-hotel">Hotel</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Ter 14 — Chegadas &amp; Welcome Dinner</div>
+    <div class="day-card">
+      <div class="agenda-item">
+        <div class="ai-time">09:05</div>
+        <div class="ai-body">
+          <div class="ai-desc">Rodrigo &amp; Efrén chegam · AM 1684</div>
+          <div class="ai-loc">Ciudad de México → Austin · já no hotel</div>
+          <div class="ai-note orange">⚡ Receber, confirmar check-in, dar boas-vindas</div>
+        </div>
+        <div class="ai-tag tag-alert">MX</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">14:52</div>
+        <div class="ai-body">
+          <div class="ai-desc">William, Bruno &amp; Wallace chegam · AA 620</div>
+          <div class="ai-loc">Miami → Austin</div>
+          <div class="ai-note orange">⚡ Confirmar traslado com cada um</div>
+        </div>
+        <div class="ai-tag tag-alert">BR</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">15:24</div>
+        <div class="ai-body">
+          <div class="ai-desc">Roberta chega · UA 2483</div>
+          <div class="ai-loc">Houston → Austin</div>
+        </div>
+        <div class="ai-tag tag-alert">BR</div>
+      </div>
+
+      <div class="agenda-item" onclick="openRoute('hotel_to_sixtyvines')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">18:50</div>
+        <div class="ai-body">
+          <div class="ai-desc">Saída para Sixty Vines</div>
+          <div class="ai-loc">Deslocamento do hotel · ~5 min</div>
+          <div class="ai-note orange">⚡ Combinar com todos os jornalistas o ponto de encontro no lobby</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+      <div class="agenda-item" onclick="showRestaurant('sixtyvines')" style="cursor:pointer;background:#F0FFF4">
+        <div class="ai-time">19:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Welcome Dinner · Sixty Vines</div>
+          <div class="ai-loc">3401 Esperanza Crossing, Austin</div>
+          <div class="ai-note blue">60 vinhos em torneira · wine bar moderno · clima ideal para quebrar gelo</div>
+        </div>
+        <div class="ai-tag tag-meal">Jantar ›</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Qua 15 — Tour Day 1 · Infrastructure &amp; Strategy</div>
+    <div class="day-card">
+      <div class="agenda-item" onclick="openRoute('hotel_to_tacc')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">08:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Saída para TACC</div>
+          <div class="ai-note orange">⚡ Confirmar transporte com antecedência · Royal 512-989-7272</div>
+          <div class="drive-badge">🚗 ~25 min · 10505 Exploration Way</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">09:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Tour TACC Data Center</div>
+          <div class="ai-loc">POC: Geoffrey Reid · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fc9b8e999598bc889d9f9fd2898899849d8fd2999889">[email&#160;protected]</a></div>
+          <div class="ai-note orange">⚡ Todos assinam check-in no lobby · badge obrigatório · parking Zone 96113</div>
+        </div>
+        <div class="ai-tag tag-tour">Tour</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('tacc_to_ebc')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">10:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Transfer TACC → EBC Round Rock</div>
+          <div class="drive-badge">🚗 ~30 min · Building 3, Round Rock</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">11:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Tour Executive Briefing Center</div>
+          <div class="ai-loc">POCs: David Riojas / Lauren Ramos · Building 3</div>
+          <div class="ai-note red">⚡ NDA assinado obrigatório antes de entrar</div>
+        </div>
+        <div class="ai-tag tag-tour">Tour</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">12:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Almoço no EBC</div>
+          <div class="ai-loc">Dentro do Executive Briefing Center</div>
+        </div>
+        <div class="ai-tag tag-meal">Almoço</div>
+      </div>
+      <div class="agenda-item" onclick="showSpokesperson('sp_drew')" style="cursor:pointer;background:#F9F0FF">
+        <div class="ai-time">14:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Briefing Drew Schulke · Primary Storage</div>
+          <div class="ai-loc">VP Product Management · 30 min</div>
+          <div class="ai-note blue">💡 PowerMax, PowerStore, PowerFlex — backbone da IA</div>
+        </div>
+        <div class="ai-tag tag-brief">Briefing</div>
+      </div>
+      <div class="agenda-item" onclick="showSpokesperson('sp_aa')" style="cursor:pointer;background:#F9F0FF">
+        <div class="ai-time">15:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Briefing Armando Acosta &amp; David Schmidt</div>
+          <div class="ai-loc">AI Servers &amp; PowerEdge · 30 min</div>
+          <div class="ai-note blue">💡 PowerEdge XE9680/85L · servidores de IA em escala</div>
+        </div>
+        <div class="ai-tag tag-brief">Briefing</div>
+      </div>
+      <div class="agenda-item" onclick="showSpokesperson('sp_alex')" style="cursor:pointer;background:#F9F0FF">
+        <div class="ai-time">15:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Briefing Alex Tyltin · Workstations &amp; AI</div>
+          <div class="ai-loc">GB10 &amp; GB300 Workstations · 30 min</div>
+          <div class="ai-note green">🔥 PRIMEIROS DO MUNDO com GB300 · William vai querer filmar</div>
+        </div>
+        <div class="ai-tag tag-brief">Briefing</div>
+      </div>
+      <div class="agenda-item" onclick="showSpokesperson('sp_zach')" style="cursor:pointer;background:#F9F0FF">
+        <div class="ai-time">16:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Briefing Zach Noskey · Commercial Notebooks</div>
+          <div class="ai-loc">Head of Product · 30 min</div>
+          <div class="ai-note blue">💡 AI PCs, PC refresh, Windows 10 EOL</div>
+        </div>
+        <div class="ai-tag tag-brief">Briefing</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('ebc_to_hotel')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">16:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Transfer EBC → Hotel</div>
+          <div class="drive-badge">🚗 ~20 min</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('hotel_to_saltlick')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">18:40</div>
+        <div class="ai-body">
+          <div class="ai-desc">Saída para The Salt Lick BBQ</div>
+          <div class="ai-loc">Deslocamento do hotel · ~20 min</div>
+          <div class="ai-note orange">⚡ Combinar com todos os jornalistas o ponto de encontro no lobby</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+      <div class="agenda-item" onclick="showRestaurant('saltlick')" style="cursor:pointer;background:#F0FFF4">
+        <div class="ai-time">19:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Jantar · The Salt Lick BBQ</div>
+          <div class="ai-loc">3350 E Palm Valley Blvd, Round Rock</div>
+          <div class="ai-note blue">BBQ texano lendário desde 1967 · ambiente rústico · ótimo para descontração</div>
+        </div>
+        <div class="ai-tag tag-meal">Jantar ›</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Qui 16 — Tour Day 2 · AI Engineering &amp; Innovation</div>
+    <div class="day-card">
+      <div class="agenda-item" onclick="openRoute('hotel_to_parmer')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">08:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Transfer hotel → Parmer Campus</div>
+          <div class="ai-note red">⚡ Badge + NDA obrigatório · levar documentos</div>
+          <div class="drive-badge">🚗 ~25 min · 701 E Parmer Ln</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">09:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">AI Solutions Center · Parmer South 2</div>
+          <div class="ai-loc">Host: Mario Gallegos · recebe no PS2 Lobby</div>
+          <div class="ai-note red">🚫 ZERO fotos/vídeos — escolta imediata se violado. Briefar TODOS antes de entrar.</div>
+        </div>
+        <div class="ai-tag tag-tour">Tour</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">09:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Alienware Experience Tour · Parmer South 4</div>
+          <div class="ai-loc">Host: Jonathan Royer · registrar em PS3</div>
+          <div class="ai-note green">📸 Fotos OK · William provavelmente vai querer filmar benchmarks</div>
+        </div>
+        <div class="ai-tag tag-tour">Tour</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">10:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Rugged Lab Tour · Parmer South 4</div>
+          <div class="ai-loc">Host: Jonathan Royer &amp; Gary Corpuz</div>
+          <div class="ai-note green">📸 Fotos OK · mesmo building</div>
+        </div>
+        <div class="ai-tag tag-tour">Tour</div>
+      </div>
+      <div class="agenda-item" onclick="showSpokesperson('sp_travis')" style="cursor:pointer;background:#F9F0FF">
+        <div class="ai-time">11:15</div>
+        <div class="ai-body">
+          <div class="ai-desc">Briefing Travis North · Thermal Expert</div>
+          <div class="ai-loc">1:many · 15 min</div>
+        </div>
+        <div class="ai-tag tag-brief">Briefing</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">11:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Acoustic Chamber · Parmer South 4</div>
+          <div class="ai-loc">Host: Michael Murphy · inclui Wireless Lab</div>
+          <div class="ai-note green">📸 Fotos OK · mesmo building · Boeing connection angle</div>
+        </div>
+        <div class="ai-tag tag-tour">Tour</div>
+      </div>
+      <div class="agenda-item" onclick="showRestaurant('haywire')" style="cursor:pointer;background:#F0FFF4">
+        <div class="ai-time">12:15</div>
+        <div class="ai-body">
+          <div class="ai-desc">Almoço · Haywire Domain</div>
+          <div class="ai-loc">11501 Rock Rose Ave, Austin</div>
+          <div class="ai-note blue">Farm-to-fork texano · wagyu tomahawk · ótimo para conversa mais longa</div>
+        </div>
+        <div class="ai-tag tag-meal">Almoço ›</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('haywire_to_hotel')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">14:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Retorno ao hotel</div>
+          <div class="drive-badge">🚗 ~20 min</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('hotel_to_quince')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">18:40</div>
+        <div class="ai-body">
+          <div class="ai-desc">Saída para Quince Lakehouse</div>
+          <div class="ai-loc">Deslocamento do hotel · ~20 min</div>
+          <div class="ai-note orange">⚡ Combinar com todos os jornalistas o ponto de encontro no lobby</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+      <div class="agenda-item" onclick="showRestaurant('quince')" style="cursor:pointer;background:#F0FFF4">
+        <div class="ai-time">19:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Jantar · Quince Lakehouse</div>
+          <div class="ai-loc">3825 Lake Austin Blvd #201</div>
+          <div class="ai-note blue">Melhor rooftop do mundo (2020) · vista para o Lago Austin · encerramento perfeito</div>
+        </div>
+        <div class="ai-tag tag-meal">Jantar ›</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Sex 17 — Partidas</div>
+    <div class="day-card">
+      <div class="agenda-item">
+        <div class="ai-time">manhã</div>
+        <div class="ai-body">
+          <div class="ai-desc">Check-out geral dos jornalistas</div>
+          <div class="ai-note orange">⚡ Confirmar traslado de cada um para o aeroporto</div>
+        </div>
+        <div class="ai-tag tag-hotel">Check-out</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">09:05</div>
+        <div class="ai-body">
+          <div class="ai-desc">Efrén &amp; Rodrigo partem · AM 1685</div>
+          <div class="ai-loc">AUS → Ciudad de México</div>
+        </div>
+        <div class="ai-tag tag-alert">MX</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('hotel_to_aus')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">14:10</div>
+        <div class="ai-body">
+          <div class="ai-desc">Mathias parte · UA 685</div>
+          <div class="ai-loc">AUS → IAH → GRU</div>
+          <div class="drive-badge">🚗 Uber Dell corporativo</div>
+        </div>
+        <div class="ai-tag tag-voo">Mathias</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">16:12</div>
+        <div class="ai-body">
+          <div class="ai-desc">Brasileiros partem · AA 620</div>
+          <div class="ai-loc">AUS → Miami · William, Bruno, Roberta</div>
+        </div>
+        <div class="ai-tag tag-alert">BR</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('hotel_to_aus')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">16:20</div>
+        <div class="ai-body">
+          <div class="ai-desc">Michelle parte · UA 685</div>
+          <div class="ai-loc">AUS → IAH → GRU</div>
+          <div class="drive-badge">🚗 Uber Dell corporativo</div>
+        </div>
+        <div class="ai-tag tag-voo">Michelle</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Restaurantes da Viagem</div>
+
+    <div class="rest-card" onclick="showRestaurant('sixtyvines')">
+      <div class="rest-head">
+        <div class="rest-emoji">🍷</div>
+        <div>
+          <div class="rest-name">Sixty Vines</div>
+          <div><span class="rest-tag">Wine Bar & American</span></div>
+          <div class="rest-when">Ter 14/04 · 19:00 — Welcome Dinner</div>
+        </div>
+      </div>
+    </div>
+    <div class="rest-card" onclick="showRestaurant('saltlick')">
+      <div class="rest-head">
+        <div class="rest-emoji">🔥</div>
+        <div>
+          <div class="rest-name">The Salt Lick BBQ</div>
+          <div><span class="rest-tag">Texas BBQ</span></div>
+          <div class="rest-when">Qua 15/04 · 19:00 — Jantar</div>
+        </div>
+      </div>
+    </div>
+    <div class="rest-card" onclick="showRestaurant('haywire')">
+      <div class="rest-head">
+        <div class="rest-emoji">🤠</div>
+        <div>
+          <div class="rest-name">Haywire Domain</div>
+          <div><span class="rest-tag">Texas Farm-to-Fork</span></div>
+          <div class="rest-when">Qui 16/04 · 12:15 — Almoço</div>
+        </div>
+      </div>
+    </div>
+    <div class="rest-card" onclick="showRestaurant('quince')">
+      <div class="rest-head">
+        <div class="rest-emoji">🌊</div>
+        <div>
+          <div class="rest-name">Quince Lakehouse</div>
+          <div><span class="rest-tag">Upscale Internacional</span></div>
+          <div class="rest-when">Qui 16/04 · 19:00 — Jantar final</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ GRUPO ══ -->
+  <div class="section" id="sec-grupo">
+    <div class="sec-label">Brasil</div>
+    <div class="journo-card" onclick="showJournalist('bruno')">
+      <div class="journo-head">
+        <img src="https://raw.githubusercontent.com/DellPR/coordenacao/main/bruno.png" class="j-avatar" style="object-fit:cover;object-position:center top" onerror="this.outerHTML='<div class=&quot;j-avatar&quot; style=&quot;background:#1B6CA8&quot;>BG</div>'">
+        <div><div class="j-name">Bruno Garattoni</div><div class="j-outlet">Super Interessante · Jornalista</div></div>
+        <div class="j-flag">🇧🇷</div>
+      </div>
+    </div>
+    <div class="journo-card" onclick="showJournalist('roberta')">
+      <div class="journo-head">
+        <img src="https://raw.githubusercontent.com/DellPR/coordenacao/main/roberta.png" class="j-avatar" style="object-fit:cover;object-position:center top" onerror="this.outerHTML='<div class=&quot;j-avatar&quot; style=&quot;background:#6B3A9A&quot;>RP</div>'">
+        <div><div class="j-name">Roberta Prescott</div><div class="j-outlet">Convergência Digital · Jornalista</div></div>
+        <div class="j-flag">🇧🇷</div>
+      </div>
+    </div>
+    <div class="journo-card" onclick="showJournalist('william')">
+      <div class="journo-head">
+        <img src="https://raw.githubusercontent.com/DellPR/coordenacao/main/William.png" class="j-avatar" style="object-fit:cover;object-position:center top" onerror="this.outerHTML='<div class=&quot;j-avatar&quot; style=&quot;background:#0D6B3A&quot;>WM</div>'">
+        <div><div class="j-name">William Marchiori</div><div class="j-outlet">Loop Infinito · Criador de conteúdo</div></div>
+        <div class="j-flag">🇧🇷</div>
+      </div>
+    </div>
+    <div class="journo-card" onclick="showJournalist('wallace')">
+      <div class="journo-head">
+        <img src="https://raw.githubusercontent.com/DellPR/coordenacao/main/Wallace.png" class="j-avatar" style="object-fit:cover;object-position:center top" onerror="this.outerHTML='<div class=&quot;j-avatar&quot; style=&quot;background:#8B4513&quot;>WM</div>'">
+        <div><div class="j-name">Wallace Moté</div><div class="j-outlet">TudoCelular · Jornalista</div></div>
+        <div class="j-flag">🇧🇷</div>
+      </div>
+    </div>
+    <div class="sec-label">México</div>
+    <div class="journo-card" onclick="showJournalist('rodrigo')">
+      <div class="journo-head">
+        <img src="https://raw.githubusercontent.com/DellPR/coordenacao/main/Rodrigo%20Riquelme.png" class="j-avatar" style="object-fit:cover;object-position:center top" onerror="this.outerHTML='<div class=&quot;j-avatar&quot; style=&quot;background:#8B6914&quot;>RR</div>'">
+        <div><div class="j-name">Rodrigo Riquelme Galván</div><div class="j-outlet">El Economista · Jornalista</div></div>
+        <div class="j-flag">🇲🇽</div>
+      </div>
+    </div>
+    <div class="journo-card" onclick="showJournalist('efren')">
+      <div class="journo-head">
+        <img src="https://raw.githubusercontent.com/DellPR/coordenacao/main/Efren.jpg" class="j-avatar" style="object-fit:cover;object-position:center top" onerror="this.outerHTML='<div class=&quot;j-avatar&quot; style=&quot;background:#8B1A1A&quot;>EP</div>'">
+        <div><div class="j-name">Efrén Abraham Páez</div><div class="j-outlet">DPL News · Analista Sênior</div></div>
+        <div class="j-flag">🇲🇽</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ KEY MESSAGES ══ -->
+  <div class="section" id="sec-keymsg">
+
+    <div class="sec-label">Objetivos do Projeto</div>
+    <div class="km-card">
+      <div class="km-head"><span style="font-size:18px">🎯</span><div class="km-head-title">O que queremos que os jornalistas levem</div></div>
+      <div class="km-item">Dell não é hardware vendor — é o <strong>arquiteto da fundação end-to-end</strong> que permite a IA funcionar em escala.</div>
+      <div class="km-item">Narrative arc: <em>da engenharia ao impacto real</em> — TACC prova que funciona, EBC mostra a estratégia, Labs mostram como é feito.</div>
+      <div class="km-item">IA na Dell <strong>não é teórica</strong> — $43B de backlog, 4.000+ clientes, orientação FY27 de $50B em receita de IA.</div>
+      <div class="km-item">A América Latina tem acesso ao mesmo motor de inovação global. Isso é o que torna essa viagem especial.</div>
+    </div>
+
+    <div class="sec-label">Pilar 1 — AI Infrastructure</div>
+    <div class="km-card">
+      <div class="km-head"><span style="font-size:18px">🏗️</span><div class="km-head-title">Dell como Arquiteto da IA</div></div>
+      <div class="km-item">Dell é um powerhouse global de engenharia avançando a infraestrutura necessária para IA de próxima geração.</div>
+      <div class="km-item">Nossa abordagem é end-to-end: R&D, design, labs, soluções e resultados para clientes.</div>
+      <div class="km-soundbite">"A IA da Dell não é teórica — vocês vão ver ela funcionando agora, a 9 da manhã, alimentando pesquisas científicas reais."</div>
+      <div class="km-soundbite">"$43 bilhões em backlog de IA. 4.000 clientes. Orientação de $50B para FY27. O maior pipeline que já vimos."</div>
+    </div>
+
+    <div class="sec-label">Pilar 2 — ISG / Servers &amp; Storage</div>
+    <div class="km-card">
+      <div class="km-head"><span style="font-size:18px">🖥️</span><div class="km-head-title">Infraestrutura que Trabalha</div></div>
+      <div class="km-item">PowerEdge XE9680/XE9685L: purpose-built para workloads de IA, até 8 GPUs NVIDIA, liquid cooling.</div>
+      <div class="km-item">TACC Frontera: supercomputador universitário mais rápido do mundo. Dell e TACC co-projetaram +12 sistemas juntos.</div>
+      <div class="km-item">Primary Storage é o backbone: sem armazenamento confiável, a IA não funciona. PowerMax, PowerStore, PowerFlex.</div>
+      <div class="km-soundbite">"Sem storage robusto, não existe IA em escala. É como ter um Ferrari sem combustível."</div>
+    </div>
+
+    <div class="sec-label">Pilar 3 — CSG / PC &amp; Workstations</div>
+    <div class="km-card">
+      <div class="km-head"><span style="font-size:18px">💻</span><div class="km-head-title">IA no Edge e no Desktop</div></div>
+      <div class="km-item">Dell Pro Max com GB10 e <strong>GB300</strong>: primeiros desktops do mundo com o NVIDIA Grace Blackwell Ultra superchip.</div>
+      <div class="km-item">GB300: 20 petaFLOPS FP4 + 748GB memória unificada. IA de data center na mesa do desenvolvedor.</div>
+      <div class="km-item">PC refresh cycle + Windows 10 EOL: 500M+ PCs para atualizar. Oportunidade histórica para LATAM.</div>
+      <div class="km-soundbite">"O GB300 é uma caixa pequena que entrega o que um data center de $10M entregava há 3 anos — na sua mesa, agora."</div>
+      <div class="km-soundbite">"500 milhões de PCs precisam sair do Windows 10. Essa é a maior oportunidade de refresh da história do PC."</div>
+    </div>
+
+    <div class="sec-label">⚠️ NÃO falar sobre</div>
+    <div class="km-card" style="border:1px solid #FFCDD2">
+      <div class="km-head" style="background:linear-gradient(135deg,#C62828,#B71C1C)"><span style="font-size:18px">🚫</span><div class="km-head-title">Tópicos sensíveis — redirecionar</div></div>
+      <div class="km-dontsay">Cadeia de suprimentos, tarifas, questões políticas ou comerciais sensíveis</div>
+      <div class="km-dontsay">Roadmap além do que está sendo mostrado hoje</div>
+      <div class="km-dontsay">Preços, disponibilidade, parceiros sem aprovação oficial</div>
+      <div class="km-dontsay">Palavras como "dominar", "monopolizar" em relação a concorrentes</div>
+      <div class="km-dontsay">Resposta padrão: <em>"Não sou a melhor pessoa para isso — nosso time de comms vai retornar com as informações corretas."</em></div>
+    </div>
+
+  </div>
+
+  <!-- ══ VOOS ══ -->
+  <div class="section" id="sec-voos">
+    <!-- MATHIAS -->
+    <div style="display:flex;align-items:center;gap:12px;padding:16px 16px 8px;">
+      <img src="https://raw.githubusercontent.com/DellPR/coordenacao/main/mathias.png" style="width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid #E5E7EB;flex-shrink:0">
+      <div>
+        <div style="font-size:14px;font-weight:800;color:#1C1C1E">Mathias Simon</div>
+        <div style="font-size:11px;color:#8E8E93">Host & Coordenação · United Airlines</div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">São Paulo → Houston</div><div class="flight-note">UA 063 · Dom 12/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">GRU</div><div class="f-name">Guarulhos</div><div class="f-time">21:50</div><div class="f-date">Dom 12 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">05:45</div><div class="f-date">Seg 13 abr</div></div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">Houston → Austin</div><div class="flight-note">UA 1823 · Seg 13/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">10:13</div><div class="f-date">Seg 13 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">AUS</div><div class="f-name">Austin</div><div class="f-time">11:19</div><div class="f-date">Seg 13 abr</div></div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">Austin → Houston</div><div class="flight-note">UA 334 · Sex 17/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">AUS</div><div class="f-name">Austin</div><div class="f-time">14:10</div><div class="f-date">Sex 17 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">15:16</div><div class="f-date">Sex 17 abr</div></div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">Houston → São Paulo</div><div class="flight-note">UA 062 · Sex 17/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">18:55</div><div class="f-date">Sex 17 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">GRU</div><div class="f-name">São Paulo</div><div class="f-time">06:45</div><div class="f-date">Sáb 18 abr</div></div>
+      </div>
+    </div>
+
+    <!-- MICHELLE -->
+    <div style="display:flex;align-items:center;gap:12px;padding:16px 16px 8px;">
+      <img src="https://raw.githubusercontent.com/DellPR/coordenacao/main/michelle.jpg" style="width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid #E5E7EB;flex-shrink:0">
+      <div>
+        <div style="font-size:14px;font-weight:800;color:#1C1C1E">Michelle Wendling</div>
+        <div style="font-size:11px;color:#8E8E93">Diretora Comms LATAM · United Airlines</div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">São Paulo → Houston</div><div class="flight-note">UA 063 · Dom 12/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">GRU</div><div class="f-name">Guarulhos</div><div class="f-time">21:50</div><div class="f-date">Dom 12 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">05:45</div><div class="f-date">Seg 13 abr</div></div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">Houston → Austin</div><div class="flight-note">UA 1823 · Seg 13/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">10:13</div><div class="f-date">Seg 13 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">AUS</div><div class="f-name">Austin</div><div class="f-time">11:19</div><div class="f-date">Seg 13 abr</div></div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">Austin → Houston</div><div class="flight-note">Sex 17/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">AUS</div><div class="f-name">Austin</div><div class="f-time">16:20</div><div class="f-date">Sex 17 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">17:25</div><div class="f-date">Sex 17 abr</div></div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">Houston → São Paulo</div><div class="flight-note">UA 062 · Sex 17/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">18:55</div><div class="f-date">Sex 17 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">GRU</div><div class="f-name">São Paulo</div><div class="f-time">06:45</div><div class="f-date">Sáb 18 abr</div></div>
+      </div>
+    </div>
+
+    <div class="sec-label">Hotel — Ambos</div>
+    <div class="card">
+      <div style="padding:14px">
+        <div style="font-size:14px;font-weight:700;color:#1C1C1E;margin-bottom:6px">Hyatt Place Austin The Domain</div>
+        <div style="font-size:12px;color:#3C3C43;line-height:1.6">
+          3612 Tudor Boulevard, Austin TX 78759<br>
+          <span style="color:#2E7D32;font-weight:600">✓ Check-in: 13 de Abril</span> · Check-out: 17 de Abril<br>
+          Traslado: <strong>Uber Dell corporativo</strong>
+        </div>
+        <a href="https://maps.app.goo.gl/bVWRqJ4GSkX78HcQ9" target="_blank" style="font-size:12px;font-weight:700;color:#0076CE;margin-top:10px;display:block">📍 Abrir no Maps ›</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONTATOS ══ -->
+  <div class="section" id="sec-contatos">
+    <div class="sec-label">Dell — Coordenação</div>
+    <div class="card">
+      <div class="contact-row">
+        <div><div class="c-name">Mathias Simon</div><div class="c-role">Coordenação · Host</div></div>
+        <div><a href="https://wa.me/5551992341138" target="_blank" class="wa-btn">WA +55 51 99234-1138</a></div>
+      </div>
+      <div class="contact-row">
+        <div><div class="c-name">Michelle Wendling</div><div class="c-role">Diretora Comms LATAM · Host</div></div>
+        <div><a href="https://wa.me/5551984059971" target="_blank" class="wa-btn">WA +55 51 98405-9971</a></div>
+      </div>
+    </div>
+
+    <div class="sec-label">Jornalistas — WhatsApp</div>
+    <div class="card">
+      <div class="contact-row"><div><div class="c-name">Bruno Garattoni 🇧🇷</div><div class="c-role">Super Interessante</div></div><div><a href="https://wa.me/5511985896213" target="_blank" class="wa-btn">WA</a></div></div>
+      <div class="contact-row"><div><div class="c-name">Roberta Prescott 🇧🇷</div><div class="c-role">Convergência Digital</div></div><div><a href="https://wa.me/5511999619909" target="_blank" class="wa-btn">WA</a></div></div>
+      <div class="contact-row"><div><div class="c-name">William Marchiori 🇧🇷</div><div class="c-role">Loop Infinito</div></div><div><a href="https://wa.me/5511970933388" target="_blank" class="wa-btn">WA</a></div></div>
+      <div class="contact-row"><div><div class="c-name">Wallace Moté 🇧🇷</div><div class="c-role">TudoCelular</div></div><div><a href="https://wa.me/5512991918099" target="_blank" class="wa-btn">WA</a></div></div>
+      <div class="contact-row"><div><div class="c-name">Rodrigo Riquelme 🇲🇽</div><div class="c-role">El Economista</div></div><div><a href="https://wa.me/525547868926" target="_blank" class="wa-btn">WA</a></div></div>
+      <div class="contact-row"><div><div class="c-name">Efrén Páez 🇲🇽</div><div class="c-role">DPL News</div></div><div><a href="https://wa.me/525539304105" target="_blank" class="wa-btn">WA</a></div></div>
+    </div>
+
+    <div class="sec-label">POCs dos Tours</div>
+    <div class="card">
+      <div class="contact-row"><div><div class="c-name">Geoffrey Reid</div><div class="c-role">TACC</div></div><div><div class="c-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="89eefbece0edc9fde8eaeaa7fcfdecf1e8faa7ecedfc">[email&#160;protected]</a></div></div></div>
+      <div class="contact-row"><div><div class="c-name">David Riojas</div><div class="c-role">EBC · +1 737 226 3139</div></div><div><div class="c-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="80e4e1f6e9e4dff2e9efeae1f3c0e4e5ececaee3efed">[email&#160;protected]</a></div></div></div>
+      <div class="contact-row"><div><div class="c-name">Lauren Ramos</div><div class="c-role">EBC · +1 737 808 1129</div></div><div><div class="c-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="561a37232433387804373b39251632333a3a7835393b">[email&#160;protected]</a></div></div></div>
+      <div class="contact-row"><div><div class="c-name">Mario Gallegos</div><div class="c-role">AI Solutions Center</div></div><div><div class="c-val">via Stephanie Howard</div></div></div>
+      <div class="contact-row"><div><div class="c-name">Jonathan Royer</div><div class="c-role">Alienware + Rugged</div></div><div><div class="c-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="55183421217b1836323a22343b15313039397b363a38">[email&#160;protected]</a></div></div></div>
+      <div class="contact-row"><div><div class="c-name">William Barclay</div><div class="c-role">Acoustic · +1 512 593 5022</div></div><div><div class="c-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="56013f3a3a3f373b78143724353a372f1632333a3a7835393b">[email&#160;protected]</a></div></div></div>
+      <div class="contact-row"><div><div class="c-name">Royal Transportation</div><div class="c-role">Transport alternativo</div></div><div><div class="c-val">512-989-7272</div></div></div>
+    </div>
+  </div>
+
+</div><!-- homeView -->
+
+<div id="detailView" style="display:none;padding-bottom:80px"></div>
+
+</div><!-- app -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const WA = '<svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>';
+
+const RESTAURANTS = {
+  sixtyvines:{
+    name:'Sixty Vines',emoji:'🍷',tag:'Wine Bar & American Kitchen',
+    when:'Terça 14/04 · 19:00 — Welcome Dinner',
+    addr:'3401 Esperanza Crossing, Austin TX 78758',
+    maps:'https://maps.google.com/maps?q=Sixty+Vines+Austin',
+    website:'https://www.sixtyvines.com/locations/austin-tx',
+    desc:'Referência para os amantes do vinho em Austin, o Sixty Vines serve 60 rótulos diretamente do barril — programa único de vinhos em torneira, sustentável e sempre fresco. Ambiente moderno com mais de 900m², perfeito para o Welcome Dinner.',
+    notes:'Ideal para quebrar gelo · ambiente animado mas conversável · wine-forward',
+    highlights:['60 vinhos em torneira de regiões do mundo inteiro','Menu de shareable plates: pizzas artesanais, pastas, charcuteria','Cócteis especiais e happy hour com descontos','Espaço grande com área de patio']
+  },
+  saltlick:{
+    name:'The Salt Lick BBQ',emoji:'🔥',tag:'Texas BBQ Legado desde 1967',
+    when:'Quarta 15/04 · 19:00 — Jantar',
+    addr:'3350 E Palm Valley Blvd, Round Rock TX 78665',
+    maps:'https://maps.google.com/maps?q=Salt+Lick+BBQ+Round+Rock',
+    website:'https://www.saltlickbbq.com/round-rock/',
+    desc:'Uma lenda do BBQ texano desde 1967. A receita da família Roberts veio de caravanas do século XIX. A unidade de Round Rock fica ao lado do Dell Diamond com patio sombreado por robles centenários.',
+    notes:'Ambiente descontraído e autêntico · ótimo para conversas longas · texano de verdade',
+    highlights:['Brisket ahumado lentamente — o prato-estrela','Family Style all you can eat: brisket, salsicha, costela de porco','Patio com centenários robles e ambiente rústico texano','Bar com margaritas e cerveja artesanal']
+  },
+  haywire:{
+    name:'Haywire Domain',emoji:'🤠',tag:'Texas Farm-to-Fork',
+    when:'Quinta 16/04 · 12:15 — Almoço (após Tour Day 2)',
+    addr:'11501 Rock Rose Ave, Austin TX 78758',
+    maps:'https://maps.google.com/maps?q=Haywire+Austin+Domain',
+    website:'https://www.haywirerestaurant.com/locations/domain-northside-austin',
+    desc:'Restaurante texano de inspiração farm-to-fork com mais de 1.200m² em múltiplos andares. Menu com ingredientes locais de todo o Texas, adega premiada e uma das maiores coleções de whisky da cidade.',
+    notes:'Almoço após dia intenso de tours · menu amplo para todos os gostos · ambiente vibrante',
+    highlights:['Wagyu Tomahawk 930g e Costela defumada','Elk Tacos e Queso Blanco — especialidades Tex-Mex','Longhorn Lounge com bar de whisky premium','Trailer estilo Shasta no patio do 2º andar']
+  },
+  quince:{
+    name:'Quince Lakehouse',emoji:'🌊',tag:'Upscale Internacional',
+    when:'Quinta 16/04 · 19:00 — Jantar final da viagem',
+    addr:'3825 Lake Austin Blvd #201, Austin TX 78703',
+    maps:'https://maps.google.com/maps?q=Quince+Lakehouse+Austin',
+    website:'https://www.quincesma.com/atx/',
+    desc:'Eleito o restaurante com rooftop nº 1 do mundo em 2020. Vista privilegiada para o Lago Austin. Menu com influências internacionais — Nova Orleans, Lima, NY e Cidade do México. Fundado em San Miguel de Allende, México.',
+    notes:'Encerramento perfeito da viagem · vista do Lago Austin · ambiente sofisticado e relaxante',
+    highlights:['Vista panorâmica do Lago Austin do patio coberto','Atum tostado, Tempura de camarão e Polvo grelhado','Ambiente casual com música ao vivo','Bar de coquetéis premiado']
+  }
+};
+
+const JOURNALISTS = {
+  bruno:{
+    name:'Bruno Garattoni',initials:'BG',color:'#1B6CA8',photo:'https://raw.githubusercontent.com/DellPR/coordenacao/main/bruno.png',
+    outlet:'Super Interessante',country:'🇧🇷 Brasil',
+    phone:'+55 11 985896213',wa:'5511985896213',
+    li:'https://www.linkedin.com/in/brunogarattoni/',
+    arrival:'Ter 14/04 · 14:52 · AA 620 (Miami)',
+    departure:'Sex 17/04 · 16:12 · AA 620 (Miami)',
+    localizador:'NHRGEA',eticket:'0019552358629',
+    profile:'Cobre ciência, tecnologia, comportamento e inovação. Traduz temas complexos em narrativas acessíveis. Analítico e crítico. Relacionamento prévio com Dell.',
+    outlet_info:'Super Interessante · ~1,8 milhão de visitas orgânicas/mês · ciência, tecnologia e comportamento para o grande público',
+    pr_insight:'Bruno é o storyteller do grupo. Vai querer o IMPACTO humano da tecnologia, não specs. No TACC, mostre o Frontera como ferramenta que acelera descobertas que salvam vidas (astrofísica, medicina, zoologia). Na Acoustic Chamber: como Boeing influenciou o design de PCs é um ângulo perfeito para conectar tecnologia a contexto humano real. Não abra os números direto — conte a história.',
+    story_ideas:[
+      '🔬 TACC: "A IA que acelera descobertas científicas em escala" — de genes a buracos negros, alimentada por Dell',
+      '🎧 Acoustic Chamber: "A engenharia do silêncio que veio da Boeing" — como exigências aeronáuticas moldaram o PC',
+      '💧 Rugged Lab: "Testamos um notebook Dell afundado na água" — durabilidade como filosofia de design'
+    ]
+  },
+  roberta:{
+    name:'Roberta Prescott',initials:'RP',color:'#6B3A9A',photo:'https://raw.githubusercontent.com/DellPR/coordenacao/main/roberta.png',
+    outlet:'Convergência Digital',country:'🇧🇷 Brasil',
+    phone:'+55 11 999619909',wa:'5511999619909',
+    li:'https://www.linkedin.com/in/robertaprescott/',
+    arrival:'Ter 14/04 · 15:24 · UA 2483 (Houston)',
+    departure:'Sex 17/04 · 16:12 · AA 620 (Miami)',
+    localizador:'CRCEVV',eticket:'0019552358676/77',
+    profile:'IT e telecom, +20 anos de experiência. Contribuidora da Convergência Digital desde 2013. Cobre inovação, negócios e política pública. Participou de eventos Dell anteriores.',
+    outlet_info:'Convergência Digital · ~36K visitas/mês · decisores corporativos em TI e telecom · forte influência em discussões regulatórias',
+    pr_insight:'Roberta é B2B pura — quer números, cases, ROI, impacto em negócios. EBC é o ponto mais alto para ela: Dell como parceiro estratégico de transformação digital, não vendor. Drew Schulke é o porta-voz ideal: storage como infraestrutura crítica para IA enterprise. Pitch: "A infraestrutura que permite às empresas brasileiras competir na era da IA".',
+    story_ideas:[
+      '🏢 EBC: "Dell como parceiro de transformação, não fornecedor" — como o EBC define estratégias de longo prazo',
+      '🗄️ Drew Schulke: "Storage é o combustível da IA" — PowerMax/PowerStore como backbone invisible do negócio',
+      '📊 AI Factory: Cases reais de ROI mensurável com infraestrutura Dell + NVIDIA na América Latina'
+    ]
+  },
+  william:{
+    name:'William Marchiori',initials:'WM',color:'#0D6B3A',photo:'https://raw.githubusercontent.com/DellPR/coordenacao/main/William.png',
+    outlet:'Loop Infinito',country:'🇧🇷 Brasil',
+    phone:'+55 11 970933388',wa:'5511970933388',
+    li:'https://www.linkedin.com/in/williammarchiori/',
+    arrival:'Ter 14/04 · 14:52 · AA 620 (Miami)',
+    departure:'Sex 17/04 · 16:12 · AA 620 (Miami)',
+    localizador:'NHCQSG',eticket:'0019552358668',
+    profile:'Criador de conteúdo e host do Loop Infinito. Reviews de consumer electronics e games. Didático e acessível. Cobriu CES Preview Tour NY por vários anos. Forte relacionamento com Dell.',
+    outlet_info:'Loop Infinito · 1,18 MILHÃO de inscritos no YouTube · alto impacto direto em decisões de compra de consumer electronics',
+    pr_insight:'⭐ MAIOR POTENCIAL DO GRUPO. William tem 1,18M de inscritos e influencia diretamente compras. Ele VAI fazer um vídeo. GB300 e GB10 são bombas para o canal dele: "data center no seu desk". PRIORIDADE MÁXIMA: verificar com Jonathan Royer se William pode usar câmera própria no Alienware Experience para benchmarks ao vivo. Um vídeo dele com o GB300 pode alcançar 400K-800K views — o melhor ROI de toda a viagem.',
+    story_ideas:[
+      '🎮 Alienware Experience: Benchmarks ao vivo Dell vs mundo — potencial de vídeo viral garantido',
+      '🚀 GB300: "Coloquei um data center na minha mesa" — 20 petaFLOPS, 748GB · o review mais aguardado do ano',
+      '💧 Rugged Lab: "Afundei, choquei e congelei um notebook Dell" — conteúdo de altíssima viralidade'
+    ]
+  },
+  wallace:{
+    name:'Wallace Moté',initials:'WM',color:'#8B4513',photo:'https://raw.githubusercontent.com/DellPR/coordenacao/main/Wallace.png',
+    outlet:'TudoCelular',country:'🇧🇷 Brasil',
+    phone:'+55 12 991918099',wa:'5512991918099',
+    li:'https://www.linkedin.com/in/wallacemote/',
+    arrival:'Ter 14/04 · 14:52 · AA 620 (Miami)',
+    departure:'Sex 17/04 · horário a confirmar',
+    localizador:'QAEUAT',eticket:'0019552358630',
+    profile:'Jornalista tech na TudoCelular. Cobre produtos, eventos internacionais e tendências. Conteúdo multimídia sobre consumer electronics. Participou do Dell Tech World 2025.',
+    outlet_info:'TudoCelular · ~8,6 MILHÕES de visitas orgânicas/mês · maior tráfego do grupo · referência em tech consumer BR e global',
+    pr_insight:'Wallace é o MAIOR em tráfego do grupo (8,6M/mês). Veio do DTW 2025 e entende o ecossistema Dell profundamente. PC refresh + Windows 10 EOL é o ângulo perfeito: "500 milhões de PCs precisam ser atualizados — a maior janela de oportunidade da história do PC". Zach Noskey é o porta-voz ideal para ele. AI PCs com inferência local e segurança de dados são muito relevantes para o público do TudoCelular.',
+    story_ideas:[
+      '🔄 PC Refresh: "500 milhões de PCs para atualizar com Windows 10 EOL" — o momento mais importante para a indústria',
+      '🤖 AI PCs Dell: Inferência local, privacidade de dados, sem cloud — o PC inteligente para o usuário profissional',
+      '📱 Comparativo Dell Pro vs concorrentes: TudoCelular special com benchmarks reais de performance'
+    ]
+  },
+  rodrigo:{
+    name:'Rodrigo Riquelme Galván',initials:'RR',color:'#8B6914',photo:'https://raw.githubusercontent.com/DellPR/coordenacao/main/Rodrigo%20Riquelme.png',
+    outlet:'El Economista',country:'🇲🇽 México',
+    phone:'+52 55 47868926',wa:'525547868926',
+    li:'https://www.linkedin.com/in/rriquelmeg/',
+    arrival:'Ter 14/04 · 09:05 · AM 1684 (Cidade do México) — já chegou',
+    departure:'Sex 17/04 · 14:02 · AM 1685 (Cidade do México)',
+    localizador:'UDDUWT',eticket:'1395464282661',
+    profile:'Repórter tech cobrindo inovação, economia digital, fintech, telecom e modelos de negócio — foco em México e América Latina.',
+    outlet_info:'El Economista · jornal especializado em economia, finanças e negócios · decisores públicos e privados no México',
+    pr_insight:'Rodrigo vai enquadrar tudo em impacto econômico e competitividade. Ângulo: "A Dell está construindo a infraestrutura que vai definir a competitividade das empresas da LATAM na era da IA". TACC como investimento em pesquisa com retorno econômico mensurável. Armando Acosta: AI servers como habilitador de novos modelos de negócio. Conecte tudo a LATAM e competitividade regional.',
+    story_ideas:[
+      '💰 AI Factory LATAM: Como a infraestrutura Dell/NVIDIA transforma a competitividade empresarial na região',
+      '📈 EBC: Parceria estratégica Dell = vantagem competitiva real — cases de ROI com empresas mexicanas',
+      '🌎 TACC: Investimento em supercomputação como motor de inovação econômica — lição para a LATAM'
+    ]
+  },
+  efren:{
+    name:'Efrén Abraham Páez',initials:'EP',color:'#8B1A1A',photo:'https://raw.githubusercontent.com/DellPR/coordenacao/main/Efren.jpg',
+    outlet:'DPL News',country:'🇲🇽 México',
+    phone:'+52 55 39304105',wa:'525539304105',
+    li:'https://www.linkedin.com/in/efren-paez-j/',
+    arrival:'Ter 14/04 · 09:05 · AM 1684 (Cidade do México) — já chegou',
+    departure:'Sex 17/04 · 14:02 · AM 1685 (Cidade do México)',
+    localizador:'DZQBMT',eticket:'1395464282650',
+    profile:'+10 anos analisando telecom e ICT na LATAM. Ex-CNN e Expansión. Entrevistou Vivek Mohindra no DTW e Ken Durazzo no México.',
+    outlet_info:'DPL News · economia digital, telecom, tecnologia e regulação LATAM · reguladores, operadores e decisores regionais',
+    pr_insight:'Efrén é o mais técnico e regulatório do grupo. Público inclui reguladores e operadores de telecom. Armando Acosta e David Schmidt são os porta-vozes mais relevantes (AI servers, arquitetura, ecossistema). Já entrevistou líderes Dell — vai querer profundidade. Prepare perguntas difíceis sobre regulação e soberania de dados (redirecione se necessário). Ângulo: "Dell e a corrida pela soberania de dados e infraestrutura de IA na LATAM".',
+    story_ideas:[
+      '🔐 AI Solutions Center: Infraestrutura de IA como questão de soberania digital para LATAM',
+      '⚙️ Armando Acosta: PowerEdge como habilitador de novos modelos de negócio em telecom e ICT',
+      '🤝 Dell-NVIDIA Ecosystem: Como as parcerias definem quem vai liderar a IA na América Latina'
+    ]
+  }
+};
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showDetail(title) {
+  document.getElementById('homeView').style.display = 'none';
+  document.getElementById('detailView').style.display = 'block';
+  document.getElementById('topbarTitle').textContent = title;
+  document.getElementById('backBtn').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  document.getElementById('homeView').style.display = 'block';
+  document.getElementById('detailView').style.display = 'none';
+  document.getElementById('topbarTitle').textContent = 'Press Tour · Coordenação';
+  document.getElementById('backBtn').style.display = 'none';
+}
+
+function showRestaurant(id) {
+  const r = RESTAURANTS[id];
+  let h = '<div class="dv-hero">';
+  h += '<div class="dv-tag">'+r.when+'</div>';
+  h += '<div style="font-size:32px;margin-bottom:6px">'+r.emoji+'</div>';
+  h += '<div class="dv-title">'+r.name+'</div>';
+  h += '<div style="font-size:11px;background:rgba(255,255,255,0.2);border-radius:10px;display:inline-block;padding:3px 10px;">'+r.tag+'</div>';
+  h += '</div>';
+  h += '<div class="dv-section"><div class="dv-label">Localização</div>';
+  h += '<div class="dv-text">'+r.addr+'</div>';
+  h += '<a href="'+r.maps+'" target="_blank" style="font-size:13px;font-weight:700;color:#0076CE">📍 Abrir no Maps ›</a></div>';
+  h += '<div class="dv-section"><div class="dv-label">Sobre</div>';
+  h += '<div class="dv-text">'+r.desc+'</div>';
+  h += '<div style="margin-top:8px;font-size:11px;font-style:italic;color:#636366">💡 '+r.notes+'</div>';
+  h += '</div>';
+  h += '<div class="dv-section"><div class="dv-label">Destaques</div>';
+  r.highlights.forEach(hl => { h += '<div class="dv-bullet">'+hl+'</div>'; });
+  h += '</div>';
+  h += '<div class="dv-section"><a href="'+r.website+'" target="_blank" style="font-size:13px;font-weight:700;color:#0076CE">🌐 Ver site oficial ›</a></div>';
+  document.getElementById('detailView').innerHTML = h;
+  showDetail(r.name);
+}
+
+function showJournalist(id) {
+  const j = JOURNALISTS[id];
+  let h = '<div class="dv-hero">';
+  h += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">';
+  if(j.photo) h += '<img src="'+j.photo+'" style="width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid rgba(255,255,255,0.35);flex-shrink:0">';
+  h += '<div>';
+  h += '<div class="dv-tag">'+j.country+' · '+j.outlet+'</div>';
+  h += '<div class="dv-title" style="margin-bottom:0">'+j.name+'</div>';
+  h += '</div></div>';
+  h += '<div style="display:flex;gap:8px;flex-wrap:wrap">';
+  h += '<a href="https://wa.me/'+j.wa+'" target="_blank" class="wa-btn">'+WA+' '+j.phone+'</a>';
+  h += '<a href="'+j.li+'" target="_blank" class="li-btn">in LinkedIn ›</a>';
+  h += '</div></div>';
+
+  h += '<div class="dv-section"><div class="dv-label">Viagem</div>';
+  h += '<div class="dv-text">✈ <strong>Chegada:</strong> '+j.arrival+'</div>';
+  h += '<div class="dv-text">🔙 <strong>Partida:</strong> '+j.departure+'</div>';
+  h += '<div class="loc-box"><div><div class="loc-label">Localizador</div><div class="loc-code">'+j.localizador+'</div></div>';
+  h += '<div style="text-align:right"><div class="loc-label">E-Ticket</div><div style="font-size:12px;font-weight:600;color:#3C3C43;font-family:monospace">'+j.eticket+'</div></div></div></div>';
+
+  h += '<div class="dv-section"><div class="dv-label">Perfil</div>';
+  h += '<div class="dv-text">'+j.profile+'</div>';
+  h += '<div style="margin-top:6px;font-size:11px;color:#8E8E93;background:#F2F4F7;padding:8px 10px;border-radius:8px">📊 '+j.outlet_info+'</div></div>';
+
+  h += '<div class="dv-section"><div class="pr-box"><div class="pr-box-label">🎯 Análise PR — Oportunidades</div><div class="pr-box-text">'+j.pr_insight+'</div></div></div>';
+
+  h += '<div class="dv-section"><div class="dv-label">💡 Story Ideas Sugeridas</div>';
+  j.story_ideas.forEach(idea => { h += '<div class="story-item">'+idea+'</div>'; });
+  h += '</div>';
+  document.getElementById('detailView').innerHTML = h;
+  showDetail(j.name);
+}
+</script>
+
+<div id="route-modal" onclick="if(event.target===this)closeRouteModal()">
+  <div class="route-sheet">
+    <button class="route-close" onclick="closeRouteModal()">&#x2715;</button>
+    <div class="route-handle"></div>
+    <div class="route-title" id="rm-title"></div>
+    <div class="route-leg">&#128994; <span id="rm-from"></span></div>
+    <div class="route-leg">&#128308; <span id="rm-to"></span></div>
+    <div class="route-time-row">
+      <div class="route-time-num" id="rm-time">&mdash;</div>
+      <div class="route-time-sub">Estimativa sem tr&acirc;nsito<br><span style="font-size:10px;color:#999">Clique em Maps para tempo real</span></div>
+    </div>
+    <div class="route-map-box" id="rm-map"><div style="font-size:12px;color:#8E8E93">Carregando mapa...</div></div>
+    <a id="rm-gmaps-link" href="#" target="_blank" class="route-gmaps-btn">&#128205; Abrir rota no Google Maps</a>
+  </div>
+</div>
+
+<script>
+var ROUTES={"hotel_to_tacc": {"label": "Hotel → TACC Data Center", "from": "Hyatt Place The Domain, Austin TX", "to": "10505 Exploration Way, Austin TX", "origin": "30.401611,-97.731083", "dest": "30.387222,-97.726944"}, "tacc_to_ebc": {"label": "TACC → EBC Round Rock", "from": "TACC · 10505 Exploration Way", "to": "EBC Building 3 · 2302 Greenlawn Blvd, Round Rock", "origin": "30.387222,-97.726944", "dest": "30.508333,-97.678056"}, "ebc_to_hotel": {"label": "EBC → Hotel", "from": "EBC · 2302 Greenlawn Blvd, Round Rock", "to": "Hyatt Place The Domain, Austin TX", "origin": "30.508333,-97.678056", "dest": "30.401611,-97.731083"}, "hotel_to_parmer": {"label": "Hotel → Parmer Campus", "from": "Hyatt Place The Domain, Austin TX", "to": "701 E Parmer Ln, Austin TX", "origin": "30.401611,-97.731083", "dest": "30.425000,-97.680278"}, "parmer_to_haywire": {"label": "Parmer Campus → Haywire Domain", "from": "701 E Parmer Ln, Austin TX", "to": "11501 Rock Rose Ave, Austin TX", "origin": "30.425000,-97.680278", "dest": "30.401139,-97.725806"}, "haywire_to_hotel": {"label": "Haywire → Hotel", "from": "11501 Rock Rose Ave, Austin TX", "to": "Hyatt Place The Domain, Austin TX", "origin": "30.401139,-97.725806", "dest": "30.401611,-97.731083"}, "hotel_to_sixtyvines": {"label": "Hotel → Sixty Vines", "from": "Hyatt Place The Domain, Austin TX", "to": "3401 Esperanza Crossing, Austin TX", "origin": "30.401611,-97.731083", "dest": "30.404111,-97.726556"}, "hotel_to_saltlick": {"label": "Hotel → The Salt Lick BBQ", "from": "Hyatt Place The Domain, Austin TX", "to": "3350 E Palm Valley Blvd, Round Rock TX", "origin": "30.401611,-97.731083", "dest": "30.503944,-97.647972"}, "hotel_to_quince": {"label": "Hotel → Quince Lakehouse", "from": "Hyatt Place The Domain, Austin TX", "to": "3825 Lake Austin Blvd, Austin TX", "origin": "30.401611,-97.731083", "dest": "30.290528,-97.773833"}, "aus_to_hotel": {"label": "AUS Aeroporto → Hotel", "from": "Austin-Bergstrom International Airport", "to": "Hyatt Place The Domain, Austin TX", "origin": "30.197535,-97.662015", "dest": "30.401611,-97.731083"}, "hotel_to_aus": {"label": "Hotel → AUS Aeroporto", "from": "Hyatt Place The Domain, Austin TX", "to": "Austin-Bergstrom International Airport", "origin": "30.401611,-97.731083", "dest": "30.197535,-97.662015"}};
+var TIME_EST={"hotel_to_tacc": "~25 min", "tacc_to_ebc": "~30 min", "ebc_to_hotel": "~20 min", "hotel_to_parmer": "~25 min", "parmer_to_haywire": "~15 min", "haywire_to_hotel": "~15 min", "hotel_to_sixtyvines": "~5 min", "hotel_to_saltlick": "~20 min", "hotel_to_quince": "~20 min", "aus_to_hotel": "~25 min", "hotel_to_aus": "~25 min"};
+window.openRoute=function(id){
+  var r=ROUTES[id]; if(!r) return;
+  document.getElementById('rm-title').textContent=r.label;
+  document.getElementById('rm-from').textContent=r.from;
+  document.getElementById('rm-to').textContent=r.to;
+  document.getElementById('rm-time').textContent=TIME_EST[id]||'~20 min';
+  var o=r.origin.split(','), d=r.dest.split(',');
+  var lat1=+o[0],lng1=+o[1],lat2=+d[0],lng2=+d[1];
+  var gmapsEmbed='https://maps.google.com/maps?saddr='+encodeURIComponent(r.from)+'&daddr='+encodeURIComponent(r.to)+'&output=embed';
+  document.getElementById('rm-map').innerHTML='<iframe src="'+gmapsEmbed+'" style="width:100%;height:100%;border:none" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
+  document.getElementById('rm-gmaps-link').href='https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(r.from)+'&destination='+encodeURIComponent(r.to)+'&travelmode=driving';
+  document.getElementById('route-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+};
+window.closeRouteModal=function(){
+  document.getElementById('route-modal').classList.remove('open');
+  document.body.style.overflow='';
+};
+</script>
+
+<div id="sp-modal" onclick="if(event.target===this)closeSpModal()">
+  <div class="sp-sheet">
+    <button class="sp-close" onclick="closeSpModal()">&#x2715;</button>
+    <div id="sp-content"></div>
+  </div>
+</div>
+
+<script>
+var SPOKESPERSONS = {
+  sp_drew: {
+    name: 'Drew Schulke',
+    role: 'VP de Product Management, Primary Storage — Dell Technologies',
+    photo: 'https://dellpr.github.io/presstripWallace/ds.jpg',
+    time: 'Qua 15/04 · 14:30 — 15:00 (30 min)',
+    topic: 'Primary Storage Portfolio',
+    li: 'https://www.linkedin.com/in/drewschulke/',
+    session_desc: 'Sessão 1:many no EBC. Drew cobrirá o portfólio completo de Primary Storage da Dell: PowerMax, PowerStore, PowerVault e PowerFlex. Foco em como storage é a infraestrutura crítica que viabiliza IA em escala.',
+    talking_points: [
+      'Storage como backbone invisível da IA — sem armazenamento confiável, não existe IA em escala',
+      'PowerMax: tier máximo de performance e resiliência para workloads críticos de negócio',
+      'PowerStore: all-flash escalável para modernização de data center',
+      'PowerFlex: software-defined storage para ambientes de IA e HPC',
+      '25+ anos na Dell — da engenharia ao produto enterprise'
+    ],
+    pr_hint: 'Para Roberta (Convergência Digital), explorar storage como investimento estratégico B2B. Para Rodrigo (El Economista), ângulo de ROI e competitividade empresarial. Para Bruno (Super Interessante), storage como a infraestrutura que permite IA médica e científica em escala.',
+    dontsay: 'Não falar sobre pricing específico, roadmap futuro além do portfólio atual, ou comparar diretamente com concorrentes (Pure Storage, NetApp). Se perguntado sobre supply chain ou tarifas, redirecionar.'
+  },
+  sp_aa: {
+    name: 'Armando Acosta & David Schmidt',
+    role: 'AI Servers & PowerEdge Product Management — Dell Technologies',
+    photo: 'https://dellpr.github.io/presstripWallace/aa.jpg',
+    photo2: 'https://dellpr.github.io/presstripWallace/davidschm.jpg',
+    time: 'Qua 15/04 · 15:00 — 15:30 (30 min)',
+    topic: 'AI Servers & PowerEdge',
+    li: 'https://www.linkedin.com/in/armando-acosta-078a311/',
+    li2: 'https://www.linkedin.com/in/davidtschmidt/',
+    session_desc: 'Sessão 1:many no EBC. Armando e David cobrem juntos o espectro completo de servidores de IA da Dell — da arquitetura de produto ao impacto para o cliente. PowerEdge como plataforma de AI Factory.',
+    talking_points: [
+      'PowerEdge XE9680/XE9685L: purpose-built para IA, até 8 GPUs NVIDIA, liquid cooling nativo',
+      'Dell como primeiro OEM a entregar servidores validados para GB200 NVL72 da NVIDIA',
+      'AI Factory: do servidor isolado à infraestrutura completa de IA — Dell + NVIDIA',
+      '$43B em backlog de IA, 4.000+ clientes, orientação FY27 de $50B',
+      'TACC Frontera como prova real: Dell co-projetou +12 supercomputadores com TACC'
+    ],
+    pr_hint: 'Efrén (DPL News) é o mais técnico — vai querer profundidade em arquitetura e soberania de dados. Rodrigo (El Economista) quer impacto econômico: AI Factory como habilitador de novos modelos de negócio LATAM. Roberta (Convergência Digital) quer casos enterprise reais.',
+    dontsay: 'Não especular sobre roadmap de novos servidores além do portfólio anunciado. Não mencionar parceiros específicos sem aprovação. Não falar sobre pricing ou margens.'
+  },
+  sp_alex: {
+    name: 'Alex Tyltin',
+    role: 'Workstations Lead & AI Strategy — Dell Technologies',
+    photo: 'https://dellpr.github.io/presstripWallace/at.jpg',
+    time: 'Qua 15/04 · 15:30 — 16:00 (30 min)',
+    topic: 'Dell Pro Max com GB10 & GB300 Workstations',
+    li: 'https://www.linkedin.com/in/alextyltin/',
+    session_desc: '🔥 SESSÃO MAIS QUENTE DO DIA. Alex apresentará os Dell Pro Max com GB10 e GB10 — workstation de IA local que roda modelos de 400B de parâmetros. William (Loop Infinito) quase certamente vai querer filmar. Preparar espaço e confirmar permissão de gravação com Alex.',
+    talking_points: [
+      'GB10: entry point para IA local de alta performance — roda modelos de 400B de parâmetros no desktop',
+      'GB300 (não presente fisicamente): 20 petaFLOPS FP4 + 748GB — mostrar via slides/specs',
+      'Primeiros do MUNDO: Dell foi o primeiro OEM a enviar desktop com NVIDIA Grace Blackwell Ultra',
+      'Use cases: cientistas de dados, engenheiros de IA, pesquisadores — IA local sem latência de cloud',
+      'Dell Pro Max com GB300 entrega o que um data center de $10M entregava há 3 anos — na mesa do dev'
+    ],
+    pr_hint: '⭐ PRIORIDADE MÁXIMA: William (Loop Infinito, 1,18M subs) vai querer filmar o GB10 — confirmar com Alex se pode usar câmera própria. Um vídeo do William com o GB10 pode alcançar 500K+ views. Wallace (TudoCelular, 8,6M visitas/mês) vai querer specs detalhados. Bruno (Super Interessante) vai querer o ângulo humano: quem usa isso e por quê.',
+    dontsay: 'Não especular sobre preços além do MSRP público. Não falar sobre roadmap de futuros chips. Não comparar diretamente com Apple Mac Pro ou outros concorrentes.'
+  },
+  sp_zach: {
+    name: 'Zach Noskey',
+    role: 'Head of Product, Commercial Notebooks & Education — Dell Technologies',
+    photo: 'https://www.dell.com/wp-uploads/2026/03/Zach-N.jpg',
+    time: 'Qua 15/04 · 16:00 — 16:30 (30 min)',
+    topic: 'AI PCs & Commercial Notebooks',
+    li: 'https://www.linkedin.com/in/zachnoskey2813308004/',
+    session_desc: 'Sessão 1:many no EBC. Zach cobrirá a estratégia de AI PCs da Dell para o segmento comercial — da estratégia de portfólio ao PC refresh cycle e o impacto do Windows 10 EOL. Porta-voz ideal para Wallace (TudoCelular).',
+    talking_points: [
+      'PC refresh cycle: base instalada global de 1,5B PCs, muitos com 3-5 anos de uso — momento histórico',
+      'Windows 10 EOL: 500M+ PCs precisam de update de hardware — catalisa uma das maiores ondas de renovação',
+      'AI PCs Dell: NPU integrada para inferência local, privacidade de dados, sem dependência de cloud',
+      'Dell #1 em Commercial PCs, workstations e displays — escala sem precedentes',
+      '100+ ISVs desenvolvendo aplicações que aproveitam NPU nos dispositivos Dell'
+    ],
+    pr_hint: 'Wallace (TudoCelular, 8,6M/mês) é o match perfeito: PC refresh + Windows 10 EOL é o ângulo ideal para o público consumer/profissional. Rodrigo (El Economista) vai querer dados de mercado LATAM — mencionar que o refresh é especialmente relevante em economias emergentes. William pode querer review de AI PC — confirmar se há demo hands-on.',
+    dontsay: 'Não mencionar pricing específico de modelos. Não especular sobre futuras gerações de NPU. Não comentar sobre performance vs Apple Silicon sem dados validados.'
+  },
+  sp_travis: {
+    name: 'Travis North',
+    role: 'Thermal Cooling Expert — Dell Technologies',
+    photo: 'https://dellpr.github.io/presstripWallace/tn.jpg',
+    time: 'Qui 16/04 · 11:15 — 11:30 (15 min)',
+    topic: 'Thermal Engineering & Cooling Solutions',
+    li: 'https://www.linkedin.com/in/travis-north-8b12415/',
+    session_desc: 'Briefing 1:many de 15 min após o Rugged Lab Tour. Travis é especialista em soluções térmicas para sistemas de alta performance. Sessão técnica focada em como a engenharia de resfriamento é fundamental para IA em escala.',
+    talking_points: [
+      'Thermal design como decisão de produto — não como afterthought de engenharia',
+      'Liquid cooling para AI servers: por que ar não é suficiente para workloads de IA de próxima geração',
+      'Acoustic Chamber connection: como engenharia térmica e acústica são inseparáveis no design moderno',
+      'Boeing feedback loop: como clientes enterprise exigentes moldam o design térmico dos produtos Dell',
+      'Performance sustentada: thermal throttling como inimigo silencioso da produtividade'
+    ],
+    pr_hint: 'Bruno (Super Interessante) vai adorar o ângulo humano: a engenharia invisível que faz tudo funcionar. Wallace (TudoCelular) pode conectar thermal management a battery life e performance sustentada em laptops. Esta é uma sessão mais técnica — se o grupo estiver cansado após os tours, manter a energia alta com perguntas direcionadas.',
+    dontsay: 'Evitar detalhes de roadmap de future cooling solutions. Não fazer comparações diretas com soluções de concorrentes.'
+  }
+};
+
+window.showSpokesperson = function(id) {
+  var s = SPOKESPERSONS[id];
+  if (!s) return;
+  var h = '<div class="sp-hero">';
+  h += '<div class="sp-hero-row">';
+  if (s.photo2) {
+    h += '<div style="display:flex;gap:4px;flex-shrink:0">';
+    h += '<img src="'+s.photo+'" class="sp-photo" style="width:50px;height:50px">';
+    h += '<img src="'+s.photo2+'" class="sp-photo" style="width:50px;height:50px">';
+    h += '</div>';
+  } else if (s.photo) {
+    h += '<img src="'+s.photo+'" class="sp-photo">';
+  }
+  h += '<div><div class="sp-name">'+s.name+'</div><div class="sp-role">'+s.role+'</div></div>';
+  h += '</div>';
+  h += '<div class="sp-time-badge">🕐 '+s.time+'</div>';
+  h += '</div>';
+
+  h += '<div class="sp-section"><div class="sp-label">Tópico da Sessão</div>';
+  h += '<div class="sp-text"><strong>'+s.topic+'</strong></div>';
+  h += '<div class="sp-text">'+s.session_desc+'</div></div>';
+
+  h += '<div class="sp-section"><div class="sp-label">Talking Points esperados</div>';
+  s.talking_points.forEach(function(tp) { h += '<div class="sp-bullet">'+tp+'</div>'; });
+  h += '</div>';
+
+  h += '<div class="sp-section"><div cla

@@ -1,0 +1,13 @@
+{
+  "name": "Press Tour · Coordenação",
+  "short_name": "PT Coord",
+  "description": "Dell Technologies Austin Press Tour 2026 — Coordenação",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0D1123",
+  "theme_color": "#0D1123",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "app-icon-coord.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

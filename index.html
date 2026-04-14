@@ -1,740 +1,1450 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Repositório · Austin Press Tour 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0076CE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="PT Coord">
+<title>Press Tour · Coordenação</title>
 <style>
-  :root {
-    --blue: #0076CE;
-    --bg: #EDEEF2;
-    --surface: #FFFFFF;
-    --surface2: #F5F6F9;
-    --border: rgba(0,0,0,0.09);
-    --text: #1C1C1E;
-    --muted: #6E6E73;
-    --mono: 'IBM Plex Mono', monospace;
-    --sans: 'IBM Plex Sans', sans-serif;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
+  background:#F2F4F7;color:#1C1C1E;
+  -webkit-font-smoothing:antialiased;
+  min-height:100dvh;
+}
+a{color:inherit;text-decoration:none}
+.app{max-width:430px;margin:0 auto;background:#F2F4F7;min-height:100dvh}
 
-  /* HEADER */
-  header {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(237,238,242,0.94);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 clamp(16px,4vw,64px);
-    height: 62px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .header-brand { display: flex; align-items: center; gap: 14px; }
-  .header-sep { width: 1px; height: 22px; background: var(--border); }
-  .header-title { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-  .lang-toggle { display: flex; gap: 2px; background: var(--surface); border-radius: 8px; padding: 3px; border: 1px solid var(--border); }
-  .lang-btn { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; padding: 5px 12px; border-radius: 6px; border: none; cursor: pointer; background: transparent; color: var(--muted); transition: all 0.18s; }
-  .lang-btn.active { background: var(--blue); color: #fff; }
+/* Topbar */
+.topbar{
+  background:linear-gradient(135deg,#0076CE 0%,#004A93 100%);
+  padding:52px 18px 14px;
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;gap:10px;
+}
+.topbar-back{font-size:20px;cursor:pointer;display:none;background:none;border:none;color:#fff;padding:0 6px 0 0;flex-shrink:0}
+.topbar-title{font-size:15px;font-weight:700;color:#fff;flex:1}
+.topbar-chip{background:rgba(255,255,255,0.22);border-radius:20px;font-size:10px;font-weight:700;color:#fff;padding:3px 10px;letter-spacing:0.05em;flex-shrink:0}
 
-  /* HERO */
-  .hero { padding: clamp(36px,6vw,72px) clamp(16px,4vw,64px) clamp(20px,3vw,40px); max-width: 1200px; margin: 0 auto; }
-  .hero-eyebrow { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-  .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 2px; background: var(--blue); border-radius: 2px; }
-  .hero-title { font-size: clamp(26px,3.8vw,52px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; color: var(--text); margin-bottom: 12px; }
-  .hero-title strong { font-weight: 700; color: var(--blue); }
-  .hero-sub { font-size: clamp(13px,1.3vw,15px); color: var(--muted); font-weight: 300; max-width: 480px; }
+/* Hero */
+.hero{
+  background:linear-gradient(135deg,#0076CE 0%,#004A93 100%);
+  padding:0 18px 20px;
+}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:0.14em;color:rgba(255,255,255,0.6);text-transform:uppercase;margin-bottom:4px}
+.hero-title{font-size:26px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:2px}
+.hero-sub{font-size:12px;color:rgba(255,255,255,0.7)}
 
-  /* CATEGORY NAV */
-  .category-nav { padding: 0 clamp(16px,4vw,64px) 28px; max-width: 1200px; margin: 0 auto; display: flex; gap: 8px; flex-wrap: wrap; }
-  .cat-pill { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 16px; border-radius: 100px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); cursor: pointer; text-decoration: none; transition: all 0.18s; }
-  .cat-pill:hover { border-color: var(--blue); color: var(--blue); background: rgba(0,118,206,0.05); }
+/* Nav */
+.nav{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  background:#fff;border-bottom:1px solid #E5E7EB;
+  position:sticky;top:84px;z-index:99;
+  box-shadow:0 1px 4px rgba(0,0,0,0.06);
+}
+.nav-btn{
+  padding:10px 4px 8px;text-align:center;cursor:pointer;
+  border:none;background:none;font-size:17px;line-height:1;position:relative;
+}
+.nav-btn span{display:block;font-size:9px;color:#8E8E93;margin-top:3px;font-family:inherit;font-weight:500}
+.nav-btn.active span{color:#0076CE}
+.nav-btn.active::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;background:#0076CE;border-radius:2px}
 
-  /* MAIN */
-  main { max-width: 1200px; margin: 0 auto; padding: 0 clamp(16px,4vw,64px) 80px; }
+/* Sections */
+.section{display:none;padding:0 0 100px}
+.section.active{display:block}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:0.1em;color:#8E8E93;padding:18px 16px 8px;text-transform:uppercase}
 
-  /* CATEGORY SECTION */
-  .cat-section { margin-bottom: 56px; }
-  .cat-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 2px solid var(--border); }
-  .cat-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-  .cat-icon.blue   { background: rgba(0,118,206,0.1); }
-  .cat-icon.green  { background: rgba(0,160,80,0.1); }
-  .cat-icon.purple { background: rgba(120,60,200,0.1); }
-  .cat-icon.orange { background: rgba(220,120,0,0.1); }
-  .cat-icon.red    { background: rgba(200,40,40,0.1); }
-  .cat-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 3px; }
-  .cat-name { font-size: clamp(16px,2vw,21px); font-weight: 700; color: var(--text); }
+/* Card */
+.card{background:#fff;border-radius:14px;margin:0 12px 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
 
-  /* CARDS GRID */
-  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 295px), 1fr)); gap: 14px; }
+/* Day header */
+.day-header{
+  margin:14px 12px 0;padding:0;
+}
+.day-name{font-size:13px;font-weight:800;color:#0076CE;padding:12px 14px 2px;background:#fff;border-radius:14px 14px 0 0;margin-bottom:0}
+.day-date{font-size:11px;color:#8E8E93;padding:0 14px 10px;background:#fff;border-top:none}
+.day-card{background:#fff;border-radius:14px;margin:0 12px 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.day-card-header{padding:10px 14px 8px;border-bottom:2px solid #F2F4F7}
+.day-card-name{font-size:13px;font-weight:800;color:#0076CE}
+.day-card-date{font-size:11px;color:#8E8E93;margin-top:1px}
 
-  /* CARD */
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; cursor: pointer; text-decoration: none; color: inherit; display: block; transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s; }
-  .card:hover { transform: translateY(-3px); border-color: rgba(0,118,206,0.3); box-shadow: 0 8px 28px rgba(0,0,0,0.1); }
-  .card-img-wrap { width: 100%; aspect-ratio: 16/9; overflow: hidden; background: var(--surface2); display: flex; align-items: center; justify-content: center; }
-  .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .card-img-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #9E9EA7; }
-  .card-body { padding: 15px 17px 17px; }
-  .card-type { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
-  .card-title { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 6px; }
-  .card-desc { font-size: 12px; color: var(--muted); line-height: 1.55; font-weight: 300; }
-  .card-footer { display: flex; align-items: center; justify-content: space-between; padding: 10px 17px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
-  .card-arrow { color: var(--blue); font-size: 14px; }
+/* Agenda items */
+.agenda-item{
+  display:flex;gap:10px;padding:11px 14px;
+  border-bottom:1px solid #F2F4F7;
+  align-items:flex-start;
+}
+.agenda-item:last-child{border-bottom:none}
+.ai-time{font-size:12px;font-weight:700;color:#0076CE;min-width:50px;padding-top:1px;flex-shrink:0}
+.ai-body{flex:1;min-width:0}
+.ai-desc{font-size:13px;color:#1C1C1E;line-height:1.35;font-weight:500}
+.ai-loc{font-size:11px;color:#8E8E93;margin-top:2px}
+.ai-note{font-size:10px;font-weight:600;margin-top:3px}
+.ai-note.red{color:#E53935}
+.ai-note.orange{color:#F57C00}
+.ai-note.green{color:#2E7D32}
+.ai-note.blue{color:#0076CE}
+.ai-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:8px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.tag-drive{background:#FFF3E0;color:#E65100}
+.tag-tour{background:#E3F2FD;color:#0076CE}
+.tag-meal{background:#E8F5E9;color:#2E7D32}
+.tag-brief{background:#F3E5F5;color:#7B1FA2}
+.tag-hotel{background:#FFF8E1;color:#F57F17}
+.tag-alert{background:#FFEBEE;color:#C62828}
+.tag-voo{background:#E8EAF6;color:#283593}
 
-  /* COMING SOON */
-  .coming-soon { background: var(--surface); border: 1px dashed rgba(0,0,0,0.12); border-radius: 14px; padding: 48px 24px; text-align: center; }
-  .coming-soon-text { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #ADADB8; }
+/* Drive badge */
+.drive-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:#FFF3E0;border-radius:6px;
+  font-size:10px;font-weight:600;color:#E65100;padding:2px 7px;margin-top:4px;
+}
 
-  /* ARTICLE OVERLAY */
-  .article-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: var(--bg); overflow-y: auto; }
-  .article-overlay.open { display: block; }
-  .article-topbar { position: sticky; top: 0; z-index: 10; background: rgba(237,238,242,0.96); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 clamp(16px,4vw,64px); height: 60px; display: flex; align-items: center; gap: 16px; }
-  .article-back { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: none; border: none; cursor: pointer; padding: 8px 12px; border-radius: 8px; transition: all 0.15s; }
-  .article-back:hover { background: var(--surface); color: var(--blue); }
-  .article-content { max-width: 720px; margin: 0 auto; padding: clamp(28px,4vw,56px) clamp(16px,4vw,64px) 80px; }
-  .article-cat { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-  .article-cat::before { content: ''; width: 20px; height: 2px; background: var(--blue); border-radius: 2px; }
-  .article-title { font-size: clamp(22px,3.2vw,36px); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; color: var(--text); margin-bottom: 10px; }
-  .article-date { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 22px; }
-  .article-hero-img { width: 100%; border-radius: 12px; margin-bottom: 28px; aspect-ratio: 16/9; object-fit: cover; background: var(--surface2); border: 1px solid var(--border); display: block; }
-  .article-lead { font-size: clamp(14px,1.3vw,16px); font-weight: 600; color: var(--text); line-height: 1.6; margin-bottom: 22px; padding-left: 14px; border-left: 3px solid var(--blue); }
-  .article-body { font-size: clamp(13px,1.1vw,15px); font-weight: 300; color: #3A3A40; line-height: 1.78; }
-  .article-body p { margin-bottom: 16px; }
-  .article-body h3 { font-size: 11px; font-weight: 700; color: var(--blue); margin: 26px 0 10px; font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-  .article-body blockquote { margin: 22px 0; padding: 14px 17px; background: var(--surface2); border-radius: 10px; border-left: 3px solid var(--blue); font-style: italic; color: #3A3A40; font-size: 14px; line-height: 1.65; }
-  .article-body blockquote cite { display: block; margin-top: 10px; font-style: normal; font-size: 11px; font-family: var(--mono); color: var(--blue); font-weight: 600; letter-spacing: 0.08em; }
-  .stats-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin: 22px 0; }
-  .stat-box { background: var(--surface); border-radius: 10px; padding: 13px 15px; border: 1px solid var(--border); }
-  .stat-num { font-family: var(--mono); font-size: clamp(18px,2vw,24px); font-weight: 600; color: var(--blue); line-height: 1; margin-bottom: 4px; }
-  .stat-label { font-size: 11px; color: var(--muted); font-weight: 300; line-height: 1.3; }
-  .highlight-box { background: rgba(0,118,206,0.05); border: 1px solid rgba(0,118,206,0.18); border-radius: 12px; padding: 16px 18px; margin: 18px 0; }
-  .highlight-box .hb-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 7px; }
-  .highlight-box p { font-size: 13px; color: #3A3A40; line-height: 1.65; margin: 0 !important; }
-  .article-source-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; padding: 11px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: var(--blue); text-decoration: none; transition: all 0.18s; }
-  .article-source-link:hover { border-color: var(--blue); background: rgba(0,118,206,0.05); }
+/* Journalist cards */
+.journo-card{
+  background:#fff;border-radius:14px;margin:0 12px 10px;
+  box-shadow:0 1px 4px rgba(0,0,0,0.06);cursor:pointer;overflow:hidden;
+  transition:transform 0.1s,box-shadow 0.1s;
+}
+.journo-card:active{transform:scale(0.985);box-shadow:0 0 2px rgba(0,0,0,0.08)}
+.journo-head{padding:14px;display:flex;align-items:center;gap:12px}
+.j-avatar{
+  width:46px;height:46px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:#fff;
+}
+.j-name{font-size:14px;font-weight:700;color:#1C1C1E;margin-bottom:2px}
+.j-outlet{font-size:11px;color:#8E8E93}
+.j-flag{font-size:18px;margin-left:auto;flex-shrink:0}
 
-  /* ANIM */
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-  .hero { animation: fadeUp 0.4s ease both; }
-  .cat-section { animation: fadeUp 0.4s ease both; }
-  .cat-section:nth-child(2) { animation-delay: 0.05s; }
-  .cat-section:nth-child(3) { animation-delay: 0.1s; }
-  .cat-section:nth-child(4) { animation-delay: 0.15s; }
-  .cat-section:nth-child(5) { animation-delay: 0.2s; }
+/* Key messages */
+.km-card{background:#fff;border-radius:14px;margin:0 12px 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.km-head{padding:12px 14px;background:linear-gradient(135deg,#0076CE,#004A93);display:flex;align-items:center;gap:8px}
+.km-head-title{font-size:13px;font-weight:700;color:#fff}
+.km-item{padding:10px 14px;border-bottom:1px solid #F2F4F7;font-size:12px;color:#3C3C43;line-height:1.5;padding-left:26px;position:relative}
+.km-item:last-child{border-bottom:none}
+.km-item::before{content:'›';position:absolute;left:14px;color:#0076CE;font-weight:800;font-size:14px;top:9px}
+.km-soundbite{
+  margin:8px 14px;padding:10px 12px;
+  background:#F0F7FF;border-left:3px solid #0076CE;
+  border-radius:0 8px 8px 0;font-size:12px;color:#1C1C1E;
+  font-style:italic;line-height:1.55;
+}
+.km-dontsay{background:#FFF5F5;border-left:3px solid #E53935;border-radius:0 8px 8px 0;margin:8px 14px;padding:10px 12px;font-size:12px;color:#B71C1C;line-height:1.5}
 
-  [data-lang]:not(.active-lang) { display: none; }
+/* Restaurant card */
+.rest-card{background:#fff;border-radius:14px;margin:0 12px 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);cursor:pointer}
+.rest-head{padding:14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #F2F4F7}
+.rest-emoji{font-size:28px;flex-shrink:0}
+.rest-name{font-size:14px;font-weight:700;color:#1C1C1E}
+.rest-tag{font-size:10px;background:#F2F4F7;color:#636366;border-radius:6px;padding:2px 7px;font-weight:600;margin-top:3px;display:inline-block}
+.rest-when{font-size:10px;color:#0076CE;font-weight:700;margin-top:4px}
+.rest-body{padding:12px 14px;font-size:12px;color:#3C3C43;line-height:1.55}
+.rest-maps{padding:10px 14px 12px}
 
-  @media (max-width: 640px) {
-    .cards-grid { grid-template-columns: 1fr; }
-    .stats-row { grid-template-columns: 1fr 1fr; }
-  }
-  .src-line { font-size:11px; color:var(--muted); margin-top:-10px; margin-bottom:16px; }
-  .src-line a { color:var(--blue); text-decoration:none; }
-  .src-line a:hover { text-decoration:underline; }
+/* Flight card */
+.flight-card{background:#fff;border-radius:14px;margin:0 12px 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.flight-head{background:linear-gradient(135deg,#0076CE,#004A93);padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.flight-dir{color:#fff;font-size:13px;font-weight:700}
+.flight-note{color:rgba(255,255,255,0.75);font-size:10px}
+.flight-body{padding:14px;display:flex;align-items:center}
+.flight-city{flex:1}
+.f-code{font-size:22px;font-weight:800;color:#1C1C1E}
+.f-name{font-size:10px;color:#8E8E93;margin-top:1px}
+.f-time{font-size:18px;font-weight:700;color:#1C1C1E;margin-top:5px}
+.f-date{font-size:10px;color:#8E8E93}
+.flight-mid{flex:1;text-align:center;padding:0 6px}
+.f-via{font-size:10px;color:#8E8E93;margin-bottom:4px}
+.f-arr{display:flex;align-items:center;gap:3px;justify-content:center}
+.f-line{flex:1;height:1px;background:#E5E7EB}
+.f-arrow{color:#0076CE;font-size:14px;font-weight:700}
+
+/* Contact rows */
+.contact-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid #F2F4F7}
+.contact-row:last-child{border-bottom:none}
+.c-name{font-size:13px;font-weight:600;color:#1C1C1E}
+.c-role{font-size:11px;color:#8E8E93;margin-top:1px}
+.c-val{font-size:11px;color:#0076CE;font-weight:600;text-align:right}
+
+/* WA / LI buttons */
+.wa-btn{display:inline-flex;align-items:center;gap:5px;background:#25D366;color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px}
+.li-btn{display:inline-flex;align-items:center;gap:5px;background:#0A66C2;color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px}
+
+/* Detail view */
+.dv-hero{background:linear-gradient(135deg,#0076CE,#004A93);padding:20px 18px 24px;color:#fff}
+.dv-tag{font-size:11px;opacity:0.75;margin-bottom:5px}
+.dv-title{font-size:21px;font-weight:800;line-height:1.2;margin-bottom:12px}
+.dv-section{background:#fff;padding:14px 16px;border-bottom:1px solid #F2F4F7;margin-bottom:1px}
+.dv-label{font-size:10px;font-weight:700;letter-spacing:0.08em;color:#8E8E93;text-transform:uppercase;margin-bottom:8px}
+.dv-text{font-size:13px;color:#3C3C43;line-height:1.6;margin-bottom:7px}
+.dv-text:last-child{margin-bottom:0}
+.dv-bullet{font-size:13px;color:#3C3C43;line-height:1.5;padding-left:14px;position:relative;margin-bottom:5px}
+.dv-bullet::before{content:'›';position:absolute;left:0;color:#0076CE;font-weight:800}
+.pr-box{background:#F0F0FF;border-left:3px solid #7B1FA2;border-radius:0 8px 8px 0;padding:12px;margin-top:10px}
+.pr-box-label{font-size:9px;font-weight:800;letter-spacing:0.12em;color:#7B1FA2;text-transform:uppercase;margin-bottom:5px}
+.pr-box-text{font-size:12px;color:#3C3C43;line-height:1.6}
+.story-item{background:#F0F7FF;border-radius:8px;padding:9px 11px;margin-top:6px;font-size:12px;color:#1C1C1E;line-height:1.5;border-left:3px solid #0076CE}
+.loc-box{background:#F0F7FF;border-radius:10px;padding:12px 14px;margin-top:8px;display:flex;justify-content:space-between}
+.loc-code{font-size:22px;font-weight:800;color:#0076CE;letter-spacing:0.06em}
+.loc-label{font-size:9px;font-weight:700;letter-spacing:0.1em;color:#8E8E93;text-transform:uppercase;margin-bottom:2px}
+
+#route-modal,#j-modal,#tour-modal,#sp-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.5);align-items:flex-end;justify-content:center}
+#route-modal.open,#j-modal.open,#tour-modal.open,#sp-modal.open{display:flex}
+.route-sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:430px;padding:20px 20px 32px;position:relative;animation:slideUp 0.25s ease}
+.route-close{position:absolute;top:16px;right:16px;background:#F2F4F7;border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:15px;color:#636366}
+.route-handle{width:40px;height:4px;background:#E5E7EB;border-radius:2px;margin:0 auto 16px}
+.route-title{font-size:16px;font-weight:800;color:#1C1C1E;margin-bottom:10px}
+.route-leg{font-size:12px;color:#636366;margin-bottom:5px}
+.route-time-row{background:#FFF3E0;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:12px;margin:12px 0}
+.route-time-num{font-size:24px;font-weight:800;color:#E65100}
+.route-time-sub{font-size:11px;color:#7A5C00;line-height:1.4}
+.route-map-box{width:100%;height:180px;border-radius:12px;overflow:hidden;background:#F2F4F7;margin-bottom:14px;display:flex;align-items:center;justify-content:center}
+.route-map-box iframe{width:100%;height:100%;border:none}
+.route-gmaps-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#0076CE;color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:12px;width:100%;text-decoration:none}
+.uber-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#000;color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:12px;width:100%;text-decoration:none;margin-top:10px}
+
+#sp-modal{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.5);align-items:flex-end;justify-content:center}
+#sp-modal.open{display:flex}
+.sp-sheet{background:#F2F4F7;border-radius:20px 20px 0 0;width:100%;max-width:430px;max-height:88vh;overflow-y:auto;position:relative;animation:slideUp 0.25s ease}
+.sp-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.25);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:15px;color:#fff;z-index:10}
+.sp-hero{background:linear-gradient(135deg,#7B1FA2,#4A148C);padding:24px 18px 20px;border-radius:20px 20px 0 0;color:#fff}
+.sp-hero-row{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.sp-photo{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center 15%;border:2px solid rgba(255,255,255,0.35);flex-shrink:0}
+.sp-photo-placeholder{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0}
+.sp-name{font-size:18px;font-weight:800;line-height:1.2}
+.sp-role{font-size:11px;opacity:0.8;margin-top:3px;line-height:1.4}
+.sp-time-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.2);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:700;color:#fff;margin-top:6px}
+.sp-section{background:#fff;padding:14px 16px;border-bottom:1px solid #F2F4F7;margin-bottom:1px}
+.sp-label{font-size:10px;font-weight:700;letter-spacing:0.08em;color:#8E8E93;text-transform:uppercase;margin-bottom:8px}
+.sp-text{font-size:13px;color:#3C3C43;line-height:1.6;margin-bottom:7px}
+.sp-text:last-child{margin-bottom:0}
+.sp-bullet{font-size:13px;color:#3C3C43;line-height:1.5;padding-left:14px;position:relative;margin-bottom:5px}
+.sp-bullet::before{content:'›';position:absolute;left:0;color:#7B1FA2;font-weight:800}
+.sp-hint{background:#F3E5F5;border-left:3px solid #7B1FA2;border-radius:0 8px 8px 0;padding:10px 12px;font-size:12px;color:#4A148C;line-height:1.55;margin-top:8px}
+.sp-dontsay{background:#FFF5F5;border-left:3px solid #E53935;border-radius:0 8px 8px 0;padding:10px 12px;font-size:12px;color:#B71C1C;line-height:1.55;margin-top:6px}
+.sp-li-btn{display:inline-flex;align-items:center;gap:5px;background:#0A66C2;color:#fff;font-size:12px;font-weight:700;padding:7px 14px;border-radius:20px;text-decoration:none;margin-top:4px}
 </style>
 </head>
 <body>
+<div class="app">
 
-<header>
-  <div class="header-brand">
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUMAAAAoCAYAAABkd5gqAAAIyUlEQVR42u1dW4hVVRhe/3gZNR2vYWOhaKHdMNMcS80LNWG+VOJML4KjwpjaZEeqhwTbE4EQBL1UWKhTJphGiVl0IbwHmaARZZqkBho2alohOo7n78F9crFbe+9/XfZ2n33+72XmnLXWf1mXb//rstcRokyBiCgYDAbDEarKkARnlYgQr2IoNyODwXBNNCfQEqKwsWeS0WAI9juWhwnZiS5lWbdVRiN+H8UKHYMlXGRGShcQJEMhxBBHshcAwJo0p8UAAK5k6spKSm6SpGXjYxrLH1m0j/3nabIJVrsYyIh4F1HOolw+rYiQiuw3KMNguCT0jVmefYShaxpPOgBRJQSYTBHPCCEGlGOEcx3xFFcBg5GtyFAiNVHUL4NoQ4SIWMvNy2AwMkWGErnFo2ltD2LeJRFEeFAIcZKP3zAY6QMAGst+KSZqN5lQ9gPbHUxE/NmBjP/nb97XjZo3a7vJBjrrynkgZX23m/2vnIY4YTuICVw2wLBc7HGLmLJrmAyZDNh/RmrTZEJofCbQ/EBs+KcBoCqkAxUIMuZxcyvrbmEIb5+2kNkZInOLpa2dpg8YRJyIiJMU3y8LsfU1QxsnKGT9mmD7zVHoO5TQw3yUIm9ziIwGRGwg6iuG6GvQtHt2hO1zUo8MdaIjRFznYFp8xVRGJUeGiPim68PZLg58h/QTdLV8In1+jCh2LNH3P4jy7ncRGUY8cEgzMZv2k/Lv9L/aG5Cz0XRJKwRNUXI8z+uuIav+epBhFEmdctnBY3A4bdLKOhkqzHo5kH6DZjuMDGTfRYkAKGQgfVxF8YVChoj4kVTkNkXeSTqEqKjPQYH01wPpV2zIUOFz8OWJdwNZLmn2iSGK9NqIttEiw0Kh0DOu3RBxUSDLP0TbKctwj6ZKhrqRggKFCLn9iTJqTW3LKxki4lkp71oXa1gGU9aoQWCyeXdYyn48Ruen/t/drn33PK8qRt4R3YeBTV0HosdTBB86CDLbFU2kRYaaPqySsn9uKesMuZ9mhQxjZB5MI6LMMRmW8LGLRX0T3zzP6yoV22oS6dmQSFRkFlHufRe+I+KPUrE+Sde1HI2ryBoRVztYDiGToaEPbQR5Q3Vs9zyve+bJ0OWahqL8Q2lcYpBVMjS1AxGnqsp5nlcliexvWkcRdTdJQ94UV9GIATm9k4DMYBroDnwdfZZ93IQMBxrq67CxX5IzvWzJkFj8+Yjyf6V1o0sZkOF4C/nttgTjl62PI0MLG9c7JMO2EDuLpnbKkbHJQ8KgXiZngQwR8ZiFvhkx9XKP6wGVjWmyt62HJKOQVkRZKWRo65PJWlOIzHGIOC4BMrwSkfaVpsw+MYOwaFmflzXJsMNS30rpu6Nx64kR8r4wIEMnfOJSZrlsoMyKOH+UKBHmkQz9c182bXksggxvTcCPpMjwQceDcKxLP+O+b25u7pbAw+xeA3l9LMjwa0sfaiLG2zbTvke+z9DkPcMUTtH/AACjQ3SPF0LsNa6YjNxnaKBzAgDsVaRvEkLM9j8OMFBxNuhDSadLn2zu85PKFgGgS0hafwA4ZyJXtsfWdz/C6xYmNwF96Lr9JJnfAUCdTIZCiIYo34QQkw1Ulk4AtAHAPOKYWwMACyjCE7vCCxG/j0g+L4ToayMfWrd3E970zrAoRggxTDBk9FMRWwUiKzdoX6COAUTs50hfrwy1w26Lsjerggw/6t8ZSJqPiPMpD9gkb60ZHREd9fONetE4agsnQiQQ4dsVeAdiJRMgk3K+sCSEF3YFLi9+ImSqfTA1MqQuKgPASk1SuhiVn/rTAACwsAI70JeBOjAGj0Un6K3x8D/nQF+WokLbPvgLUcfmkH57OyK+kjgZ+mshUQPmPWWkR0MPRHxGoXNYEr+Rkie0trauS3BJ5JFKrVdEfNiwqNFGSEtLS3UCPiw2KPNAubVVYPwvj3PQajfZwc7vZuJm70mpDOWNlH269lp2rqyfM/zWsc5MHJUg7ibXOLbT9mhNkeK/w5Mdr0rffWZR18W0j9a4HivB7+kbKNLZv/+EvjStRgjhCeKPMcVFZgDwOHG6W+t3othID1o3VQuvscOkwiyeOqnL1USdRX2MAICj/v8dQojuFT7d1W6fhoaGLlL7dklh8NdJ+l6Q/p9pQUwm/XKQEOK0b9ONANCu4cMQIcQJeUwg4hQhxA7TcRJpAzr43eQI1OkOPlukoYPwSlmiPmhGhitMT+wT3pjYYxpZlGNkGJB5yLRva6TJr+PNTUDfHTrElOa7yZSI2VBW30TXDENwt+rsGyEiMr2ksp0X+pV1Kl/VdcBxlDyReiDYvzAAhBCisbGxaw6qdiQ1UkLEHdLHwTpjWPq/TeehU/o/pK5n+H9/0rDlhEVdLZVsu0j0YWrcTAkRNxBljZBknTdaM7web3L4Ng3UVDk8zeiznCJDn4h6aV47pfve+JMx8saEvYpWbpFh0F7P83rFyNnj8govRIQYfZelvGddrP2G3Em6mxoZKnyI+ymP+2IiW09KHuNsndsxGT6XxKKnS+KtRDL0805TqFohpdcE7j1ERGzRrMsDpYs2Pc/rgYhbKb6VGxmG+D48kL6cSgCGl5YMDqSvD6R3GoyFBVLaHFXbSR/f0CHDiDEyrTRzQMS3NC5xuRDI+mwgfbb2uHJBhoYLq9ROeSFEbTEpgs0jGeraqTEFPEIUOdhFlJIVMvTzXCL6PtdF5ILEn7tAxFs0/NxCkHdcYesoXTL0831I9OE3gu31ac1WMwNEvDPg20xeDbSu052KPtNuKXODJOtvDPnhoBzWZZOiLjsLhULPhPQtVug75UDuJ5K87YjYO7j25nAp7KYQcq83lKci2WV57nT8U4oMxvUbf9/kLdLiHVcGg2EVjOTl5EYVNyuDUdGkNtQywvuda5HBYOQmytPcrOvI3WYER4YMBkM19Y3I0ySuXTJxmmuNwWDkMjr0sZSQJ3cbmLyBwmAwyJGhjw4AqM6b/zxNZjAYVyOja5eg/hmSZZ+fpTqP/v8LTd6ZdsTnuFQAAAAASUVORK5CYII=" alt="Dell Technologies" style="height:22px;">
-    <div class="header-sep"></div>
-    <div class="header-title" data-lang="pt">Repositório</div>
-    <div class="header-title" data-lang="es">Repositorio</div>
+<div class="topbar" id="topbar">
+  <button class="topbar-back" id="backBtn" onclick="goBack()">&#8592;</button>
+  <div style="flex:1">
+    <div style="font-size:10px;font-weight:600;letter-spacing:0.12em;color:rgba(255,255,255,0.65);text-transform:uppercase">Dell Technologies</div>
+    <div class="topbar-title" id="topbarTitle">Press Tour · Coordenação</div>
   </div>
-  <div class="lang-toggle">
-    <button class="lang-btn active" onclick="setLang('pt')">🇧🇷 PT</button>
-    <button class="lang-btn" onclick="setLang('es')">🇲🇽 ES</button>
-  </div>
-</header>
-
-<div class="hero">
-  <div class="hero-eyebrow" data-lang="pt">Austin Press Tour · Abril 2026</div>
-  <div class="hero-eyebrow" data-lang="es">Austin Press Tour · Abril 2026</div>
-  <h1 class="hero-title">
-    <span data-lang="pt">Repositório de<br><strong>Informações</strong></span>
-    <span data-lang="es">Repositorio de<br><strong>Información</strong></span>
-  </h1>
-  <p class="hero-sub" data-lang="pt">Conteúdos, press releases e recursos organizados por categoria para os jornalistas participantes do tour.</p>
-  <p class="hero-sub" data-lang="es">Contenidos, comunicados de prensa y recursos organizados por categoría para los periodistas participantes del tour.</p>
+  <div class="topbar-chip">HOST</div>
 </div>
 
-<div class="category-nav">
-  <a href="#dell-ai"   class="cat-pill">🤖 Dell + IA</a>
-  <a href="#tacc"      class="cat-pill">🖥️ TACC</a>
-  <a href="#alienware" class="cat-pill">🎮 Alienware</a>
-  <a href="#aisc"      class="cat-pill">🤖 AI Solutions</a>
-  <a href="#ebc"       class="cat-pill">🏢 EBC</a>
-  <a href="#rugged"    class="cat-pill">🛡️ Rugged Lab</a>
+<div id="homeView">
+
+  <div class="hero">
+    <div class="hero-tag">Coordinator Command Center</div>
+    <div class="hero-title">Austin Press Tour 2026</div>
+    <div class="hero-sub">14–17 Abril · Mathias Simon &amp; Michelle Wendling</div>
+  </div>
+
+  <nav class="nav">
+    <button class="nav-btn active" onclick="switchTab('agenda',this)">📋<span>Agenda</span></button>
+    <button class="nav-btn" onclick="switchTab('grupo',this)">👥<span>Grupo</span></button>
+    <button class="nav-btn" onclick="switchTab('keymsg',this)">💡<span>Key Msgs</span></button>
+    <button class="nav-btn" onclick="switchTab('voos',this)">✈<span>Voos</span></button>
+    <button class="nav-btn" onclick="switchTab('contatos',this)">📞<span>Contatos</span></button>
+  </nav>
+
+  <!-- ══ AGENDA ══ -->
+  <div class="section active" id="sec-agenda">
+
+    <div class="sec-label">Dom 12 — Saída de São Paulo</div>
+    <div class="day-card">
+      <div class="agenda-item">
+        <div class="ai-time">21:50</div>
+        <div class="ai-body">
+          <div class="ai-desc">Voo GRU → IAH · UA 063</div>
+          <div class="ai-loc">São Paulo Guarulhos · United Airlines</div>
+          <div class="drive-badge">🚗 Uber Dell corporativo ao aeroporto</div>
+        </div>
+        <div class="ai-tag tag-voo">Voo</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Seg 13 — Chegada em Austin</div>
+    <div class="day-card">
+      <div class="agenda-item">
+        <div class="ai-time">05:45</div>
+        <div class="ai-body">
+          <div class="ai-desc">Chegada em Houston (IAH)</div>
+          <div class="ai-loc">Conexão United · aguardar próximo voo</div>
+        </div>
+        <div class="ai-tag tag-voo">Conexão</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">10:13</div>
+        <div class="ai-body">
+          <div class="ai-desc">IAH → AUS · UA 1823</div>
+          <div class="ai-loc">Houston → Austin Bergstrom</div>
+        </div>
+        <div class="ai-tag tag-voo">Voo</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('aus_to_hotel')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">11:19</div>
+        <div class="ai-body">
+          <div class="ai-desc">Chegada em Austin · Check-in no Hyatt</div>
+          <div class="ai-loc">3612 Tudor Blvd — check-in dia 13 (antes dos jornalistas)</div>
+          <div class="ai-note blue">⚡ Um dia de antecedência para preparar a chegada do grupo</div>
+          <div class="drive-badge">🚗 Uber Dell corporativo hotel</div>
+        </div>
+        <div class="ai-tag tag-hotel">Hotel</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Ter 14 — Chegadas &amp; Welcome Dinner</div>
+    <div class="day-card">
+      <div class="agenda-item">
+        <div class="ai-time">12:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Rodrigo &amp; Efrén chegam · AM 1684</div>
+          <div class="ai-loc">Ciudad de México → Austin · já no hotel</div>
+          <div class="ai-note orange">⚡ Receber, confirmar check-in, dar boas-vindas</div>
+        </div>
+        <div class="ai-tag tag-alert">MX</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">14:52</div>
+        <div class="ai-body">
+          <div class="ai-desc">William, Bruno &amp; Wallace chegam · AA 620</div>
+          <div class="ai-loc">Miami → Austin</div>
+          <div class="ai-note orange">⚡ Confirmar Uber/traslado com cada um</div>
+        </div>
+        <div class="ai-tag tag-alert">BR</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">15:24</div>
+        <div class="ai-body">
+          <div class="ai-desc">Roberta chega · UA 2483</div>
+          <div class="ai-loc">Houston → Austin</div>
+        </div>
+        <div class="ai-tag tag-alert">BR</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">14:52</div>
+        <div class="ai-body">
+          <div class="ai-desc">Wallace chega · AA 620</div>
+          <div class="ai-loc">Miami → Austin</div>
+        </div>
+        <div class="ai-tag tag-alert">BR</div>
+      </div>
+            <div class="agenda-item" onclick="openRoute('hotel_to_sixtyvines')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">18:50</div>
+        <div class="ai-body">
+          <div class="ai-desc">Saída para Sixty Vines</div>
+          <div class="ai-loc">Deslocamento do hotel · ~5 min</div>
+          <div class="ai-note orange">⚡ Combinar no lobby — Mathias e Michelle chamam um Uber cada, dividir grupo em dois</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+<div class="agenda-item" onclick="showRestaurant('sixtyvines')" style="cursor:pointer;background:#F0FFF4">
+        <div class="ai-time">19:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Welcome Dinner · Sixty Vines</div>
+          <div class="ai-loc">3401 Esperanza Crossing, Austin</div>
+          <div class="ai-note blue">60 vinhos em torneira · wine bar moderno · clima ideal para quebrar gelo</div>
+        </div>
+        <div class="ai-tag tag-meal">Jantar ›</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Qua 15 — Tour Day 1 · Infrastructure &amp; Strategy</div>
+    <div class="day-card">
+      <div class="agenda-item" onclick="openRoute('hotel_to_tacc')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">08:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Saída para TACC</div>
+          <div class="ai-note orange">⚡ Combinar Uber — Mathias e Michelle chamam um cada</div>
+          <div class="drive-badge">🚗 ~25 min · 10505 Exploration Way</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+      <div class="agenda-item" onclick="showTourDetail('tacc')" style="cursor:pointer;background:#EFF6FF">
+        <div class="ai-time">09:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Tour TACC Data Center</div>
+          <div class="ai-loc">POC: Geoffrey Reid · greid@tacc.utexas.edu</div>
+          <div class="ai-note orange">⚡ Todos assinam check-in no lobby · badge obrigatório · parking Zone 96113</div>
+        </div>
+        <div class="ai-tag tag-tour">Tour</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('tacc_to_ebc')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">10:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Transfer TACC → EBC Round Rock</div>
+          <div class="drive-badge">🚗 ~30 min · Building 3, Round Rock</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+      <div class="agenda-item" onclick="showTourDetail('ebc')" style="cursor:pointer;background:#EFF6FF">
+        <div class="ai-time">11:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Tour Executive Briefing Center</div>
+          <div class="ai-loc">POCs: David Riojas / Lauren Ramos · Building 3</div>
+          <div class="ai-note red">⚡ NDA assinado obrigatório antes de entrar</div>
+        </div>
+        <div class="ai-tag tag-tour">Tour</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">12:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Almoço no EBC</div>
+          <div class="ai-loc">Dentro do Executive Briefing Center</div>
+        </div>
+        <div class="ai-tag tag-meal">Almoço</div>
+      </div>
+      <div class="agenda-item" onclick="showSpokesperson('sp_drew')" style="cursor:pointer;background:#F9F0FF">
+        <div class="ai-time">14:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Briefing Drew Schulke · Primary Storage</div>
+          <div class="ai-loc">VP Product Management · 30 min</div>
+          <div class="ai-note blue">💡 PowerMax, PowerStore, PowerFlex — backbone da IA</div>
+        </div>
+        <div class="ai-tag tag-brief">Briefing</div>
+      </div>
+      <div class="agenda-item" onclick="showSpokesperson('sp_aa')" style="cursor:pointer;background:#F9F0FF">
+        <div class="ai-time">15:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Briefing Armando Acosta &amp; David Schmidt</div>
+          <div class="ai-loc">AI Servers &amp; PowerEdge · 30 min</div>
+          <div class="ai-note blue">💡 PowerEdge XE9680/85L · servidores de IA em escala</div>
+        </div>
+        <div class="ai-tag tag-brief">Briefing</div>
+      </div>
+      <div class="agenda-item" onclick="showSpokesperson('sp_alex')" style="cursor:pointer;background:#F9F0FF">
+        <div class="ai-time">15:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Briefing Alex Tyltin · Workstations &amp; AI</div>
+          <div class="ai-loc">GB10 &amp; GB300 Workstations · 30 min</div>
+          <div class="ai-note green">🔥 PRIMEIROS DO MUNDO com GB300 · William vai querer filmar</div>
+        </div>
+        <div class="ai-tag tag-brief">Briefing</div>
+      </div>
+      <div class="agenda-item" onclick="showSpokesperson('sp_zach')" style="cursor:pointer;background:#F9F0FF">
+        <div class="ai-time">16:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Briefing Zach Noskey · Commercial Notebooks</div>
+          <div class="ai-loc">Head of Product · 30 min</div>
+          <div class="ai-note blue">💡 AI PCs, PC refresh, Windows 10 EOL</div>
+        </div>
+        <div class="ai-tag tag-brief">Briefing</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('ebc_to_hotel')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">16:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Transfer EBC → Hotel</div>
+          <div class="drive-badge">🚗 ~20 min</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+            <div class="agenda-item" onclick="openRoute('hotel_to_saltlick')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">18:40</div>
+        <div class="ai-body">
+          <div class="ai-desc">Saída para The Salt Lick BBQ</div>
+          <div class="ai-loc">Deslocamento do hotel · ~20 min</div>
+          <div class="ai-note orange">⚡ Combinar no lobby — Mathias e Michelle chamam um Uber cada, dividir grupo em dois</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+<div class="agenda-item" onclick="showRestaurant('saltlick')" style="cursor:pointer;background:#F0FFF4">
+        <div class="ai-time">19:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Jantar · The Salt Lick BBQ</div>
+          <div class="ai-loc">3350 E Palm Valley Blvd, Round Rock</div>
+          <div class="ai-note blue">BBQ texano lendário desde 1967 · ambiente rústico · ótimo para descontração</div>
+        </div>
+        <div class="ai-tag tag-meal">Jantar ›</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Qui 16 — Tour Day 2 · AI Engineering &amp; Innovation</div>
+    <div class="day-card">
+      <div class="agenda-item" onclick="openRoute('hotel_to_parmer')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">08:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Transfer hotel → Parmer Campus</div>
+          <div class="ai-note red">⚡ Badge + NDA obrigatório · levar documentos</div>
+          <div class="drive-badge">🚗 ~25 min · 701 E Parmer Ln</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+      <div class="agenda-item" onclick="showTourDetail('aisc')" style="cursor:pointer;background:#EFF6FF">
+        <div class="ai-time">09:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">AI Solutions Center · Parmer South 2</div>
+          <div class="ai-loc">Host: Mario Gallegos · recebe no PS2 Lobby</div>
+          <div class="ai-note red">🚫 ZERO fotos/vídeos — escolta imediata se violado. Briefar TODOS antes de entrar.</div>
+        </div>
+        <div class="ai-tag tag-tour">Tour</div>
+      </div>
+      <div class="agenda-item" onclick="showTourDetail('alienware')" style="cursor:pointer;background:#EFF6FF">
+        <div class="ai-time">09:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Alienware Experience Tour · Parmer South 4</div>
+          <div class="ai-loc">Host: Jonathan Royer · registrar em PS3</div>
+          <div class="ai-note green">📸 Fotos OK · William provavelmente vai querer filmar benchmarks</div>
+        </div>
+        <div class="ai-tag tag-tour">Tour</div>
+      </div>
+      <div class="agenda-item" onclick="showTourDetail('rugged')" style="cursor:pointer;background:#EFF6FF">
+        <div class="ai-time">10:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Rugged Lab Tour · Parmer South 4</div>
+          <div class="ai-loc">Host: Jonathan Royer &amp; Gary Corpuz</div>
+          <div class="ai-note green">📸 Fotos OK · mesmo building</div>
+        </div>
+        <div class="ai-tag tag-tour">Tour</div>
+      </div>
+      <div class="agenda-item" onclick="showSpokesperson('sp_travis')" style="cursor:pointer;background:#F9F0FF">
+        <div class="ai-time">11:15</div>
+        <div class="ai-body">
+          <div class="ai-desc">Briefing Travis North · Thermal Expert</div>
+          <div class="ai-loc">1:many · 15 min</div>
+        </div>
+        <div class="ai-tag tag-brief">Briefing</div>
+      </div>
+      <div class="agenda-item" onclick="showTourDetail('acoustic')" style="cursor:pointer;background:#EFF6FF">
+        <div class="ai-time">11:30</div>
+        <div class="ai-body">
+          <div class="ai-desc">Acoustic Chamber · Parmer South 4</div>
+          <div class="ai-loc">Host: Michael Murphy · inclui Wireless Lab</div>
+          <div class="ai-note green">📸 Fotos OK · mesmo building · Boeing connection angle</div>
+        </div>
+        <div class="ai-tag tag-tour">Tour</div>
+      </div>
+      <div class="agenda-item" onclick="showRestaurant('haywire')" style="cursor:pointer;background:#F0FFF4">
+        <div class="ai-time">12:15</div>
+        <div class="ai-body">
+          <div class="ai-desc">Almoço · Haywire Domain</div>
+          <div class="ai-loc">11501 Rock Rose Ave, Austin</div>
+          <div class="ai-note blue">Farm-to-fork texano · wagyu tomahawk · ótimo para conversa mais longa</div>
+        </div>
+        <div class="ai-tag tag-meal">Almoço ›</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('haywire_to_hotel')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">14:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Retorno ao hotel</div>
+          <div class="drive-badge">🚗 ~20 min</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+            <div class="agenda-item" onclick="openRoute('hotel_to_quince')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">18:40</div>
+        <div class="ai-body">
+          <div class="ai-desc">Saída para Quince Lakehouse</div>
+          <div class="ai-loc">Deslocamento do hotel · ~20 min</div>
+          <div class="ai-note orange">⚡ Combinar no lobby — Mathias e Michelle chamam um Uber cada, dividir grupo em dois</div>
+        </div>
+        <div class="ai-tag tag-drive">Drive</div>
+      </div>
+<div class="agenda-item" onclick="showRestaurant('quince')" style="cursor:pointer;background:#F0FFF4">
+        <div class="ai-time">19:00</div>
+        <div class="ai-body">
+          <div class="ai-desc">Jantar · Quince Lakehouse</div>
+          <div class="ai-loc">3825 Lake Austin Blvd #201</div>
+          <div class="ai-note blue">Melhor rooftop do mundo (2020) · vista para o Lago Austin · encerramento perfeito</div>
+        </div>
+        <div class="ai-tag tag-meal">Jantar ›</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Sex 17 — Partidas</div>
+    <div class="day-card">
+      <div class="agenda-item">
+        <div class="ai-time">manhã</div>
+        <div class="ai-body">
+          <div class="ai-desc">Check-out geral dos jornalistas</div>
+          <div class="ai-note orange">⚡ Confirmar traslado de cada um para o aeroporto</div>
+        </div>
+        <div class="ai-tag tag-hotel">Check-out</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">14:01</div>
+        <div class="ai-body">
+          <div class="ai-desc">Efrén &amp; Rodrigo partem · AM 1685</div>
+          <div class="ai-loc">AUS → Ciudad de México</div>
+        </div>
+        <div class="ai-tag tag-alert">MX</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('hotel_to_aus')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">14:10</div>
+        <div class="ai-body">
+          <div class="ai-desc">Mathias parte · UA 685</div>
+          <div class="ai-loc">AUS → IAH → GRU</div>
+          <div class="drive-badge">🚗 Uber Dell corporativo</div>
+        </div>
+        <div class="ai-tag tag-voo">Mathias</div>
+      </div>
+      <div class="agenda-item">
+        <div class="ai-time">16:12</div>
+        <div class="ai-body">
+          <div class="ai-desc">Brasileiros partem · AA 620</div>
+          <div class="ai-loc">AUS → Miami · William, Bruno, Roberta</div>
+        </div>
+        <div class="ai-tag tag-alert">BR</div>
+      </div>
+      <div class="agenda-item" onclick="openRoute('hotel_to_aus')" style="cursor:pointer;background:#FFFBF5">
+        <div class="ai-time">16:20</div>
+        <div class="ai-body">
+          <div class="ai-desc">Michelle parte · UA 685</div>
+          <div class="ai-loc">AUS → IAH → GRU</div>
+          <div class="drive-badge">🚗 Uber Dell corporativo</div>
+        </div>
+        <div class="ai-tag tag-voo">Michelle</div>
+      </div>
+    </div>
+
+    <div class="sec-label">Restaurantes da Viagem</div>
+
+    <div class="rest-card" onclick="showRestaurant('sixtyvines')">
+      <div class="rest-head">
+        <div class="rest-emoji">🍷</div>
+        <div>
+          <div class="rest-name">Sixty Vines</div>
+          <div><span class="rest-tag">Wine Bar & American</span></div>
+          <div class="rest-when">Ter 14/04 · 19:00 — Welcome Dinner</div>
+        </div>
+      </div>
+    </div>
+    <div class="rest-card" onclick="showRestaurant('saltlick')">
+      <div class="rest-head">
+        <div class="rest-emoji">🔥</div>
+        <div>
+          <div class="rest-name">The Salt Lick BBQ</div>
+          <div><span class="rest-tag">Texas BBQ</span></div>
+          <div class="rest-when">Qua 15/04 · 19:00 — Jantar</div>
+        </div>
+      </div>
+    </div>
+    <div class="rest-card" onclick="showRestaurant('haywire')">
+      <div class="rest-head">
+        <div class="rest-emoji">🤠</div>
+        <div>
+          <div class="rest-name">Haywire Domain</div>
+          <div><span class="rest-tag">Texas Farm-to-Fork</span></div>
+          <div class="rest-when">Qui 16/04 · 12:15 — Almoço</div>
+        </div>
+      </div>
+    </div>
+    <div class="rest-card" onclick="showRestaurant('quince')">
+      <div class="rest-head">
+        <div class="rest-emoji">🌊</div>
+        <div>
+          <div class="rest-name">Quince Lakehouse</div>
+          <div><span class="rest-tag">Upscale Internacional</span></div>
+          <div class="rest-when">Qui 16/04 · 19:00 — Jantar final</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ GRUPO ══ -->
+  <div class="section" id="sec-grupo">
+    <div class="sec-label">Brasil</div>
+    <div class="journo-card" onclick="showJournalist('bruno')">
+      <div class="journo-head">
+        <div class="j-avatar" style="background:#1B6CA8;background-image:url('https://raw.githubusercontent.com/DellPR/coordenacao/main/bruno.png');background-size:cover;background-position:center top;font-size:0">BG</div>
+        <div><div class="j-name">Bruno Garattoni</div><div class="j-outlet">Super Interessante · Jornalista</div></div>
+        <div class="j-flag">🇧🇷</div>
+      </div>
+    </div>
+    <div class="journo-card" onclick="showJournalist('roberta')">
+      <div class="journo-head">
+        <div class="j-avatar" style="background:#6B3A9A;background-image:url('https://raw.githubusercontent.com/DellPR/coordenacao/main/roberta.png');background-size:cover;background-position:center top;font-size:0">RP</div>
+        <div><div class="j-name">Roberta Prescott</div><div class="j-outlet">Convergência Digital · Jornalista</div></div>
+        <div class="j-flag">🇧🇷</div>
+      </div>
+    </div>
+    <div class="journo-card" onclick="showJournalist('william')">
+      <div class="journo-head">
+        <div class="j-avatar" style="background:#0D6B3A;background-image:url('https://raw.githubusercontent.com/DellPR/coordenacao/main/William.png');background-size:cover;background-position:center top;font-size:0">WM</div>
+        <div><div class="j-name">William Marchiori</div><div class="j-outlet">Loop Infinito · Criador de conteúdo</div></div>
+        <div class="j-flag">🇧🇷</div>
+      </div>
+    </div>
+    <div class="journo-card" onclick="showJournalist('wallace')">
+      <div class="journo-head">
+        <div class="j-avatar" style="background:#8B4513;background-image:url('https://raw.githubusercontent.com/DellPR/coordenacao/main/Wallace.png');background-size:cover;background-position:center top;font-size:0">WM</div>
+        <div><div class="j-name">Wallace Moté</div><div class="j-outlet">TudoCelular · Jornalista</div></div>
+        <div class="j-flag">🇧🇷</div>
+      </div>
+    </div>
+    <div class="sec-label">México</div>
+    <div class="journo-card" onclick="showJournalist('rodrigo')">
+      <div class="journo-head">
+        <div class="j-avatar" style="background:#8B6914;background-image:url('https://raw.githubusercontent.com/DellPR/coordenacao/main/Rodrigo%20Riquelme.png');background-size:cover;background-position:center top;font-size:0">RR</div>
+        <div><div class="j-name">Rodrigo Riquelme Galván</div><div class="j-outlet">El Economista · Jornalista</div></div>
+        <div class="j-flag">🇲🇽</div>
+      </div>
+    </div>
+    <div class="journo-card" onclick="showJournalist('efren')">
+      <div class="journo-head">
+        <div class="j-avatar" style="background:#8B1A1A;background-image:url('https://raw.githubusercontent.com/DellPR/coordenacao/main/Efren.jpg');background-size:cover;background-position:center top;font-size:0">EP</div>
+        <div><div class="j-name">Efrén Abraham Páez</div><div class="j-outlet">DPL News · Analista Sênior</div></div>
+        <div class="j-flag">🇲🇽</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ KEY MESSAGES ══ -->
+  <div class="section" id="sec-keymsg">
+
+    <div class="sec-label">Objetivos do Projeto</div>
+    <div class="km-card">
+      <div class="km-head"><span style="font-size:18px">🎯</span><div class="km-head-title">O que queremos que os jornalistas levem</div></div>
+      <div class="km-item">Dell não é hardware vendor — é o <strong>arquiteto da fundação end-to-end</strong> que permite a IA funcionar em escala.</div>
+      <div class="km-item">Narrative arc: <em>da engenharia ao impacto real</em> — TACC prova que funciona, EBC mostra a estratégia, Labs mostram como é feito.</div>
+      <div class="km-item">IA na Dell <strong>não é teórica</strong> — $43B de backlog, 4.000+ clientes, orientação FY27 de $50B em receita de IA.</div>
+      <div class="km-item">A América Latina tem acesso ao mesmo motor de inovação global. Isso é o que torna essa viagem especial.</div>
+    </div>
+
+    <div class="sec-label">Pilar 1 — AI Infrastructure</div>
+    <div class="km-card">
+      <div class="km-head"><span style="font-size:18px">🏗️</span><div class="km-head-title">Dell como Arquiteto da IA</div></div>
+      <div class="km-item">Dell é um powerhouse global de engenharia avançando a infraestrutura necessária para IA de próxima geração.</div>
+      <div class="km-item">Nossa abordagem é end-to-end: R&D, design, labs, soluções e resultados para clientes.</div>
+      <div class="km-soundbite">"A IA da Dell não é teórica — vocês vão ver ela funcionando agora, a 9 da manhã, alimentando pesquisas científicas reais."</div>
+      <div class="km-soundbite">"$43 bilhões em backlog de IA. 4.000 clientes. Orientação de $50B para FY27. O maior pipeline que já vimos."</div>
+    </div>
+
+    <div class="sec-label">Pilar 2 — ISG / Servers &amp; Storage</div>
+    <div class="km-card">
+      <div class="km-head"><span style="font-size:18px">🖥️</span><div class="km-head-title">Infraestrutura que Trabalha</div></div>
+      <div class="km-item">PowerEdge XE9680/XE9685L: purpose-built para workloads de IA, até 8 GPUs NVIDIA, liquid cooling.</div>
+      <div class="km-item">TACC Frontera: supercomputador universitário mais rápido do mundo. Dell e TACC co-projetaram +12 sistemas juntos.</div>
+      <div class="km-item">Primary Storage é o backbone: sem armazenamento confiável, a IA não funciona. PowerMax, PowerStore, PowerFlex.</div>
+      <div class="km-soundbite">"Sem storage robusto, não existe IA em escala. É como ter um Ferrari sem combustível."</div>
+    </div>
+
+    <div class="sec-label">Pilar 3 — CSG / PC &amp; Workstations</div>
+    <div class="km-card">
+      <div class="km-head"><span style="font-size:18px">💻</span><div class="km-head-title">IA no Edge e no Desktop</div></div>
+      <div class="km-item">Dell Pro Max com GB10 e <strong>GB300</strong>: primeiros desktops do mundo com o NVIDIA Grace Blackwell Ultra superchip.</div>
+      <div class="km-item">GB300: 20 petaFLOPS FP4 + 748GB memória unificada. IA de data center na mesa do desenvolvedor.</div>
+      <div class="km-item">PC refresh cycle + Windows 10 EOL: 500M+ PCs para atualizar. Oportunidade histórica para LATAM.</div>
+      <div class="km-soundbite">"O GB300 é uma caixa pequena que entrega o que um data center de $10M entregava há 3 anos — na sua mesa, agora."</div>
+      <div class="km-soundbite">"500 milhões de PCs precisam sair do Windows 10. Essa é a maior oportunidade de refresh da história do PC."</div>
+    </div>
+
+    <div class="sec-label">⚠️ NÃO falar sobre</div>
+    <div class="km-card" style="border:1px solid #FFCDD2">
+      <div class="km-head" style="background:linear-gradient(135deg,#C62828,#B71C1C)"><span style="font-size:18px">🚫</span><div class="km-head-title">Tópicos sensíveis — redirecionar</div></div>
+      <div class="km-dontsay">Cadeia de suprimentos, tarifas, questões políticas ou comerciais sensíveis</div>
+      <div class="km-dontsay">Roadmap além do que está sendo mostrado hoje</div>
+      <div class="km-dontsay">Preços, disponibilidade, parceiros sem aprovação oficial</div>
+      <div class="km-dontsay">Palavras como "dominar", "monopolizar" em relação a concorrentes</div>
+      <div class="km-dontsay">Resposta padrão: <em>"Não sou a melhor pessoa para isso — nosso time de comms vai retornar com as informações corretas."</em></div>
+    </div>
+
+  </div>
+
+  <!-- ══ VOOS ══ -->
+  <div class="section" id="sec-voos">
+    <div style="display:flex;align-items:center;gap:12px;padding:16px 16px 8px;">
+      <div style="width:48px;height:48px;border-radius:50%;flex-shrink:0;border:2px solid #E5E7EB;background:#ccc url('https://raw.githubusercontent.com/DellPR/coordenacao/main/mathias.png') center top / cover no-repeat"></div>
+      <div>
+        <div style="font-size:14px;font-weight:800;color:#1C1C1E">Mathias Simon</div>
+        <div style="font-size:11px;color:#8E8E93">Host & Coordenação · United Airlines</div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">São Paulo → Houston</div><div class="flight-note">UA 063 · Dom 12/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">GRU</div><div class="f-name">Guarulhos</div><div class="f-time">21:50</div><div class="f-date">Dom 12 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">05:45</div><div class="f-date">Seg 13 abr</div></div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">Houston → Austin</div><div class="flight-note">UA 1823 · Seg 13/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">10:13</div><div class="f-date">Seg 13 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">AUS</div><div class="f-name">Austin</div><div class="f-time">11:19</div><div class="f-date">Seg 13 abr</div></div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">Austin → Houston</div><div class="flight-note">UA 334 · Sex 17/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">AUS</div><div class="f-name">Austin</div><div class="f-time">14:10</div><div class="f-date">Sex 17 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">15:16</div><div class="f-date">Sex 17 abr</div></div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">Houston → São Paulo</div><div class="flight-note">UA 062 · Sex 17/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">18:55</div><div class="f-date">Sex 17 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">GRU</div><div class="f-name">São Paulo</div><div class="f-time">06:45</div><div class="f-date">Sáb 18 abr</div></div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px;padding:16px 16px 8px;">
+      <div style="width:48px;height:48px;border-radius:50%;flex-shrink:0;border:2px solid #E5E7EB;background:#ccc url('https://raw.githubusercontent.com/DellPR/coordenacao/main/michelle.jpg') center top / cover no-repeat"></div>
+      <div>
+        <div style="font-size:14px;font-weight:800;color:#1C1C1E">Michelle Wendling</div>
+        <div style="font-size:11px;color:#8E8E93">Diretora Comms LATAM · United Airlines</div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">São Paulo → Houston</div><div class="flight-note">UA 063 · Dom 12/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">GRU</div><div class="f-name">Guarulhos</div><div class="f-time">21:50</div><div class="f-date">Dom 12 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">05:45</div><div class="f-date">Seg 13 abr</div></div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">Houston → Austin</div><div class="flight-note">UA 1823 · Seg 13/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">10:13</div><div class="f-date">Seg 13 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">AUS</div><div class="f-name">Austin</div><div class="f-time">11:19</div><div class="f-date">Seg 13 abr</div></div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">Austin → Houston</div><div class="flight-note">Sex 17/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">AUS</div><div class="f-name">Austin</div><div class="f-time">16:20</div><div class="f-date">Sex 17 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">17:25</div><div class="f-date">Sex 17 abr</div></div>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="flight-head"><div class="flight-dir">Houston → São Paulo</div><div class="flight-note">UA 062 · Sex 17/04</div></div>
+      <div class="flight-body">
+        <div class="flight-city"><div class="f-code">IAH</div><div class="f-name">Houston</div><div class="f-time">18:55</div><div class="f-date">Sex 17 abr</div></div>
+        <div class="flight-mid"><div class="f-via">United</div><div class="f-arr"><div class="f-line"></div><div class="f-arrow">›</div><div class="f-line"></div></div></div>
+        <div class="flight-city" style="text-align:right"><div class="f-code">GRU</div><div class="f-name">São Paulo</div><div class="f-time">06:45</div><div class="f-date">Sáb 18 abr</div></div>
+      </div>
+    </div>
+    <div class="sec-label">Hotel — Ambos</div>
+    <div class="card">
+      <div style="padding:14px">
+        <div style="font-size:14px;font-weight:700;color:#1C1C1E;margin-bottom:6px">Hyatt Place Austin The Domain</div>
+        <div style="font-size:12px;color:#3C3C43;line-height:1.6">
+          3612 Tudor Boulevard, Austin TX 78759<br>
+          <span style="color:#2E7D32;font-weight:600">✓ Check-in: 13 de Abril</span> · Check-out: 17 de Abril<br>
+          Traslado: <strong>Uber Dell corporativo</strong>
+        </div>
+        <a href="https://maps.app.goo.gl/bVWRqJ4GSkX78HcQ9" target="_blank" style="font-size:12px;font-weight:700;color:#0076CE;margin-top:10px;display:block">📍 Abrir no Maps ›</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONTATOS ══ -->
+  <div class="section" id="sec-contatos">
+    <div class="sec-label">Dell — Coordenação</div>
+    <div class="card">
+      <div class="contact-row">
+        <div><div class="c-name">Mathias Simon</div><div class="c-role">Coordenação · Host</div></div>
+        <div><a href="https://wa.me/5551992341138" target="_blank" class="wa-btn">WA +55 51 99234-1138</a></div>
+      </div>
+      <div class="contact-row">
+        <div><div class="c-name">Michelle Wendling</div><div class="c-role">Diretora Comms LATAM · Host</div></div>
+        <div><a href="https://wa.me/5551984059971" target="_blank" class="wa-btn">WA +55 51 98405-9971</a></div>
+      </div>
+    </div>
+
+    <div class="sec-label">Jornalistas — WhatsApp</div>
+    <div class="card">
+      <div class="contact-row"><div><div class="c-name">Bruno Garattoni 🇧🇷</div><div class="c-role">Super Interessante</div></div><div><a href="https://wa.me/5511985896213" target="_blank" class="wa-btn">WA</a></div></div>
+      <div class="contact-row"><div><div class="c-name">Roberta Prescott 🇧🇷</div><div class="c-role">Convergência Digital</div></div><div><a href="https://wa.me/5511999619909" target="_blank" class="wa-btn">WA</a></div></div>
+      <div class="contact-row"><div><div class="c-name">William Marchiori 🇧🇷</div><div class="c-role">Loop Infinito</div></div><div><a href="https://wa.me/5511970933388" target="_blank" class="wa-btn">WA</a></div></div>
+      <div class="contact-row"><div><div class="c-name">Wallace Moté 🇧🇷</div><div class="c-role">TudoCelular</div></div><div><a href="https://wa.me/5512991918099" target="_blank" class="wa-btn">WA</a></div></div>
+      <div class="contact-row"><div><div class="c-name">Rodrigo Riquelme 🇲🇽</div><div class="c-role">El Economista</div></div><div><a href="https://wa.me/525547868926" target="_blank" class="wa-btn">WA</a></div></div>
+      <div class="contact-row"><div><div class="c-name">Efrén Páez 🇲🇽</div><div class="c-role">DPL News</div></div><div><a href="https://wa.me/525539304105" target="_blank" class="wa-btn">WA</a></div></div>
+    </div>
+
+    <div class="sec-label">POCs dos Tours</div>
+    <div class="card">
+      <div class="contact-row"><div><div class="c-name">Geoffrey Reid</div><div class="c-role">TACC</div></div><div><div class="c-val">greid@tacc.utexas.edu</div></div></div>
+      <div class="contact-row"><div><div class="c-name">David Riojas</div><div class="c-role">EBC · +1 737 226 3139</div></div><div><div class="c-val">david_riojas@dell.com</div></div></div>
+      <div class="contact-row"><div><div class="c-name">Lauren Ramos</div><div class="c-role">EBC · +1 737 808 1129</div></div><div><div class="c-val">Lauren.Ramos@dell.com</div></div></div>
+      <div class="contact-row"><div><div class="c-name">Mario Gallegos</div><div class="c-role">AI Solutions Center</div></div><div><div class="c-val">via Stephanie Howard</div></div></div>
+      <div class="contact-row"><div><div class="c-name">Jonathan Royer</div><div class="c-role">Alienware + Rugged</div></div><div><div class="c-val">Matt.Mcgowan@dell.com</div></div></div>
+      <div class="contact-row"><div><div class="c-name">William Barclay</div><div class="c-role">Acoustic · +1 512 593 5022</div></div><div><div class="c-val">William.Barclay@dell.com</div></div></div><div><div class="c-val">512-989-7272</div></div></div>
+    </div>
+  </div>
+
+</div><!-- homeView -->
+
+<div id="detailView" style="display:none;padding-bottom:80px"></div>
+
+</div><!-- app -->
+<script>
+const WA = '<svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>';
+
+const RESTAURANTS = {
+  sixtyvines:{
+    name:'Sixty Vines',emoji:'🍷',tag:'Wine Bar & American Kitchen',
+    when:'Terça 14/04 · 19:00 — Welcome Dinner',
+    addr:'3401 Esperanza Crossing, Austin TX 78758',
+    maps:'https://maps.google.com/maps?q=Sixty+Vines+Austin',
+    website:'https://www.sixtyvines.com/locations/austin-tx',
+    desc:'Referência para os amantes do vinho em Austin, o Sixty Vines serve 60 rótulos diretamente do barril — programa único de vinhos em torneira, sustentável e sempre fresco. Ambiente moderno com mais de 900m², perfeito para o Welcome Dinner.',
+    notes:'Ideal para quebrar gelo · ambiente animado mas conversável · wine-forward',
+    highlights:['60 vinhos em torneira de regiões do mundo inteiro','Menu de shareable plates: pizzas artesanais, pastas, charcuteria','Cócteis especiais e happy hour com descontos','Espaço grande com área de patio']
+  },
+  saltlick:{
+    name:'The Salt Lick BBQ',emoji:'🔥',tag:'Texas BBQ Legado desde 1967',
+    when:'Quarta 15/04 · 19:00 — Jantar',
+    addr:'3350 E Palm Valley Blvd, Round Rock TX 78665',
+    maps:'https://maps.google.com/maps?q=Salt+Lick+BBQ+Round+Rock',
+    website:'https://www.saltlickbbq.com/round-rock/',
+    desc:'Uma lenda do BBQ texano desde 1967. A receita da família Roberts veio de caravanas do século XIX. A unidade de Round Rock fica ao lado do Dell Diamond com patio sombreado por robles centenários.',
+    notes:'Ambiente descontraído e autêntico · ótimo para conversas longas · texano de verdade',
+    highlights:['Brisket ahumado lentamente — o prato-estrela','Family Style all you can eat: brisket, salsicha, costela de porco','Patio com centenários robles e ambiente rústico texano','Bar com margaritas e cerveja artesanal']
+  },
+  haywire:{
+    name:'Haywire Domain',emoji:'🤠',tag:'Texas Farm-to-Fork',
+    when:'Quinta 16/04 · 12:15 — Almoço (após Tour Day 2)',
+    addr:'11501 Rock Rose Ave, Austin TX 78758',
+    maps:'https://maps.google.com/maps?q=Haywire+Austin+Domain',
+    website:'https://www.haywirerestaurant.com/locations/domain-northside-austin',
+    desc:'Restaurante texano de inspiração farm-to-fork com mais de 1.200m² em múltiplos andares. Menu com ingredientes locais de todo o Texas, adega premiada e uma das maiores coleções de whisky da cidade.',
+    notes:'Almoço após dia intenso de tours · menu amplo para todos os gostos · ambiente vibrante',
+    highlights:['Wagyu Tomahawk 930g e Costela defumada','Elk Tacos e Queso Blanco — especialidades Tex-Mex','Longhorn Lounge com bar de whisky premium','Trailer estilo Shasta no patio do 2º andar']
+  },
+  quince:{
+    name:'Quince Lakehouse',emoji:'🌊',tag:'Upscale Internacional',
+    when:'Quinta 16/04 · 19:00 — Jantar final da viagem',
+    addr:'3825 Lake Austin Blvd #201, Austin TX 78703',
+    maps:'https://maps.google.com/maps?q=Quince+Lakehouse+Austin',
+    website:'https://www.quincesma.com/atx/',
+    desc:'Eleito o restaurante com rooftop nº 1 do mundo em 2020. Vista privilegiada para o Lago Austin. Menu com influências internacionais — Nova Orleans, Lima, NY e Cidade do México. Fundado em San Miguel de Allende, México.',
+    notes:'Encerramento perfeito da viagem · vista do Lago Austin · ambiente sofisticado e relaxante',
+    highlights:['Vista panorâmica do Lago Austin do patio coberto','Atum tostado, Tempura de camarão e Polvo grelhado','Ambiente casual com música ao vivo','Bar de coquetéis premiado']
+  }
+};
+
+const JOURNALISTS = {
+  bruno:{
+    name:'Bruno Garattoni',initials:'BG',color:'#1B6CA8',photo:'https://raw.githubusercontent.com/DellPR/coordenacao/main/bruno.png',
+    outlet:'Super Interessante',country:'🇧🇷 Brasil',
+    phone:'+55 11 985896213',wa:'5511985896213',
+    li:'https://www.linkedin.com/in/brunogarattoni/',
+    arrival:'Ter 14/04 · 14:52 · AA 620 (Miami)',
+    departure:'Sex 17/04 · 16:12 · AA 620 (Miami)',
+    localizador:'NHRGEA',eticket:'0019552358629',
+    profile:'Cobre ciência, tecnologia, comportamento e inovação. Traduz temas complexos em narrativas acessíveis. Analítico e crítico. Relacionamento prévio com Dell.',
+    outlet_info:'Super Interessante · ~1,8 milhão de visitas orgânicas/mês · ciência, tecnologia e comportamento para o grande público',
+    pr_insight:'Bruno é o storyteller do grupo. Vai querer o IMPACTO humano da tecnologia, não specs. No TACC, mostre o Frontera como ferramenta que acelera descobertas que salvam vidas (astrofísica, medicina, zoologia). Na Acoustic Chamber: como Boeing influenciou o design de PCs é um ângulo perfeito para conectar tecnologia a contexto humano real. Não abra os números direto — conte a história.',
+    story_ideas:[
+      '🔬 TACC: "A IA que acelera descobertas científicas em escala" — de genes a buracos negros, alimentada por Dell',
+      '🎧 Acoustic Chamber: "A engenharia do silêncio que veio da Boeing" — como exigências aeronáuticas moldaram o PC',
+      '💧 Rugged Lab: "Testamos um notebook Dell afundado na água" — durabilidade como filosofia de design'
+    ]
+  },
+  roberta:{
+    name:'Roberta Prescott',initials:'RP',color:'#6B3A9A',photo:'https://raw.githubusercontent.com/DellPR/coordenacao/main/roberta.png',
+    outlet:'Convergência Digital',country:'🇧🇷 Brasil',
+    phone:'+55 11 999619909',wa:'5511999619909',
+    li:'https://www.linkedin.com/in/robertaprescott/',
+    arrival:'Ter 14/04 · 15:24 · UA 2483 (Houston)',
+    departure:'Sex 17/04 · 16:12 · AA 620 (Miami)',
+    localizador:'CRCEVV',eticket:'0019552358676/77',
+    profile:'IT e telecom, +20 anos de experiência. Contribuidora da Convergência Digital desde 2013. Cobre inovação, negócios e política pública. Participou de eventos Dell anteriores.',
+    outlet_info:'Convergência Digital · ~36K visitas/mês · decisores corporativos em TI e telecom · forte influência em discussões regulatórias',
+    pr_insight:'Roberta é B2B pura — quer números, cases, ROI, impacto em negócios. EBC é o ponto mais alto para ela: Dell como parceiro estratégico de transformação digital, não vendor. Drew Schulke é o porta-voz ideal: storage como infraestrutura crítica para IA enterprise. Pitch: "A infraestrutura que permite às empresas brasileiras competir na era da IA".',
+    story_ideas:[
+      '🏢 EBC: "Dell como parceiro de transformação, não fornecedor" — como o EBC define estratégias de longo prazo',
+      '🗄️ Drew Schulke: "Storage é o combustível da IA" — PowerMax/PowerStore como backbone invisible do negócio',
+      '📊 AI Factory: Cases reais de ROI mensurável com infraestrutura Dell + NVIDIA na América Latina'
+    ]
+  },
+  william:{
+    name:'William Marchiori',initials:'WM',color:'#0D6B3A',photo:'https://raw.githubusercontent.com/DellPR/coordenacao/main/William.png',
+    outlet:'Loop Infinito',country:'🇧🇷 Brasil',
+    phone:'+55 11 970933388',wa:'5511970933388',
+    li:'https://www.linkedin.com/in/williammarchiori/',
+    arrival:'Ter 14/04 · 14:52 · AA 620 (Miami)',
+    departure:'Sex 17/04 · 16:12 · AA 620 (Miami)',
+    localizador:'NHCQSG',eticket:'0019552358668',
+    profile:'Criador de conteúdo e host do Loop Infinito. Reviews de consumer electronics e games. Didático e acessível. Cobriu CES Preview Tour NY por vários anos. Forte relacionamento com Dell.',
+    outlet_info:'Loop Infinito · 1,18 MILHÃO de inscritos no YouTube · alto impacto direto em decisões de compra de consumer electronics',
+    pr_insight:'⭐ MAIOR POTENCIAL DO GRUPO. William tem 1,18M de inscritos e influencia diretamente compras. Ele VAI fazer um vídeo. GB300 e GB10 são bombas para o canal dele: "data center no seu desk". PRIORIDADE MÁXIMA: verificar com Jonathan Royer se William pode usar câmera própria no Alienware Experience para benchmarks ao vivo. Um vídeo dele com o GB300 pode alcançar 400K-800K views — o melhor ROI de toda a viagem.',
+    story_ideas:[
+      '🎮 Alienware Experience: Benchmarks ao vivo Dell vs mundo — potencial de vídeo viral garantido',
+      '🚀 GB300: "Coloquei um data center na minha mesa" — 20 petaFLOPS, 748GB · o review mais aguardado do ano',
+      '💧 Rugged Lab: "Afundei, choquei e congelei um notebook Dell" — conteúdo de altíssima viralidade'
+    ]
+  },
+  wallace:{
+    name:'Wallace Moté',initials:'WM',color:'#8B4513',photo:'https://raw.githubusercontent.com/DellPR/coordenacao/main/Wallace.png',
+    outlet:'TudoCelular',country:'🇧🇷 Brasil',
+    phone:'+55 12 991918099',wa:'5512991918099',
+    li:'https://www.linkedin.com/in/wallacemote/',
+    arrival:'Ter 14/04 · horário a confirmar',
+    departure:'Sex 17/04 · horário a confirmar',
+    localizador:'QAEUAT',eticket:'0019552358630',
+    profile:'Jornalista tech na TudoCelular. Cobre produtos, eventos internacionais e tendências. Conteúdo multimídia sobre consumer electronics. Participou do Dell Tech World 2025.',
+    outlet_info:'TudoCelular · ~8,6 MILHÕES de visitas orgânicas/mês · maior tráfego do grupo · referência em tech consumer BR e global',
+    pr_insight:'Wallace é o MAIOR em tráfego do grupo (8,6M/mês). Veio do DTW 2025 e entende o ecossistema Dell profundamente. PC refresh + Windows 10 EOL é o ângulo perfeito: "500 milhões de PCs precisam ser atualizados — a maior janela de oportunidade da história do PC". Zach Noskey é o porta-voz ideal para ele. AI PCs com inferência local e segurança de dados são muito relevantes para o público do TudoCelular.',
+    story_ideas:[
+      '🔄 PC Refresh: "500 milhões de PCs para atualizar com Windows 10 EOL" — o momento mais importante para a indústria',
+      '🤖 AI PCs Dell: Inferência local, privacidade de dados, sem cloud — o PC inteligente para o usuário profissional',
+      '📱 Comparativo Dell Pro vs concorrentes: TudoCelular special com benchmarks reais de performance'
+    ]
+  },
+  rodrigo:{
+    name:'Rodrigo Riquelme Galván',initials:'RR',color:'#8B6914',photo:'https://raw.githubusercontent.com/DellPR/coordenacao/main/Rodrigo%20Riquelme.png',
+    outlet:'El Economista',country:'🇲🇽 México',
+    phone:'+52 55 47868926',wa:'525547868926',
+    li:'https://www.linkedin.com/in/rriquelmeg/',
+    arrival:'Ter 14/04 · AM 1684 · chega 12:30',
+    departure:'Sex 17/04 · AM 1685 · parte 14:01 · chega MEX 15:30',
+    localizador:'UDDUWT',eticket:'1395464282661',
+    profile:'Repórter tech cobrindo inovação, economia digital, fintech, telecom e modelos de negócio — foco em México e América Latina.',
+    outlet_info:'El Economista · jornal especializado em economia, finanças e negócios · decisores públicos e privados no México',
+    pr_insight:'Rodrigo vai enquadrar tudo em impacto econômico e competitividade. Ângulo: "A Dell está construindo a infraestrutura que vai definir a competitividade das empresas da LATAM na era da IA". TACC como investimento em pesquisa com retorno econômico mensurável. Armando Acosta: AI servers como habilitador de novos modelos de negócio. Conecte tudo a LATAM e competitividade regional.',
+    story_ideas:[
+      '💰 AI Factory LATAM: Como a infraestrutura Dell/NVIDIA transforma a competitividade empresarial na região',
+      '📈 EBC: Parceria estratégica Dell = vantagem competitiva real — cases de ROI com empresas mexicanas',
+      '🌎 TACC: Investimento em supercomputação como motor de inovação econômica — lição para a LATAM'
+    ]
+  },
+  efren:{
+    name:'Efrén Abraham Páez',initials:'EP',color:'#8B1A1A',photo:'https://raw.githubusercontent.com/DellPR/coordenacao/main/Efren.jpg',
+    outlet:'DPL News',country:'🇲🇽 México',
+    phone:'+52 55 39304105',wa:'525539304105',
+    li:'https://www.linkedin.com/in/efren-paez-j/',
+    arrival:'Ter 14/04 · AM 1684 · chega 12:30',
+    departure:'Sex 17/04 · AM 1685 · parte 14:01 · chega MEX 15:30',
+    localizador:'DZQBMT',eticket:'1395464282650',
+    profile:'+10 anos analisando telecom e ICT na LATAM. Ex-CNN e Expansión. Entrevistou Vivek Mohindra no DTW e Ken Durazzo no México.',
+    outlet_info:'DPL News · economia digital, telecom, tecnologia e regulação LATAM · reguladores, operadores e decisores regionais',
+    pr_insight:'Efrén é o mais técnico e regulatório do grupo. Público inclui reguladores e operadores de telecom. Armando Acosta e David Schmidt são os porta-vozes mais relevantes (AI servers, arquitetura, ecossistema). Já entrevistou líderes Dell — vai querer profundidade. Prepare perguntas difíceis sobre regulação e soberania de dados (redirecione se necessário). Ângulo: "Dell e a corrida pela soberania de dados e infraestrutura de IA na LATAM".',
+    story_ideas:[
+      '🔐 AI Solutions Center: Infraestrutura de IA como questão de soberania digital para LATAM',
+      '⚙️ Armando Acosta: PowerEdge como habilitador de novos modelos de negócio em telecom e ICT',
+      '🤝 Dell-NVIDIA Ecosystem: Como as parcerias definem quem vai liderar a IA na América Latina'
+    ]
+  }
+};
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showDetail(title) {
+  document.getElementById('homeView').style.display = 'none';
+  document.getElementById('detailView').style.display = 'block';
+  document.getElementById('topbarTitle').textContent = title;
+  document.getElementById('backBtn').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  document.getElementById('homeView').style.display = 'block';
+  document.getElementById('detailView').style.display = 'none';
+  document.getElementById('topbarTitle').textContent = 'Press Tour · Coordenação';
+  document.getElementById('backBtn').style.display = 'none';
+}
+
+function showRestaurant(id) {
+  const r = RESTAURANTS[id];
+  let h = '<div class="dv-hero">';
+  h += '<div class="dv-tag">'+r.when+'</div>';
+  h += '<div style="font-size:32px;margin-bottom:6px">'+r.emoji+'</div>';
+  h += '<div class="dv-title">'+r.name+'</div>';
+  h += '<div style="font-size:11px;background:rgba(255,255,255,0.2);border-radius:10px;display:inline-block;padding:3px 10px;">'+r.tag+'</div>';
+  h += '</div>';
+  h += '<div class="dv-section"><div class="dv-label">Localização</div>';
+  h += '<div class="dv-text">'+r.addr+'</div>';
+  h += '<a href="'+r.maps+'" target="_blank" style="font-size:13px;font-weight:700;color:#0076CE">📍 Abrir no Maps ›</a></div>';
+  h += '<div class="dv-section"><div class="dv-label">Sobre</div>';
+  h += '<div class="dv-text">'+r.desc+'</div>';
+  h += '<div style="margin-top:8px;font-size:11px;font-style:italic;color:#636366">💡 '+r.notes+'</div>';
+  h += '</div>';
+  h += '<div class="dv-section"><div class="dv-label">Destaques</div>';
+  r.highlights.forEach(hl => { h += '<div class="dv-bullet">'+hl+'</div>'; });
+  h += '</div>';
+  h += '<div class="dv-section"><a href="'+r.website+'" target="_blank" style="font-size:13px;font-weight:700;color:#0076CE">🌐 Ver site oficial ›</a></div>';
+  document.getElementById('detailView').innerHTML = h;
+  showDetail(r.name);
+}
+
+function showJournalist(id) {
+  const j = JOURNALISTS[id];
+  let h = '<div class="sp-hero">';
+  h += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">';
+  if(j.photo) h += '<div class="jphoto" data-bg="'+j.photo+'" style="width:56px;height:56px;border-radius:50%;flex-shrink:0;border:2px solid rgba(255,255,255,0.35);background:#555"></div>';
+  h += '<div>';
+  h += '<div style="font-size:11px;font-weight:600;letter-spacing:0.08em;color:rgba(255,255,255,0.75);text-transform:uppercase;margin-bottom:4px">'+j.country+' · '+j.outlet+'</div>';
+  h += '<div style="font-size:20px;font-weight:800;color:#fff;line-height:1.2">'+j.name+'</div>';
+  h += '</div></div>';
+  h += '<div style="display:flex;gap:8px;flex-wrap:wrap">';
+  h += '<a href="https://wa.me/'+j.wa+'" target="_blank" class="wa-btn">'+WA+' '+j.phone+'</a>';
+  h += '<a href="'+j.li+'" target="_blank" class="li-btn">in LinkedIn</a>';
+  h += '</div></div>';
+  h += '<div class="sp-section"><div class="sp-label">Viagem</div>';
+  h += '<div class="sp-text">✈ <strong>Chegada:</strong> '+j.arrival+'</div>';
+  h += '<div class="sp-text">🔙 <strong>Partida:</strong> '+j.departure+'</div>';
+  h += '<div class="loc-box"><div><div class="loc-label">Localizador</div><div class="loc-code">'+j.localizador+'</div></div>';
+  h += '<div style="text-align:right"><div class="loc-label">E-Ticket</div><div style="font-size:12px;font-weight:600;color:#3C3C43;font-family:monospace">'+j.eticket+'</div></div></div></div>';
+  h += '<div class="sp-section"><div class="sp-label">Perfil</div>';
+  h += '<div class="sp-text">'+j.profile+'</div>';
+  h += '<div style="margin-top:6px;font-size:11px;color:#8E8E93;background:#F2F4F7;padding:8px 10px;border-radius:8px">📊 '+j.outlet_info+'</div></div>';
+  h += '<div class="sp-section"><div class="pr-box"><div class="pr-box-label">🎯 Análise PR</div><div class="pr-box-text">'+j.pr_insight+'</div></div></div>';
+  h += '<div class="sp-section"><div class="sp-label">💡 Story Ideas</div>';
+  j.story_ideas.forEach(idea => { h += '<div class="story-item">'+idea+'</div>'; });
+  h += '</div>';
+  document.getElementById('j-content').innerHTML = h;
+  document.querySelectorAll('#j-content .jphoto').forEach(function(el){el.style.backgroundImage='url('+el.dataset.bg+')';el.style.backgroundSize='cover';el.style.backgroundPosition='center top';});
+  document.getElementById('j-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeJModal() {
+  document.getElementById('j-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+</script>
+
+<div id="j-modal" onclick="if(event.target===this)closeJModal()">
+  <div class="sp-sheet"><button class="sp-close" onclick="closeJModal()">&#x2715;</button><div id="j-content"></div></div>
 </div>
-
-<main>
-
-  <!-- DELL + AI -->
-  <section class="cat-section" id="dell-ai">
-    <div class="cat-header">
-      <div class="cat-icon green">🤖</div>
-      <div><div class="cat-label">Categoria</div><div class="cat-name">Dell + IA</div></div>
-    </div>
-    <div class="cards-grid">
-
-      <a class="card" onclick="openArticle('dell-ai'); return false;" href="#">
-        <div class="card-img-wrap">
-          <img src="https://assets.bizclikmedia.net/412/50411100af3a670bfc88ebb33c98c553:2d3b4ec918fd48475c8f01d2e1727332/dtw-msd-on-stage-may-20-2024-1002-michael-dell.jpg"
-            onerror="this.parentElement.innerHTML='<span class=card-img-label>Dell AI Factory</span>'">
-        </div>
-        <div class="card-body">
-          <div class="card-type" data-lang="pt">🤖 Posicionamento de IA</div>
-          <div class="card-type" data-lang="es">🤖 Posicionamiento de IA</div>
-          <div class="card-title" data-lang="pt">Dell + IA — Por que a Dell é central na transformação da IA</div>
-          <div class="card-title" data-lang="es">Dell + IA — Por qué Dell es central en la transformación de la IA</div>
-          <div class="card-desc" data-lang="pt">Do PC ao data center: como a Dell se posiciona como a maior fornecedora de infraestrutura de IA do mundo.</div>
-          <div class="card-desc" data-lang="es">Del PC al data center: cómo Dell se posiciona como la mayor proveedora de infraestructura de IA del mundo.</div>
-        </div>
-        <div class="card-footer">
-          <span data-lang="pt">Ler</span><span data-lang="es">Leer</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-    </div>
-  </section>
-
-
-  <!-- TACC -->
-  <section class="cat-section" id="tacc">
-    <div class="cat-header">
-      <div class="cat-icon blue">🖥️</div>
-      <div><div class="cat-label">Categoria</div><div class="cat-name">Texas Advanced Computing Center (TACC)</div></div>
-    </div>
-    <div class="cards-grid">
-
-      <a class="card" onclick="openArticle('sobre-tacc'); return false;" href="#">
-        <div class="card-img-wrap">
-          <img src="https://raw.githubusercontent.com/DellPR/repositorio/main/tacc.jpg"
-            onerror="this.parentElement.innerHTML='<span class=card-img-label>TACC Data Center</span>'">
-        </div>
-        <div class="card-body">
-          <div class="card-type" data-lang="pt">📖 Contexto Essencial</div>
-          <div class="card-type" data-lang="es">📖 Contexto Esencial</div>
-          <div class="card-title" data-lang="pt">O que é o TACC — e por que a Dell mora lá dentro</div>
-          <div class="card-title" data-lang="es">Qué es el TACC — y por qué Dell vive ahí adentro</div>
-          <div class="card-desc" data-lang="pt">O maior centro de supercomputação acadêmica dos EUA, o projeto Horizon e décadas de parceria Dell-TACC.</div>
-          <div class="card-desc" data-lang="es">El mayor centro de supercomputación académica de EE.UU., el proyecto Horizon y décadas de alianza Dell-TACC.</div>
-        </div>
-        <div class="card-footer">
-          <span data-lang="pt">Ler</span><span data-lang="es">Leer</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a class="card" onclick="openArticle('horizon'); return false;" href="#">
-        <div class="card-img-wrap">
-          <img src="https://raw.githubusercontent.com/DellPR/repositorio/main/tacc%20new%20horizon.jpg"
-            onerror="this.parentElement.innerHTML='<span class=card-img-label>Horizon Supercomputer</span>'">
-        </div>
-        <div class="card-body">
-          <div class="card-type" data-lang="pt">📄 Press Release · Nov 2025</div>
-          <div class="card-type" data-lang="es">📄 Comunicado · Nov 2025</div>
-          <div class="card-title" data-lang="pt">Dell viabiliza o Horizon, novo supercomputador do TACC</div>
-          <div class="card-title" data-lang="es">Dell impulsa Horizon, el nuevo supercomputador del TACC</div>
-          <div class="card-desc" data-lang="pt">300 petaflops — 10× mais rápido que o Frontera (supercomputador atual). O maior supercomputador acadêmico dos EUA, alimentado por Dell PowerEdge com NVIDIA Grace Blackwell.</div>
-          <div class="card-desc" data-lang="es">300 petaflops — 10× más rápido que Frontera (supercomputador actual). El mayor supercomputador académico de EE.UU., con Dell PowerEdge y NVIDIA Grace Blackwell.</div>
-        </div>
-        <div class="card-footer">
-          <span data-lang="pt">Ler artigo</span><span data-lang="es">Leer artículo</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://tacc.utexas.edu" target="_blank" style="display:flex;align-items:center;gap:14px;padding:14px 16px;">
-        <div style="width:36px;height:36px;border-radius:8px;background:rgba(0,118,206,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">🌐</div>
-        <div style="flex:1;min-width:0">
-          <div class="card-type" style="margin-bottom:2px" data-lang="pt">🔗 Site Oficial</div>
-          <div class="card-type" style="margin-bottom:2px" data-lang="es">🔗 Sitio Oficial</div>
-          <div style="font-size:13px;font-weight:600;color:var(--text)">tacc.utexas.edu ↗</div>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ALIENWARE -->
-  <section class="cat-section" id="alienware">
-    <div class="cat-header">
-      <div class="cat-icon purple">🎮</div>
-      <div><div class="cat-label">Categoria</div><div class="cat-name">Alienware Experience Tour</div></div>
-    </div>
-    <div class="coming-soon">
-      <div class="coming-soon-text" data-lang="pt">Mais conteúdo em breve</div>
-      <div class="coming-soon-text" data-lang="es">Más contenido próximamente</div>
-    </div>
-  </section>
-
-  <!-- AI SOLUTIONS -->
-  <section class="cat-section" id="aisc">
-    <div class="cat-header">
-      <div class="cat-icon green">🤖</div>
-      <div><div class="cat-label">Categoria</div><div class="cat-name">AI Solutions Center</div></div>
-    </div>
-    <div class="coming-soon">
-      <div class="coming-soon-text" data-lang="pt">Mais conteúdo em breve</div>
-      <div class="coming-soon-text" data-lang="es">Más contenido próximamente</div>
-    </div>
-  </section>
-
-
-  <!-- EBC -->
-  <section class="cat-section" id="ebc">
-    <div class="cat-header">
-      <div class="cat-icon orange">🏢</div>
-      <div><div class="cat-label">Categoria</div><div class="cat-name">Executive Briefing Center (EBC)</div></div>
-    </div>
-    <div class="coming-soon">
-      <div class="coming-soon-text" data-lang="pt">Mais conteúdo em breve</div>
-      <div class="coming-soon-text" data-lang="es">Más contenido próximamente</div>
-    </div>
-  </section>
-
-  <!-- RUGGED -->
-  <section class="cat-section" id="rugged">
-    <div class="cat-header">
-      <div class="cat-icon red">🛡️</div>
-      <div><div class="cat-label">Categoria</div><div class="cat-name">Rugged Lab Tour</div></div>
-    </div>
-    <div class="coming-soon">
-      <div class="coming-soon-text" data-lang="pt">Mais conteúdo em breve</div>
-      <div class="coming-soon-text" data-lang="es">Más contenido próximamente</div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ARTICLE: SOBRE O TACC -->
-<div class="article-overlay" id="article-sobre-tacc">
-  <div class="article-topbar">
-    <button class="article-back" onclick="closeArticle('sobre-tacc')">← <span data-lang="pt">Voltar</span><span data-lang="es">Volver</span></button>
-    <div class="header-sep"></div>
-    <div class="header-title">TACC · Contexto</div>
-  </div>
-  <div class="article-content">
-    <div class="article-cat" data-lang="pt">📖 Contexto Essencial · TACC</div>
-    <div class="article-cat" data-lang="es">📖 Contexto Esencial · TACC</div>
-
-    <h1 class="article-title" data-lang="pt">O que é o TACC — e por que a Dell mora lá dentro</h1>
-    <h1 class="article-title" data-lang="es">Qué es el TACC — y por qué Dell vive ahí adentro</h1>
-
-    <img class="article-hero-img"
-      src="https://raw.githubusercontent.com/DellPR/repositorio/main/tacc.jpg"
-      onerror="this.style.display='none'" alt="TACC Data Center">
-
-    <!-- PT -->
-            <div data-lang="pt">
-      <p class="article-lead">O Texas Advanced Computing Center (TACC), ligado à Universidade do Texas em Austin, é o principal centro de supercomputação acadêmica dos Estados Unidos — e um dos palcos mais relevantes da parceria entre Dell e ciência ao longo de décadas.</p>
-
-      <div class="article-body">
-
-        <h3>O que é o TACC</h3>
-        <p>Fundado em 2001, o TACC fornece poder computacional para pesquisadores de todo o país. É uma estrutura governamental aberta: qualquer pesquisador acadêmico americano pode solicitar acesso via processo de alocação competitivo.</p>
-        <div class="highlight-box">
-          <div class="hb-label">Analogia</div>
-          <p>Pense no TACC como a NASA da computação científica aberta: não é uma empresa, não vende produto, mas é onde a ciência americana vai quando precisa de músculo computacional de verdade.</p>
-        </div>
-
-        <img src="https://raw.githubusercontent.com/DellPR/repositorio/main/tacc.jpg" style="width:100%;border-radius:10px;margin:16px 0;aspect-ratio:16/9;object-fit:cover" onerror="this.style.display='none'" alt="TACC Campus">
-
-        <h3>Frontera — o sistema que vocês vão ver</h3>
-        <p>O Frontera é o supercomputador que vocês vão encontrar em operação durante a visita. Lançado em junho de 2019 com um investimento de $60 milhões da NSF (National Science Foundation, o principal órgão americano de financiamento à pesquisa científica), ele estreou no TOP500 como o <strong>5º supercomputador mais rápido do mundo</strong> e o <strong>nº 1 em qualquer universidade</strong> — fazendo da Universidade do Texas sede dos dois supercomputadores acadêmicos mais rápidos dos EUA à época (Frontera #5, Stampede2 #19).</p>
-        <p>O sistema foi fornecido pela Dell EMC e opera com processadores Intel Xeon de 2ª geração e interconexão Mellanox InfiniBand. Disponibiliza mais de 55 milhões de horas de nó por ano para a comunidade de pesquisa, com até 80% das horas disponíveis via o programa NSF de alocação de recursos de computação petascale.</p>
-        <p class="src-line">Fontes: <a href="https://tacc.utexas.edu/systems/frontera/" target="_blank">TACC · Frontera System ↗</a> · <a href="https://frontera-portal.tacc.utexas.edu/about/" target="_blank">Frontera Portal · About ↗</a></p>
-
-        <p>O Frontera vai continuar em operação até ser substituído pelo Horizon. Vocês estão visitando o TACC exatamente nessa transição.</p>
-
-        <h3>O projeto do momento — Horizon</h3>
-        <p>A NSF está instalando o Horizon, o maior supercomputador acadêmico do país, no TACC. Quando entrar em operação em 2026, será um recurso nacional comparável ao Telescópio Espacial James Webb e ao Observatório de Neutrinos IceCube.</p>
-
-        <img src="https://raw.githubusercontent.com/DellPR/repositorio/main/tacc%20new%20horizon.jpg" style="width:100%;border-radius:10px;margin:16px 0;aspect-ratio:16/9;object-fit:cover" onerror="this.style.display='none'" alt="Novo Data Center TACC — Horizon">
-
-        <div class="stats-row">
-          <div class="stat-box"><div class="stat-num">300</div><div class="stat-label">petaflops de performance</div></div>
-          <div class="stat-box"><div class="stat-num">10×</div><div class="stat-label">mais rápido que o Frontera (supercomputador atual)</div></div>
-          <div class="stat-box"><div class="stat-num">4.000</div><div class="stat-label">GPUs NVIDIA</div></div>
-          <div class="stat-box"><div class="stat-num">1M</div><div class="stat-label">núcleos de CPU</div></div>
-        </div>
-
-        <p>No núcleo do sistema estão servidores Dell PowerEdge com a plataforma NVIDIA Grace Blackwell e CPUs NVIDIA Vera, interconectados com rede NVIDIA InfiniBand. Além dos 300 petaflops de simulação, o Horizon entregará <strong>20 exaflops para IA em bf16/fp16</strong> e <strong>80 exaflops em FP4</strong> — mais de 100× mais potência de IA do que os sistemas atuais.</p>
-
-        <img src="https://raw.githubusercontent.com/DellPR/repositorio/main/horizon%20server.png" style="width:100%;border-radius:10px;margin:16px 0;aspect-ratio:16/9;object-fit:cover" onerror="this.style.display='none'" alt="Servidores Dell PowerEdge — Horizon">
-        <p class="src-line">Fontes: <a href="https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-powers-taccs-new-supercomputer-horizon" target="_blank">Dell Technologies · Press Release Nov 2025 ↗</a> · <a href="https://tacc.utexas.edu/news/latest-news/2025/11/17/nsf-lccf-horizon-supercomputer-to-power-breakthroughs-for-the-nations-leading-scientists/" target="_blank">TACC News · Nov 2025 ↗</a></p>
-
-        <h3>Onde a Dell entra — e por que é relevante</h3>
-        <p>A relação Dell-TACC não é nova nem superficial — Dell e TACC têm décadas de colaboração, incluindo os supercomputadores Stampede e Frontera. O Horizon, alimentado por infraestrutura Dell AI, dará aos pesquisadores as ferramentas para enfrentar alguns dos desafios mais complexos do mundo.</p>
-        <div class="highlight-box">
-          <div class="hb-label">Detalhe geográfico</div>
-          <p>A Dell está projetando os racks integrados, a montagem final acontece em Georgetown (Texas) e o sistema será hospedado em um data center em Round Rock — a mesma cidade onde fica o QG global da Dell. Literalmente construído no quintal de casa.</p>
-        </div>
-        <p class="src-line">Fonte: <a href="https://cbsaustin.com/news/local/horizon-supercomputer-will-make-austin-the-center-of-us-research-power" target="_blank">CBS Austin · Nov 2025 ↗</a></p>
-
-        <h3>O que vai rodar lá, na prática?</h3>
-        <p>Os trabalhos iniciais devem incluir dinâmica molecular e simulações aprimoradas por IA para estudar vírus, modelos astrofísicos de formação de estrelas e galáxias, pesquisa de materiais focada em estruturas cristalinas e comportamento quântico, e simulações sísmicas para melhorar mapas de risco e modelar rupturas de falhas geológicas. A UT Austin também usará o Horizon para expandir capacidades em IA generativa e agêntica, com mais de mil GPUs reservadas para o Centro de IA Generativa da universidade.
-        </p>
-        <p class="src-line">Fonte: <a href="https://tacc.utexas.edu/news/latest-news/2025/11/17/nsf-lccf-horizon-supercomputer-to-power-breakthroughs-for-the-nations-leading-scientists/" target="_blank">TACC News · Nov 2025 ↗</a></p>
-
-        <h3>Por que isso é importante?</h3>
-        <p>O Horizon não é um data center de empresa treinando o próximo GPT-5. É a aposta do governo americano — via NSF, com <strong>$457 milhões de investimento</strong> — de que a ciência aberta precisa de uma infraestrutura de IA tão poderosa quanto a do setor privado, mas acessível a qualquer pesquisador do país via processo de alocação aberto.</p>
-        <div class="highlight-box">
-          <div class="hb-label">Citação — Dan Stanzione, Diretor do TACC</div>
-          <p>"Com a ascensão da IA, o papel da computação no processo de descoberta científica se expandiu ainda mais. Esta nova instalação representa uma mudança de paradigma na forma como o NSF investe em computação em larga escala."</p>
-        </div>
-        <p class="src-line">Fonte: <a href="https://tacc.utexas.edu/news/latest-news/2025/11/17/nsf-lccf-horizon-supercomputer-to-power-breakthroughs-for-the-nations-leading-scientists/" target="_blank">TACC News · Nov 2025 ↗</a></p>
-
-        <h3>Como funciona o acesso</h3>
-        <p>É um sistema de "alocações" — você submete uma proposta justificando sua pesquisa e um comitê aprova uma cota de horas computacionais. Não se paga por hora de GPU como na AWS. As alocações são gerenciadas por projeto, sob responsabilidade de um pesquisador principal (PI).</p>
-        <p><strong>1. Pesquisadores do sistema UT / Texas</strong> — via TxRAS, para UT Austin, Sistema UT e instituições parceiras.</p>
-        <p><strong>2. Pesquisadores dos EUA em geral</strong> — via ACCESS, o portal nacional do NSF.</p>
-        <div class="highlight-box">
-          <div class="hb-label">Para pesquisadores brasileiros</div>
-          <p>Projetos colaborativos com pesquisadores não-americanos são bem-vindos, desde que haja participação intelectual substantiva de um PI americano. Um pesquisador brasileiro em colaboração com uma universidade americana pode ter acesso ao Horizon.</p>
-        </div>
-        <p>A expectativa é que o sistema atenda entre <strong>10.000 e 15.000 pesquisadores por ano</strong>.</p>
-        <p class="src-line">Fonte: <a href="https://tacc.utexas.edu/systems/frontera/" target="_blank">TACC · Frontera System ↗</a></p>
-
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-top:28px;">
-        <a class="article-source-link" href="https://tacc.utexas.edu/news/latest-news/2025/11/17/nsf-lccf-horizon-supercomputer-to-power-breakthroughs-for-the-nations-leading-scientists/" target="_blank">🔗 Mais informações sobre o projeto Horizon ↗</a>
-        <a class="article-source-link" href="https://tacc.utexas.edu/systems/frontera/" target="_blank">🔗 Sobre o Frontera — sistema em operação ↗</a>
-        <a class="article-source-link" href="https://tacc.utexas.edu" target="_blank">🔗 Site oficial do TACC ↗</a>
-      </div>
-    </div>
-
-    <!-- ES -->
-            <div data-lang="es">
-      <p class="article-lead">El Texas Advanced Computing Center (TACC), vinculado a la Universidad de Texas en Austin, es el principal centro de supercomputación académica de los Estados Unidos — y uno de los escenarios más relevantes de la alianza entre Dell y la ciencia a lo largo de décadas.</p>
-
-      <div class="article-body">
-
-        <h3>Qué es el TACC</h3>
-        <p>Fundado en 2001, el TACC proporciona poder computacional a investigadores de todo el país. Es una estructura gubernamental abierta: cualquier investigador académico americano puede solicitar acceso mediante un proceso de asignación competitivo.</p>
-        <div class="highlight-box">
-          <div class="hb-label">Analogía</div>
-          <p>Piense en el TACC como la NASA de la computación científica abierta: no es una empresa, no vende productos, pero es donde la ciencia americana va cuando necesita músculo computacional de verdad.</p>
-        </div>
-
-        <img src="https://raw.githubusercontent.com/DellPR/repositorio/main/tacc.jpg" style="width:100%;border-radius:10px;margin:16px 0;aspect-ratio:16/9;object-fit:cover" onerror="this.style.display='none'" alt="TACC Campus">
-
-        <h3>Frontera — el sistema que van a ver</h3>
-        <p>Frontera es el supercomputador que van a encontrar en operación durante la visita. Lanzado en junio de 2019 con una inversión de $60 millones de la NSF (National Science Foundation, el principal organismo estadounidense de financiamiento a la investigación científica), debutó en el TOP500 como el <strong>5º supercomputador más rápido del mundo</strong> y el <strong>nº 1 en cualquier universidad</strong> — convirtiendo a la Universidad de Texas en sede de los dos supercomputadores académicos más rápidos de EE.UU. (Frontera #5, Stampede2 #19).</p>
-        <p>El sistema fue suministrado por Dell EMC y opera con procesadores Intel Xeon de 2ª generación e interconexión Mellanox InfiniBand. Pone a disposición más de 55 millones de horas de nodo por año para la comunidad investigadora, con hasta el 80% de las horas disponibles a través del programa NSF de asignación de recursos de computación petascale.</p>
-        <p class="src-line">Fuentes: <a href="https://tacc.utexas.edu/systems/frontera/" target="_blank">TACC · Frontera System ↗</a> · <a href="https://frontera-portal.tacc.utexas.edu/about/" target="_blank">Frontera Portal · About ↗</a></p>
-
-        <p>Frontera continuará en operación hasta ser reemplazado por Horizon. Están visitando el TACC exactamente en esta transición.</p>
-
-        <h3>El proyecto del momento — Horizon</h3>
-        <p>La NSF está instalando Horizon, el mayor supercomputador académico del país, en el TACC. Cuando entre en operación en 2026, será comparable al Telescopio Espacial James Webb y al Observatorio de Neutrinos IceCube.</p>
-
-        <img src="https://raw.githubusercontent.com/DellPR/repositorio/main/tacc%20new%20horizon.jpg" style="width:100%;border-radius:10px;margin:16px 0;aspect-ratio:16/9;object-fit:cover" onerror="this.style.display='none'" alt="Nuevo Data Center TACC — Horizon">
-
-        <div class="stats-row">
-          <div class="stat-box"><div class="stat-num">300</div><div class="stat-label">petaflops de rendimiento</div></div>
-          <div class="stat-box"><div class="stat-num">10×</div><div class="stat-label">más rápido que Frontera (supercomputador actual)</div></div>
-          <div class="stat-box"><div class="stat-num">4.000</div><div class="stat-label">GPUs NVIDIA</div></div>
-          <div class="stat-box"><div class="stat-num">1M</div><div class="stat-label">núcleos de CPU</div></div>
-        </div>
-
-        <p>En el núcleo del sistema están los servidores Dell PowerEdge con la plataforma NVIDIA Grace Blackwell y CPUs NVIDIA Vera, interconectados con la red NVIDIA InfiniBand. Además de los 300 petaflops de simulación, Horizon entregará <strong>20 exaflops para IA en bf16/fp16</strong> y <strong>80 exaflops en FP4</strong> — más de 100× más potencia de IA que los sistemas actuales.</p>
-
-        <img src="https://raw.githubusercontent.com/DellPR/repositorio/main/horizon%20server.png" style="width:100%;border-radius:10px;margin:16px 0;aspect-ratio:16/9;object-fit:cover" onerror="this.style.display='none'" alt="Servidores Dell PowerEdge — Horizon">
-        <p class="src-line">Fuentes: <a href="https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-powers-taccs-new-supercomputer-horizon" target="_blank">Dell Technologies · Press Release Nov 2025 ↗</a> · <a href="https://tacc.utexas.edu/news/latest-news/2025/11/17/nsf-lccf-horizon-supercomputer-to-power-breakthroughs-for-the-nations-leading-scientists/" target="_blank">TACC News · Nov 2025 ↗</a></p>
-
-        <h3>Dónde entra Dell — y por qué es relevante</h3>
-        <p>La relación Dell-TACC no es nueva ni superficial — Dell y el TACC tienen décadas de colaboración, incluyendo los supercomputadores Stampede y Frontera. Horizon, impulsado por la infraestructura Dell AI, dará a los investigadores las herramientas para enfrentar algunos de los desafíos más complejos del mundo.</p>
-        <div class="highlight-box">
-          <div class="hb-label">Detalle geográfico</div>
-          <p>Dell está diseñando los racks integrados, el ensamblaje final ocurre en Georgetown (Texas) y el sistema será alojado en un data center en Round Rock — la misma ciudad donde está la sede global de Dell. Literalmente construido en el patio de casa.</p>
-        </div>
-        <p class="src-line">Fuente: <a href="https://cbsaustin.com/news/local/horizon-supercomputer-will-make-austin-the-center-of-us-research-power" target="_blank">CBS Austin · Nov 2025 ↗</a></p>
-
-        <h3>¿Qué se ejecutará ahí en la práctica?</h3>
-        <p>Los trabajos iniciales deben incluir dinámica molecular y simulaciones mejoradas por IA para estudiar virus, modelos astrofísicos de formación de estrellas y galaxias, investigación de materiales enfocada en estructuras cristalinas y comportamiento cuántico, y simulaciones sísmicas para mejorar mapas de riesgo. UT Austin también utilizará Horizon para ampliar capacidades en IA generativa y agéntica, con más de mil GPUs reservadas para el Centro de IA Generativa de la universidad.</p>
-        <p class="src-line">Fuente: <a href="https://tacc.utexas.edu/news/latest-news/2025/11/17/nsf-lccf-horizon-supercomputer-to-power-breakthroughs-for-the-nations-leading-scientists/" target="_blank">TACC News · Nov 2025 ↗</a></p>
-
-        <h3>¿Por qué esto es importante?</h3>
-        <p>Horizon no es un data center de empresa entrenando el próximo GPT-5. Es la apuesta del gobierno americano — vía NSF, con <strong>$457 millones de inversión</strong> — de que la ciencia abierta necesita una infraestructura de IA tan poderosa como la del sector privado, pero accesible para cualquier investigador del país.</p>
-        <div class="highlight-box">
-          <div class="hb-label">Cita — Dan Stanzione, Director del TACC</div>
-          <p>"Con el auge de la IA, el papel de la computación en el proceso de descubrimiento científico se ha expandido aún más. Esta nueva instalación representa un cambio de paradigma en cómo la NSF invierte en computación a gran escala."</p>
-        </div>
-        <p class="src-line">Fuente: <a href="https://tacc.utexas.edu/news/latest-news/2025/11/17/nsf-lccf-horizon-supercomputer-to-power-breakthroughs-for-the-nations-leading-scientists/" target="_blank">TACC News · Nov 2025 ↗</a></p>
-
-        <h3>Cómo funciona el acceso</h3>
-        <p>Es un sistema de "asignaciones" — presentas una propuesta justificando tu investigación y un comité aprueba una cuota de horas computacionales. No se paga por hora de GPU como en AWS. Las asignaciones son gestionadas por proyecto, bajo la responsabilidad de un investigador principal (PI).</p>
-        <p><strong>1. Investigadores del sistema UT / Texas</strong> — vía TxRAS, para UT Austin, Sistema UT e instituciones asociadas.</p>
-        <p><strong>2. Investigadores de EE.UU. en general</strong> — vía ACCESS, el portal nacional de la NSF.</p>
-        <div class="highlight-box">
-          <div class="hb-label">Para investigadores latinoamericanos</div>
-          <p>Los proyectos colaborativos con investigadores no estadounidenses son bienvenidos, siempre que haya participación sustantiva de un PI americano. Un investigador mexicano o latinoamericano en colaboración con una universidad americana puede acceder a Horizon.</p>
-        </div>
-        <p>Se espera que el sistema atienda entre <strong>10.000 y 15.000 investigadores por año</strong>.</p>
-        <p class="src-line">Fuente: <a href="https://tacc.utexas.edu/systems/frontera/" target="_blank">TACC · Frontera System ↗</a></p>
-
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-top:28px;">
-        <a class="article-source-link" href="https://tacc.utexas.edu/news/latest-news/2025/11/17/nsf-lccf-horizon-supercomputer-to-power-breakthroughs-for-the-nations-leading-scientists/" target="_blank">🔗 Más información sobre el proyecto Horizon ↗</a>
-        <a class="article-source-link" href="https://tacc.utexas.edu/systems/frontera/" target="_blank">🔗 Sobre Frontera — sistema en operación ↗</a>
-        <a class="article-source-link" href="https://tacc.utexas.edu" target="_blank">🔗 Sitio oficial del TACC ↗</a>
-      </div>
-    </div>
-  </div>
+<div id="tour-modal" onclick="if(event.target===this)closeTourModal()">
+  <div class="sp-sheet"><button class="sp-close" onclick="closeTourModal()">&#x2715;</button><div id="tour-content"></div></div>
 </div>
-
-<!-- ARTICLE: HORIZON PRESS RELEASE -->
-<div class="article-overlay" id="article-horizon">
-  <div class="article-topbar">
-    <button class="article-back" onclick="closeArticle('horizon')">← <span data-lang="pt">Voltar</span><span data-lang="es">Volver</span></button>
-    <div class="header-sep"></div>
-    <div class="header-title">TACC · Horizon</div>
-  </div>
-  <div class="article-content">
-    <div class="article-cat" data-lang="pt">📄 Press Release · 17 Nov 2025</div>
-    <div class="article-cat" data-lang="es">📄 Comunicado · 17 Nov 2025</div>
-    <h1 class="article-title" data-lang="pt">Dell Technologies viabiliza o Horizon, novo supercomputador do TACC</h1>
-    <h1 class="article-title" data-lang="es">Dell Technologies impulsa Horizon, el nuevo supercomputador del TACC</h1>
-    <div class="article-date">ROUND ROCK, Texas — Nov. 17, 2025</div>
-    <img class="article-hero-img"
-      src="https://raw.githubusercontent.com/DellPR/repositorio/main/tacc%20new%20horizon.jpg"
-      onerror="this.style.display='none'" alt="Horizon Supercomputer">
-    <div class="stats-row">
-      <div class="stat-box"><div class="stat-num">300</div><div class="stat-label" data-lang="pt">petaflops</div><div class="stat-label" data-lang="es">petaflops</div></div>
-      <div class="stat-box"><div class="stat-num">10×</div><div class="stat-label" data-lang="pt">vs. Frontera (atual)</div><div class="stat-label" data-lang="es">vs. Frontera (atual)</div></div>
-      <div class="stat-box"><div class="stat-num">4K</div><div class="stat-label">GPUs NVIDIA</div></div>
-      <div class="stat-box"><div class="stat-num">1M</div><div class="stat-label" data-lang="pt">núcleos CPU</div><div class="stat-label" data-lang="es">núcleos CPU</div></div>
-    </div>
-
-    <div data-lang="pt">
-      <p class="article-lead">A Dell Technologies está trabalhando com o TACC da Universidade do Texas em Austin e com a NVIDIA para construir o Horizon — o maior supercomputador acadêmico dos Estados Unidos.</p>
-      <div class="article-body">
-        <p>O Horizon servirá como plataforma para a ciência aberta e a pesquisa científica, impulsionando o progresso e a descoberta para a próxima geração de pesquisadores em áreas como segurança nacional, saúde e ciências climáticas.</p>
-
-        <h3>Destaques</h3>
-        <p>O Texas Advanced Computing Center (TACC) está trabalhando com a Dell Technologies para lançar o Horizon, o maior supercomputador acadêmico do país.</p>
-        <p>Este cluster de computação de alta performance (HPC) financiado pela NSF e alimentado pela Dell enfrentará desafios importantes, incluindo o avanço da ciência aberta — tornando a pesquisa e os dados acessíveis a todos — e impulsionando descobertas em saúde, clima e energia.</p>
-        <p>Servidores Dell PowerEdge com computação acelerada NVIDIA servirão como o motor de HPC do Horizon para ajudar os pesquisadores a impulsionar descobertas científicas.</p>
-        <p>O Horizon entrega 300 petaflops — 10 vezes mais rápido que o Frontera (supercomputador atual, nº 1 nas universidades americanasUA.</p>
-
-        <h3>Construindo as bases da descoberta com Dell Technologies e NVIDIA</h3>
-        <p>Construído com base na Dell AI Factory com NVIDIA, o Horizon oferecerá aos pesquisadores capacidades de HPC e IA sem precedentes para enfrentar problemas complexos — desde as mudanças climáticas até os avanços médicos e a física fundamental. O supercomputador fornecerá a performance e a confiabilidade que os pesquisadores precisam para expandir as fronteiras da descoberta em diversas disciplinas.</p>
-
-        <p>Na base do Horizon estão os Dell Integrated Rack Scalable Systems (IRSS), equipados com servidores Dell PowerEdge com resfriamento líquido direto, contendo a plataforma NVIDIA Grace Blackwell e CPUs NVIDIA Vera com 1 milhão de núcleos de CPU e 4.000 GPUs NVIDIA interconectadas pela rede NVIDIA Quantum-X800 InfiniBand de alta performance. O Dell IRSS foi projetado para os workloads de IA mais intensivos, maximizando espaço e eficiência para atender às necessidades de computação de alta densidade do TACC.</p>
-
-        <p>Este sistema de alta performance contará com 300 petaflops — uma melhoria de 10× na velocidade de simulação em comparação com o sistema Frontera do TACC, atualmente o supercomputador acadêmico nº 1 dos EUA. Quando entrar em operação em 2026, o Horizon ajudará cientistas a enfrentarem problemas que antes estavam fora de alcance e impulsionará pesquisas que fortalecem a liderança dos EUA em ciência, IA e inovação.</p>
-
-        <blockquote>
-          "Nossa colaboração de longa data com o TACC reflete o compromisso da Dell Technologies com o avanço da pesquisa e da inovação. A Dell e o TACC têm impulsionado descobertas há décadas, incluindo os supercomputadores Stampede e Frontera. O Horizon, o cluster HPC de próxima geração do TACC alimentado pela infraestrutura de IA da Dell, fornecerá aos pesquisadores as ferramentas necessárias para enfrentar alguns dos desafios mais complexos do mundo."
-          <cite>Arun Narayanan — SVP, Compute and Networking, Dell Technologies</cite>
-        </blockquote>
-
-        <blockquote>
-          "Nossa colaboração com a Dell e a NVIDIA confere ao Horizon capacidades revolucionárias, particularmente no uso de IA para inovação científica. Definimos o Horizon como uma infraestrutura de computação de classe de liderança — e isso exige que seja o melhor disponível. O Horizon representa o maior investimento que a National Science Foundation já fez em infraestrutura de computação."
-          <cite>Dan Stanzione — Diretor Executivo do TACC e Vice-Presidente Associado de Pesquisa da Universidade do Texas em Austin</cite>
-        </blockquote>
-
-        <h3>Sobre a Dell Technologies</h3>
-        <p>A Dell Technologies (NYSE: DELL) ajuda organizações e indivíduos a construírem seu futuro digital e a transformar a forma como trabalham, vivem e se divertem. A empresa oferece um portfólio abrangente e inovador de hardware, software e serviços que atende a uma variedade de necessidades do cliente, do escritório para casa até os data centers mais complexos do mundo.</p>
-
-        <h3>Sobre o TACC</h3>
-        <p>O Texas Advanced Computing Center da Universidade do Texas em Austin é o principal centro acadêmico de supercomputação do país. Desde 2001, o TACC tem avançado descobertas em diversas disciplinas científicas, fornecendo sistemas, software e expertise de classe mundial para pesquisadores que enfrentam os maiores desafios da sociedade. O TACC oferece computação de alta performance, IA em escala, armazenamento, visualização, treinamento e desenvolvimento de força de trabalho, fomentando a inovação que transforma a ciência e melhora vidas. Como sede do NSF Leadership-Class Computing Facility, o TACC impulsionará a próxima década de avanços na pesquisa e descoberta computacional.</p>
-      </div>
-      <a class="article-source-link" href="https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-powers-taccs-new-supercomputer-horizon" target="_blank">🔗 Press release original em Dell.com ↗</a>
-    </div>
-
-    <div data-lang="es">
-      <p class="article-lead">Dell Technologies está trabajando con el TACC de la Universidad de Texas en Austin y con NVIDIA para construir Horizon — el mayor supercomputador académico de los Estados Unidos.</p>
-      <div class="article-body">
-        <p>Horizon servirá como plataforma para la ciencia abierta y la investigación científica, impulsando el progreso y el descubrimiento para la próxima generación de investigadores en áreas como seguridad nacional, salud y ciencias del clima.</p>
-
-        <h3>Aspectos destacados</h3>
-        <p>El Texas Advanced Computing Center (TACC) está trabajando con Dell Technologies para lanzar Horizon, el mayor supercomputador académico del país.</p>
-        <p>Este clúster de computación de alto rendimiento (HPC) financiado por la NSF y alimentado por Dell abordará desafíos importantes, incluyendo el avance de la ciencia abierta — haciendo la investigación y los datos accesibles para todos — e impulsando avances en salud, clima y energía.</p>
-        <p>Los servidores Dell PowerEdge con computación acelerada NVIDIA servirán como el motor HPC de Horizon para ayudar a los investigadores a impulsar descubrimientos científicos.</p>
-        <p>Horizon entrega 300 petaflops — 10 veces más rápido que Frontera (supercomputador actual, nº 1 en las universidades de EE.UU EE.UU.</p>
-
-        <h3>Construyendo las bases del descubrimiento con Dell Technologies y NVIDIA</h3>
-        <p>Construido sobre la base de Dell AI Factory con NVIDIA, Horizon ofrecerá a los investigadores capacidades de HPC e IA sin precedentes para abordar problemas complejos — desde el cambio climático hasta los avances médicos y la física fundamental. El supercomputador proporcionará el rendimiento y la confiabilidad que los investigadores necesitan para ampliar las fronteras del descubrimiento en diversas disciplinas.</p>
-
-        <p>En la base de Horizon están los Dell Integrated Rack Scalable Systems (IRSS), equipados con servidores Dell PowerEdge con refrigeración líquida directa, que incluyen la plataforma NVIDIA Grace Blackwell y CPUs NVIDIA Vera con 1 millón de núcleos de CPU y 4.000 GPUs NVIDIA interconectadas por la red NVIDIA Quantum-X800 InfiniBand de alto rendimiento. El Dell IRSS fue diseñado para las cargas de trabajo de IA más intensivas, maximizando el espacio y la eficiencia para satisfacer las necesidades de cómputo de alta densidad del TACC.</p>
-
-        <p>Este sistema de alto rendimiento contará con 300 petaflops — una mejora de 10× en la velocidad de simulación en comparación con el sistema Frontera del TACC, actualmente el supercomputador académico nº 1 de EE.UU. Cuando entre en operación en 2026, Horizon ayudará a los científicos a abordar problemas que antes estaban fuera de alcance e impulsará investigaciones que fortalezcan el liderazgo de EE.UU. en ciencia, IA e innovación.</p>
-
-        <blockquote>
-          "Nuestra colaboración de larga data con el TACC refleja el compromiso de Dell Technologies con el avance de la investigación y la innovación. Dell y el TACC han impulsado descubrimientos durante décadas, incluyendo los supercomputadores Stampede y Frontera. Horizon, el clúster HPC de próxima generación del TACC impulsado por la infraestructura de IA de Dell, proporcionará a los investigadores las herramientas necesarias para abordar algunos de los desafíos más complejos del mundo."
-          <cite>Arun Narayanan — SVP, Compute and Networking, Dell Technologies</cite>
-        </blockquote>
-
-        <blockquote>
-          "Nuestra colaboración con Dell y NVIDIA le otorga a Horizon capacidades revolucionarias, particularmente en el uso de IA para la innovación científica. Definimos Horizon como una infraestructura de computación de clase de liderazgo — y eso exige que sea lo mejor disponible. Horizon representa la mayor inversión que la National Science Foundation ha realizado en infraestructura de cómputo."
-          <cite>Dan Stanzione — Director Ejecutivo del TACC y Vicepresidente Asociado de Investigación de la Universidad de Texas en Austin</cite>
-        </blockquote>
-
-        <h3>Sobre Dell Technologies</h3>
-        <p>Dell Technologies (NYSE: DELL) ayuda a organizaciones e individuos a construir su futuro digital y a transformar cómo trabajan, viven y se divierten. La empresa ofrece un portafolio integral e innovador de hardware, software y servicios que satisface una variedad de necesidades del cliente, desde la oficina en casa hasta los centros de datos más complejos del mundo.</p>
-
-        <h3>Sobre el TACC</h3>
-        <p>El Texas Advanced Computing Center de la Universidad de Texas en Austin es el principal centro académico de supercomputación del país. Desde 2001, el TACC ha avanzado descubrimientos en diversas disciplinas científicas, proporcionando sistemas, software y experiencia de clase mundial a investigadores que enfrentan los mayores desafíos de la sociedad. El TACC ofrece computación de alto rendimiento, IA a escala, almacenamiento, visualización, capacitación y desarrollo de fuerza laboral, fomentando la innovación que transforma la ciencia y mejora vidas. Como sede del NSF Leadership-Class Computing Facility, el TACC impulsará la próxima década de avances en investigación y descubrimiento computacional.</p>
-      </div>
-      <a class="article-source-link" href="https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-powers-taccs-new-supercomputer-horizon" target="_blank">🔗 Comunicado original en Dell.com ↗</a>
-    </div>
+<div id="route-modal" onclick="if(event.target===this)closeRouteModal()">
+  <div class="route-sheet">
+    <button class="route-close" onclick="closeRouteModal()">&#x2715;</button>
+    <div class="route-handle"></div>
+    <div class="route-title" id="rm-title"></div>
+    <div class="route-leg">&#128994; <span id="rm-from"></span></div>
+    <div class="route-leg">&#128308; <span id="rm-to"></span></div>
+    <div class="route-time-row"><div class="route-time-num" id="rm-time">&mdash;</div><div class="route-time-sub">Estimativa sem trânsito<br><span style="font-size:10px;color:#999">Maps para tempo real</span></div></div>
+    <div class="route-map-box" id="rm-map"></div>
+    <a id="rm-gmaps-link" href="#" target="_blank" class="route-gmaps-btn">&#128205; Abrir no Google Maps</a>
+    <a id="rm-uber-link" href="#" target="_blank" class="uber-btn">&#9899; Chamar Uber</a>
   </div>
 </div>
 
 <script>
-var currentLang = localStorage.getItem('repo_lang') || 'pt';
+var TOURS_COORD = {
+  tacc: {
+    title: 'Texas Advanced Computing Center', short: 'TACC',
+    date: 'Qua 15/04 · 09:00 — 10:30', fotos: 'Sim', fotosOk: true,
+    loc: '10505 Exploration Way, Austin TX 78758\nJ.J. Pickle Research Campus — Edifício ACB',
+    maps: 'https://maps.app.goo.gl/xRvHqLqGhm7Q2RYNA',
+    host: 'Dan Stanzione — Executive Director, TACC', poc: 'Geoffrey Reid — greid@tacc.utexas.edu',
+    instructions: [
+      'Usar o endereço exato — busca geral por TACC no Maps leva a endereço errado',
+      'Entrar pelo Braker Lane (Exploration Way) ou Burnet Road (Read Grandberry Trail)',
+      'Não parar nos portões de entrada',
+      'Estacionar no visitor parking — ParkMobile Zona 96113',
+      'Todos assinam check-in no lobby ACB — badge obrigatório'
+    ],
+    body: [
+      'O TACC opera alguns dos sistemas de computação de alto desempenho mais poderosos do mundo. A Dell desenvolveu e implementou múltiplos sistemas HPC para o TACC.',
+      'O Frontera — supercomputador universitário mais rápido do mundo — foi co-projetado com a Dell. Além dele, Dell e TACC colaboraram em mais de 12 sistemas (Stampede 2, Lonestar 6, Chameleon e outros).',
+      'Esta é a abertura mais poderosa do tour: IA e computação em escala real, provando que o portfólio Dell funciona de verdade.'
+    ],
+    pr_hint: 'Bruno (Super Interessante) vai adorar o ângulo científico — astrofísica à zoologia acelerados por Dell. Roberta (Convergência Digital) quer o case de parceria estratégica. Rodrigo (El Economista) quer impacto econômico de investimento em infraestrutura.',
+    alert: null
+  },
+  ebc: {
+    title: 'Executive Briefing Center', short: 'EBC',
+    date: 'Qua 15/04 · 11:30 — 12:00', fotos: 'Permitido', fotosOk: true,
+    loc: '2302 Greenlawn Boulevard, Building 3\nRound Rock, TX 78682',
+    maps: 'https://maps.app.goo.gl/nqeNbG3uDpXL2VNQA',
+    host: 'Annette Zaccaro — Dell Technologies', poc: 'David Riojas — david_riojas@dell.com (+1 737 226 3139)\nLauren Ramos — Lauren.Ramos@dell.com (+1 737 808 1129)',
+    instructions: ['NDA assinado obrigatório antes de entrar', 'Badge de visitante obrigatório', 'Fotos permitidas'],
+    body: [
+      'O Dell EBC é uma experiência estratégica personalizada, projetada para ajudar líderes a explorar como a tecnologia suporta suas prioridades críticas.',
+      'Fórum colaborativo onde estratégias são alinhadas e ideias são co-criadas. Para o grupo, serve como palco para os briefings 1:many da tarde.'
+    ],
+    pr_hint: 'Especialmente relevante para Roberta e Rodrigo — ambos cobrem tech sob ótica de negócios. Posicionar Dell como parceiro estratégico, não apenas fornecedor.',
+    alert: null
+  },
+  aisc: {
+    title: 'AI Solutions Center', short: 'AI Center',
+    date: 'Qui 16/04 · 09:00 — 09:30', fotos: 'NÃO — absolutamente proibido', fotosOk: false,
+    loc: '701 E Parmer Ln, Austin TX 78754\nParmer South 2',
+    maps: 'https://maps.app.goo.gl/Ld3P3L8jfWkczGDr8',
+    host: 'Mario Gallegos — recebe no lobby PS2', poc: 'Stephanie Howard — Stephanie.Howard@dell.com (ramal 7287593)',
+    instructions: [
+      'BRIEFAR TODOS antes de entrar: ZERO fotos, vídeos ou gravações de qualquer tipo',
+      'Quem for flagrado será imediatamente retirado',
+      'Chegar no lobby Parmer South 2 — Mario recebe o grupo',
+      'Badge + NDA obrigatório'
+    ],
+    body: [
+      'Tour exclusivo da infraestrutura de servidores de próxima geração. Showcase Room com componentes de 17ª geração, seguida do laboratório principal com ~50 racks de servidores.',
+      'Liquid-cooled e configurações padrão com NVIDIA, AMD, Intel e Dell em ambiente ao vivo. Muito barulhento — proteção auditiva obrigatória.'
+    ],
+    pr_hint: 'Efrén (DPL News) é o mais técnico — vai querer profundidade em arquitetura e soberania de dados. Posicionar: "o que vocês vão ver não está em nenhuma press release".',
+    alert: '🚫 ZERO fotos/vídeos/gravações. Escolta imediata se violado. Briefar TODOS antes de entrar.'
+  },
+  alienware: {
+    title: 'Alienware Experience Tour', short: 'Alienware',
+    date: 'Qui 16/04 · 09:30 — 10:30', fotos: 'Permitido', fotosOk: true,
+    loc: '701 E Parmer Ln, Austin TX 78755\nParmer South 4',
+    maps: 'https://maps.app.goo.gl/Ld3P3L8jfWkczGDr8',
+    host: 'Jonathan Royer + Gary Corpuz', poc: 'Matt McGowan — Matt.Mcgowan@dell.com (ramal 7288652)',
+    instructions: [
+      'Registrar no Parmer South 3 — Jonathan Royer encontra no lobby',
+      'Fotos permitidas',
+      'Confirmar com Jonathan se William pode usar câmera própria para vídeo'
+    ],
+    body: [
+      'Espaço imersivo de storytelling: passado, presente e futuro da Alienware. Sistemas históricos e atuais, benchmarking competitivo ao vivo, componentes internos expostos e impressora 3D funcional.',
+      'Projetado para gerar histórias sobre inovação e performance — ideal para conteúdo de mídia.'
+    ],
+    pr_hint: 'William (1,18M subs) é o alvo principal — confirmar filmagem para benchmark ao vivo. Potencial viral alto. Wallace (8,6M/mês) quer specs detalhados.',
+    alert: null
+  },
+  rugged: {
+    title: 'Rugged Lab Tour', short: 'Rugged Lab',
+    date: 'Qui 16/04 · 10:30 — 11:15', fotos: 'Permitido', fotosOk: true,
+    loc: '701 E Parmer Ln, Austin TX 78755\nParmer South 4',
+    maps: 'https://maps.app.goo.gl/Ld3P3L8jfWkczGDr8',
+    host: 'Jonathan Royer + Gary Corpuz', poc: 'Gary Corpuz — Gary.Corpuz@dell.com (ramal 7280335)',
+    instructions: ['Mesmo building que Alienware', 'Fotos permitidas'],
+    body: [
+      'Os sistemas mais duráveis da Dell são levados ao limite aqui. Testes de queda, pressão extrema, mudanças de temperatura, exposição a água e submersão total.',
+      'Casos de uso reais: segurança pública, defesa, industrial e campo. Durabilidade como decisão de design — não coincidência.'
+    ],
+    pr_hint: 'William pode querer filmar testes ao vivo — alto potencial viral. Bruno vai conectar com o ângulo humano de notebooks em missões extremas.',
+    alert: null
+  },
+  acoustic: {
+    title: 'Acoustic Chamber', short: 'Acoustic',
+    date: 'Qui 16/04 · 11:30 — 12:15', fotos: 'Permitido', fotosOk: true,
+    loc: '701 E Parmer Ln, Austin TX 78757\nParmer South 4',
+    maps: 'https://maps.app.goo.gl/Ld3P3L8jfWkczGDr8',
+    host: 'Michael Murphy — Global Product Compliance VP', poc: 'William Barclay — William.Barclay@dell.com (+1 512 593 5022)',
+    instructions: ['Mesmo building que Rugged Lab', 'Inclui visita ao Wireless Lab', 'Fotos permitidas'],
+    body: [
+      'Laboratório isolado onde a performance é medida em som. Medições acústicas precisas de ruído de ventiladores, incorporando feedback da Boeing.',
+      'Inclui Wireless Lab — sistemas testados para conectividade confiável em ambientes exigentes.'
+    ],
+    pr_hint: 'Bruno vai adorar: "a engenharia do silêncio que veio da Boeing". Wallace pode explorar ruído e autonomia em laptops profissionais.',
+    alert: null
+  }
+};
 
-function setLang(lang) {
-  currentLang = lang;
-  localStorage.setItem('repo_lang', lang);
-  document.documentElement.lang = lang;
-  document.querySelectorAll('[data-lang]').forEach(function(el) {
-    el.classList.toggle('active-lang', el.dataset.lang === lang);
-  });
-  document.querySelectorAll('.lang-btn').forEach(function(btn) {
-    btn.classList.toggle('active', btn.textContent.includes(lang === 'pt' ? 'PT' : 'ES'));
-  });
-}
-
-function openArticle(id) {
-  var el = document.getElementById('article-' + id);
-  if (!el) return;
-  el.classList.add('open');
-  el.scrollTop = 0;
+window.showTourDetail = function(id) {
+  var t = TOURS_COORD[id];
+  if (!t) return;
+  var h = '';
+  h += '<div style="background:linear-gradient(135deg,#0076CE,#004A93);padding:20px 18px 24px;color:#fff;border-radius:20px 20px 0 0">';
+  h += '<div style="font-size:11px;opacity:0.75;margin-bottom:6px">' + t.date + '</div>';
+  h += '<div style="font-size:20px;font-weight:800;margin-bottom:10px">' + t.title + '</div>';
+  h += t.fotosOk ? '<span style="background:rgba(255,255,255,0.2);border-radius:10px;font-size:11px;font-weight:600;padding:4px 10px;color:#fff">Fotos OK</span>' : '<span style="background:rgba(220,50,50,0.35);border-radius:10px;font-size:11px;font-weight:600;padding:4px 10px;color:#fff">ZERO fotos</span>';
+  h += '</div>';
+  if (t.alert) h += '<div style="background:#FFF0F0;border-left:4px solid #E53935;padding:12px 16px;font-size:13px;font-weight:700;color:#B71C1C">' + t.alert + '</div>';
+  h += '<div class="sp-section"><div class="sp-label">Localizacao</div><div class="sp-text" style="white-space:pre-line">' + t.loc + '</div><a href="' + t.maps + '" target="_blank" style="font-size:13px;font-weight:700;color:#0076CE;margin-top:6px;display:block">Abrir no Maps</a></div>';
+  h += '<div class="sp-section"><div class="sp-label">Host e POC</div><div class="sp-text"><strong>Host:</strong> ' + t.host + '</div><div class="sp-text" style="white-space:pre-line"><strong>POC:</strong> ' + t.poc + '</div></div>';
+  h += '<div class="sp-section"><div class="sp-label">Instrucoes</div>';
+  for (var i = 0; i < t.instructions.length; i++) h += '<div class="sp-bullet">' + t.instructions[i] + '</div>';
+  h += '</div>';
+  h += '<div class="sp-section"><div class="sp-label">Sobre o tour</div>';
+  for (var j = 0; j < t.body.length; j++) h += '<div class="sp-text">' + t.body[j] + '</div>';
+  h += '</div>';
+  h += '<div class="sp-section"><div class="sp-hint"><div style="font-size:9px;font-weight:800;letter-spacing:0.12em;color:#7B1FA2;text-transform:uppercase;margin-bottom:4px">Estrategia PR</div><div style="font-size:12px;color:#3C3C43;line-height:1.6">' + t.pr_hint + '</div></div></div>';
+  document.getElementById('tour-content').innerHTML = h;
+  document.getElementById('tour-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
-}
+};
 
-function closeArticle(id) {
-  var el = document.getElementById('article-' + id);
-  if (!el) return;
-  el.classList.remove('open');
+window.closeTourModal = function() {
+  document.getElementById('tour-modal').classList.remove('open');
   document.body.style.overflow = '';
-}
+};
 
-document.addEventListener('keydown', function(e) {
-  if (e.key !== 'Escape') return;
-  document.querySelectorAll('.article-overlay.open').forEach(function(el) {
-    el.classList.remove('open');
-  });
+var ROUTES={"hotel_to_tacc": {"label": "Hotel → TACC", "from": "Hyatt Place The Domain, Austin TX", "to": "10505 Exploration Way, Austin TX", "origin": "30.401611,-97.731083", "dest": "30.387222,-97.726944"}, "tacc_to_ebc": {"label": "TACC → EBC", "from": "TACC · 10505 Exploration Way", "to": "EBC · 2302 Greenlawn Blvd, Round Rock", "origin": "30.387222,-97.726944", "dest": "30.508333,-97.678056"}, "ebc_to_hotel": {"label": "EBC → Hotel", "from": "EBC · 2302 Greenlawn Blvd, Round Rock", "to": "Hyatt Place The Domain, Austin TX", "origin": "30.508333,-97.678056", "dest": "30.401611,-97.731083"}, "hotel_to_parmer": {"label": "Hotel → Parmer Campus", "from": "Hyatt Place The Domain, Austin TX", "to": "701 E Parmer Ln, Austin TX", "origin": "30.401611,-97.731083", "dest": "30.425000,-97.680278"}, "parmer_to_haywire": {"label": "Parmer → Haywire", "from": "701 E Parmer Ln, Austin TX", "to": "11501 Rock Rose Ave, Austin TX", "origin": "30.425000,-97.680278", "dest": "30.401139,-97.725806"}, "haywire_to_hotel": {"label": "Haywire → Hotel", "from": "11501 Rock Rose Ave, Austin TX", "to": "Hyatt Place The Domain, Austin TX", "origin": "30.401139,-97.725806", "dest": "30.401611,-97.731083"}, "hotel_to_sixtyvines": {"label": "Hotel → Sixty Vines", "from": "Hyatt Place The Domain, Austin TX", "to": "3401 Esperanza Crossing, Austin TX", "origin": "30.401611,-97.731083", "dest": "30.404111,-97.726556"}, "hotel_to_saltlick": {"label": "Hotel → Salt Lick", "from": "Hyatt Place The Domain, Austin TX", "to": "3350 E Palm Valley Blvd, Round Rock TX", "origin": "30.401611,-97.731083", "dest": "30.503944,-97.647972"}, "hotel_to_quince": {"label": "Hotel → Quince Lakehouse", "from": "Hyatt Place The Domain, Austin TX", "to": "3825 Lake Austin Blvd, Austin TX", "origin": "30.401611,-97.731083", "dest": "30.290528,-97.773833"}, "aus_to_hotel": {"label": "AUS → Hotel", "from": "Austin-Bergstrom International Airport", "to": "Hyatt Place The Domain, Austin TX", "origin": "30.197535,-97.662015", "dest": "30.401611,-97.731083"}, "hotel_to_aus": {"label": "Hotel → AUS", "from": "Hyatt Place The Domain, Austin TX", "to": "Austin-Bergstrom International Airport", "origin": "30.401611,-97.731083", "dest": "30.197535,-97.662015"}};
+var TIME_EST={"hotel_to_tacc": "~25 min", "tacc_to_ebc": "~30 min", "ebc_to_hotel": "~20 min", "hotel_to_parmer": "~25 min", "parmer_to_haywire": "~15 min", "haywire_to_hotel": "~15 min", "hotel_to_sixtyvines": "~5 min", "hotel_to_saltlick": "~20 min", "hotel_to_quince": "~20 min", "aus_to_hotel": "~25 min", "hotel_to_aus": "~25 min"};
+window.openRoute = function(id) {
+  var r = ROUTES[id]; if (!r) return;
+  document.getElementById('rm-title').textContent = r.label;
+  document.getElementById('rm-from').textContent = r.from;
+  document.getElementById('rm-to').textContent = r.to;
+  document.getElementById('rm-time').textContent = TIME_EST[id] || '~20 min';
+  var o = r.origin.split(','), d = r.dest.split(',');
+  var lat1=+o[0],lng1=+o[1],lat2=+d[0],lng2=+d[1];
+  var embed = 'https://maps.google.com/maps?saddr='+encodeURIComponent(r.from)+'&daddr='+encodeURIComponent(r.to)+'&output=embed';
+  document.getElementById('rm-map').innerHTML = '<iframe src="'+embed+'" style="width:100%;height:100%;border:none" loading="lazy"></iframe>';
+  document.getElementById('rm-gmaps-link').href = 'https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(r.from)+'&destination='+encodeURIComponent(r.to)+'&travelmode=driving';
+  var uberUrl = 'https://m.uber.com/ul/?action=setPickup' + '&pickup%5Blatitude%5D=' + lat1 + '&pickup%5Blongitude%5D=' + lng1 + '&pickup%5Bnickname%5D=' + encodeURIComponent(r.from) + '&pickup%5BformattedAddress%5D=' + encodeURIComponent(r.from) + '&dropoff%5Blatitude%5D=' + lat2 + '&dropoff%5Blongitude%5D=' + lng2 + '&dropoff%5Bnickname%5D=' + encodeURIComponent(r.to) + '&dropoff%5BformattedAddress%5D=' + encodeURIComponent(r.to);
+  document.getElementById('rm-uber-link').href = uberUrl;
+  document.getElementById('route-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+window.closeRouteModal = function() {
+  document.getElementById('route-modal').classList.remove('open');
   document.body.style.overflow = '';
-});
-
-document.addEventListener('DOMContentLoaded', function() { setLang(currentLang); });
+};
 </script>
-<div class="article-overlay" id="article-dell-ai">
-  <div class="article-topbar">
-    <button class="article-back" onclick="closeArticle('dell-ai')">← <span data-lang="pt">Voltar</span><span data-lang="es">Volver</span></button>
-    <div class="header-sep"></div>
-    <div class="header-title">Dell + IA</div>
-  </div>
-  <div class="article-content">
-    <div class="article-cat" data-lang="pt">🤖 Posicionamento · Dell Technologies</div>
-    <div class="article-cat" data-lang="es">🤖 Posicionamiento · Dell Technologies</div>
 
-    <h1 class="article-title" data-lang="pt">Dell + IA — Por que a Dell é central na transformação da inteligência artificial</h1>
-    <h1 class="article-title" data-lang="es">Dell + IA — Por qué Dell es central en la transformación de la inteligencia artificial</h1>
-
-    <!-- PT -->
-        <div data-lang="pt">
-      <p class="article-lead">A Dell Technologies não está apenas participando da era da IA — está engenhando, habilitando e liderando ela. Esta é a tese central da empresa para os próximos anos, e a visita ao campus de Austin é uma janela direta para o que isso significa na prática.</p>
-      <div class="article-body">
-
-        <h3>O posicionamento central: Dell AI Factory</h3>
-        <p>O conceito que organiza toda a estratégia de IA da Dell é o <strong>Dell AI Factory</strong> — uma plataforma integrada e um playbook comprovado que cobre toda a jornada de IA de uma organização, desde o PC na mesa do usuário até os maiores data centers do planeta. O objetivo é claro: ajudar empresas e governos a transformar seus dados proprietários em vantagem competitiva.</p>
-        <p>Em março de 2026, ao celebrar dois anos do Dell AI Factory com NVIDIA no GTC 2026, a Dell anunciou que a plataforma já conta com <strong>mais de 4.000 clientes</strong> implementando IA em produção, com adotantes iniciais reportando até <strong>2,6× de ROI no primeiro ano</strong>, segundo estudo da Enterprise Strategy Group. A empresa também registrou seu melhor trimestre em IA empresarial no Q4 2025.</p>
-        <p class="src-line">Fonte: <a href="https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~03~dell-ai-factory-with-nvidia-delivers-proven-path-to-enterprise-ai-roi.htm" target="_blank">Dell · Press Release GTC 2026 · Mar 2026 ↗</a></p>
-
-        <h3>Escala e liderança de mercado</h3>
-        <p>A Dell parte de uma posição de força consolidada. A empresa detém a <strong>posição nº 1 em compute e storage</strong> — com participação de mercado maior que os dois concorrentes seguintes combinados. Liderou em receita de compute por <strong>33 trimestres consecutivos</strong> e em data storage por <strong>94 trimestres consecutivos</strong>. Em dois anos de Dell AI Factory, a empresa construiu um portfólio otimizado para IA de <strong>mais de $20 bilhões</strong>.</p>
-        <p>A IA é projetada para adicionar <strong>$15 trilhões à economia global até 2030</strong>. No centro desse crescimento está o dado proprietário — o combustível das fábricas de IA. A Dell se posiciona como a empresa que fornece a infraestrutura end-to-end para as organizações explorarem esse ativo.</p>
-
-        <h3>Do PC ao data center — uma abordagem única</h3>
-        <p>O que diferencia a Dell de fornecedores de nuvem ou de chips é a amplitude: é a única empresa que cobre toda a cadeia, do dispositivo pessoal à infraestrutura de missão crítica.</p>
-        <p><strong>AI PCs</strong> — A Dell oferece um portfólio amplo de PCs com IA integrada para diferentes perfis de usuário, do consumidor geral ao profissional. O CEO Michael Dell afirmou: "O PC é o dispositivo de produtividade pessoal mais importante de nossas vidas e está sendo transformado pela IA." Como líder nº 1 em PCs comerciais, a Dell conta com um ecossistema de <strong>mais de 100 ISVs</strong> desenvolvendo aplicações para NPUs on-device.</p>
-        <p><strong>Workstations e AI Accelerators — Dell Pro Max com GB10 e GB300</strong></p>
-        <p>A Dell é a líder global em workstations com GPUs profissionais NVIDIA e introduziu dois sistemas revolucionários que trazem performance de data center para a mesa do desenvolvedor:</p>
-        <p>O <strong>Dell Pro Max com GB10</strong> é equipado com o NVIDIA GB10 Grace Blackwell Superchip, 128GB de memória unificada, suporta modelos de até <strong>200 bilhões de parâmetros</strong> e entrega <strong>1.000 TOPS em FP4</strong>. É um dispositivo compacto (150×150×51mm, 1,3kg) com DGX OS pré-instalado. Dois sistemas GB10 conectados funcionam como um único nó, suportando modelos de até <strong>400 bilhões de parâmetros</strong>.</p>
-        <p>O <strong>Dell Pro Max com GB300</strong> usa o NVIDIA GB300 Grace Blackwell Ultra Superchip — a Dell foi a <strong>primeira OEM do mundo a lançar um desktop com esse chip</strong>. Oferece 784GB de memória unificada, suporta modelos de até <strong>1 trilhão de parâmetros</strong> e entrega <strong>20.000 TOPS em FP4</strong>. O sistema conta com o MaxCool, uma solução de resfriamento proprietária da Dell com até 5× mais eficiência térmica. Ambos os sistemas suportam NVIDIA NemoClaw e NVIDIA OpenShell para agentes de IA autônomos rodando localmente.</p>
-        <p class="src-line">Fontes: <a href="https://www.dell.com/en-us/blog/dell-pro-max-with-gb10-purpose-built-for-ai-developers/" target="_blank">Dell · Pro Max GB10 Blog ↗</a> · <a href="https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~03~dell-technologies-first-to-ship-nvidia-gb300-desktop-for-autonomous-ai-agents-with-nvidia-openshell.htm" target="_blank">Dell · GB300 Press Release · Mar 2026 ↗</a></p>
-        <p><strong>Servidores e infraestrutura</strong> — Os Dell PowerEdge servers com aceleração NVIDIA formam o núcleo do AI Factory. A Dell foi a <strong>primeira a lançar o rack NVL72 GB200 e repetiu o feito sendo a primeira a lançar o rack GB300</strong>, chegando meses à frente da concorrência. Um diferencial operacional relevante: a Dell consegue levar um rack totalmente integrado do seu dock até operacional no data center do cliente em <strong>24 a 36 horas</strong>.</p>
-        <p>A Dell não apenas monta designs de referência: desenvolve soluções personalizadas e otimizadas para os maiores clientes, com equipes de engenharia dedicadas que co-engenharam soluções para ambientes de data center específicos. Para os maiores e mais complexos deployments, a empresa registra <strong>uptime acima de 99%</strong> — requisito crítico para clusters de IA de missão crítica.</p>
-        <p><strong>Storage e dados</strong> — A Dell AI Data Platform integra PowerScale e ObjectScale, projetada para gerenciar dados não estruturados — que devem representar 80% do crescimento de dados. Entre as inovações em desenvolvimento: o Lightning File System, um sistema de arquivos paralelo para performance extrema, e aceleração de inferência com KV caching, gerenciados pelo Dell Data Lakehouse.</p>
-        <p><strong>Edge</strong> — O Dell NativeEdge automatiza a implantação de soluções de IA na borda da rede, com integrações para frameworks da NVIDIA e Intel.</p>
-        <p><strong>Cooling</strong> — À medida que a densidade de potência dos racks caminha para 1 megawatt, a Dell desenvolve sistemas completos de resfriamento do zero, incluindo soluções PowerCool customizadas com cold plates, smart manifolds e sensores de vazamento — tudo propriedade intelectual da Dell.</p>
-        <p class="src-line">Fonte: <a href="https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2025~05~dell-technologies-fuels-enterprise-ai-innovation-with-infrastructure-solutions-and-services.htm" target="_blank">Dell · DTW 2025 Press Release · Mai 2025 ↗</a></p>
-
-        <h3>A parceria com NVIDIA</h3>
-        <p>O Dell AI Factory com NVIDIA é descrito como a única solução end-to-end de IA empresarial do mercado. Jensen Huang, CEO da NVIDIA, declarou: "Todas as indústrias estão correndo para construir fábricas de IA para produzir inteligência. Dell e NVIDIA estão em parceria para entregar a infraestrutura de IA mais abrangente e end-to-end do setor. De workstations na mesa do usuário a fábricas de IA em escala de data center, esta plataforma vai impulsionar a próxima onda de avanços movidos por IA."</p>
-        <p>O ecossistema de parceiros da Dell para IA inclui NVIDIA, AMD, Intel, OpenAI, xAI, Google Gemini, Meta Llama, Hugging Face, Cohere e Red Hat.</p>
-        <p class="src-line">Fonte: <a href="https://www.dell.com/en-uk/blog/let-s-dive-into-the-dell-ai-factory-announcements-from-dell-technologies-world/" target="_blank">Dell Blog · AI Factory Announcements DTW ↗</a></p>
-
-        <h3>IA empresarial — automação e serviços</h3>
-        <p>A Dell oferece uma camada de automação via <strong>Dell Automation Platform</strong> integrada ao AI Factory, que permite implantar soluções validadas com framework seguro e resultados reproduzíveis. Os <strong>Dell Professional Services</strong> oferecem pilotos interativos turnkey de casos de uso de IA usando dados reais do cliente, com métricas de ROI definidas antes de escalar os investimentos.</p>
-        <p>A Dell também atende à demanda por <strong>IA soberana</strong> de governos que exigem controle sobre seus modelos e dados, com infraestrutura que permite residência de dados, segurança e conformidade regulatória sem sacrificar performance.</p>
-        <p class="src-line">Fonte: <a href="https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2025~11~dell-technologies-accelerates-enterprise-ai-with-powerful-automated-solutions.htm" target="_blank">Dell · SC25 Press Release · Nov 2025 ↗</a></p>
-
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-top:28px;">
-        <a class="article-source-link" href="https://www.dell.com/en-us/shop/scc/sc/artificial-intelligence" target="_blank">🔗 Dell AI Solutions — página oficial ↗</a>
-        <a class="article-source-link" href="https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~03~dell-ai-factory-with-nvidia-delivers-proven-path-to-enterprise-ai-roi.htm" target="_blank">🔗 Dell AI Factory · GTC 2026 Press Release ↗</a>
-        <a class="article-source-link" href="https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2025~11~dell-technologies-accelerates-enterprise-ai-with-powerful-automated-solutions.htm" target="_blank">🔗 Dell AI Factory · SC25 Press Release ↗</a>
-      </div>
-    </div>
-
-    <!-- ES -->
-        <div data-lang="es">
-      <p class="article-lead">Dell Technologies no está simplemente participando en la era de la IA — la está ingeniando, habilitando y liderando. Esta es la tesis central de la empresa para los próximos años, y la visita al campus de Austin es una ventana directa a lo que eso significa en la práctica.</p>
-      <div class="article-body">
-
-        <h3>El posicionamiento central: Dell AI Factory</h3>
-        <p>El concepto que organiza toda la estrategia de IA de Dell es el <strong>Dell AI Factory</strong> — una plataforma integrada y un playbook comprobado que cubre todo el recorrido de IA de una organización, desde el PC en el escritorio del usuario hasta los mayores data centers del planeta. El objetivo es claro: ayudar a empresas y gobiernos a transformar sus datos propietarios en ventaja competitiva.</p>
-        <p>En marzo de 2026, al celebrar dos años del Dell AI Factory con NVIDIA en GTC 2026, Dell anunció que la plataforma ya cuenta con <strong>más de 4.000 clientes</strong> implementando IA en producción, con adoptantes iniciales reportando hasta <strong>2,6× de ROI en el primer año</strong>, según un estudio de Enterprise Strategy Group. La empresa también registró su mejor trimestre en IA empresarial en Q4 2025.</p>
-        <p class="src-line">Fuente: <a href="https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~03~dell-ai-factory-with-nvidia-delivers-proven-path-to-enterprise-ai-roi.htm" target="_blank">Dell · Press Release GTC 2026 · Mar 2026 ↗</a></p>
-
-        <h3>Escala y liderazgo de mercado</h3>
-        <p>Dell parte de una posición de fortaleza consolidada. La empresa ocupa la <strong>posición nº 1 en compute y storage</strong> — con participación de mercado mayor que los dos siguientes competidores combinados. Ha liderado en ingresos de compute durante <strong>33 trimestres consecutivos</strong> y en data storage durante <strong>94 trimestres consecutivos</strong>. En dos años de Dell AI Factory, ha construido un portafolio optimizado para IA de <strong>más de $20 mil millones</strong>.</p>
-        <p>Se proyecta que la IA agregará <strong>$15 billones a la economía global para 2030</strong>. En el centro de ese crecimiento están los datos propietarios — el combustible de las fábricas de IA. Dell se posiciona como la empresa que provee la infraestructura end-to-end para que las organizaciones exploten ese activo.</p>
-
-        <h3>Del PC al data center — un enfoque único</h3>
-        <p>Lo que diferencia a Dell de proveedores de nube o de chips es la amplitud: es la única empresa que cubre toda la cadena, del dispositivo personal a la infraestructura de misión crítica.</p>
-        <p><strong>AI PCs</strong> — Dell ofrece un amplio portafolio de PCs con IA integrada para diferentes perfiles de usuario, del consumidor general al profesional. El CEO Michael Dell afirmó: "El PC es el dispositivo de productividad personal más importante de nuestras vidas y está siendo transformado por la IA." Como líder nº 1 en PCs comerciales, Dell cuenta con un ecosistema de <strong>más de 100 ISVs</strong> desarrollando aplicaciones para NPUs on-device.</p>
-        <p><strong>Workstations y AI Accelerators — Dell Pro Max con GB10 y GB300</strong></p>
-        <p>Dell es líder global en workstations con GPUs profesionales NVIDIA e introdujo dos sistemas que llevan el rendimiento del data center al escritorio del desarrollador:</p>
-        <p>El <strong>Dell Pro Max con GB10</strong> está equipado con el NVIDIA GB10 Grace Blackwell Superchip, 128GB de memoria unificada, soporta modelos de hasta <strong>200 mil millones de parámetros</strong> y entrega <strong>1.000 TOPS en FP4</strong>. Es un dispositivo compacto (150×150×51mm, 1,3kg) con DGX OS preinstalado. Dos sistemas GB10 conectados funcionan como un único nodo, soportando modelos de hasta <strong>400 mil millones de parámetros</strong>.</p>
-        <p>El <strong>Dell Pro Max con GB300</strong> usa el NVIDIA GB300 Grace Blackwell Ultra Superchip — Dell fue la <strong>primera OEM del mundo en lanzar un desktop con este chip</strong>. Ofrece 784GB de memoria unificada, soporta modelos de hasta <strong>1 billón de parámetros</strong> y entrega <strong>20.000 TOPS en FP4</strong>. El sistema cuenta con MaxCool, solución de refrigeración propietaria de Dell con hasta 5× mayor eficiencia térmica. Ambos sistemas soportan NVIDIA NemoClaw y NVIDIA OpenShell para agentes de IA autónomos locales.</p>
-        <p class="src-line">Fuentes: <a href="https://www.dell.com/en-us/blog/dell-pro-max-with-gb10-purpose-built-for-ai-developers/" target="_blank">Dell · Pro Max GB10 Blog ↗</a> · <a href="https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~03~dell-technologies-first-to-ship-nvidia-gb300-desktop-for-autonomous-ai-agents-with-nvidia-openshell.htm" target="_blank">Dell · GB300 Press Release · Mar 2026 ↗</a></p>
-        <p><strong>Servidores e infraestructura</strong> — Los Dell PowerEdge servers con aceleración NVIDIA forman el núcleo del AI Factory. Dell fue la <strong>primera en lanzar el rack NVL72 GB200 y repitió ese hito siendo la primera en lanzar el rack GB300</strong>, llegando meses por delante de la competencia. Un diferencial operativo relevante: Dell puede llevar un rack totalmente integrado desde su muelle hasta operativo en el data center del cliente en <strong>24 a 36 horas</strong>.</p>
-        <p>Dell no solo ensambla diseños de referencia: desarrolla soluciones personalizadas y optimizadas para los mayores clientes, con equipos de ingeniería dedicados que co-ingenian soluciones para entornos de data center específicos. Para los deployments más grandes y complejos, la empresa registra <strong>uptime superior al 99%</strong>.</p>
-        <p><strong>Storage y datos</strong> — La Dell AI Data Platform integra PowerScale y ObjectScale, diseñada para gestionar datos no estructurados — que representarán el 80% del crecimiento de datos. Entre las innovaciones en desarrollo: Lightning File System, un sistema de archivos paralelo para performance extrema, y aceleración de inferencia con KV caching, gestionados por Dell Data Lakehouse.</p>
-        <p><strong>Edge</strong> — Dell NativeEdge automatiza la implementación de soluciones de IA en el borde de la red, con integraciones para frameworks de NVIDIA e Intel.</p>
-        <p><strong>Cooling</strong> — A medida que la densidad de potencia de los racks avanza hacia 1 megawatt, Dell desarrolla sistemas completos de refrigeración desde cero, incluyendo soluciones PowerCool personalizadas con cold plates, smart manifolds y sensores de fuga — todo propiedad intelectual de Dell.</p>
-        <p class="src-line">Fuente: <a href="https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2025~05~dell-technologies-fuels-enterprise-ai-innovation-with-infrastructure-solutions-and-services.htm" target="_blank">Dell · DTW 2025 Press Release · Mai 2025 ↗</a></p>
-
-        <h3>La alianza con NVIDIA</h3>
-        <p>El Dell AI Factory con NVIDIA se describe como la única solución end-to-end de IA empresarial del mercado. Jensen Huang, CEO de NVIDIA, declaró: "Todas las industrias están corriendo para construir fábricas de IA para producir inteligencia. Dell y NVIDIA se están asociando para ofrecer la infraestructura de IA más amplia y end-to-end del sector. Desde workstations en el escritorio hasta fábricas de IA a escala de data center, esta plataforma impulsará la próxima ola de avances impulsados por IA."</p>
-        <p>El ecosistema de socios de Dell para IA incluye NVIDIA, AMD, Intel, OpenAI, xAI, Google Gemini, Meta Llama, Hugging Face, Cohere y Red Hat.</p>
-        <p class="src-line">Fuente: <a href="https://www.dell.com/en-uk/blog/let-s-dive-into-the-dell-ai-factory-announcements-from-dell-technologies-world/" target="_blank">Dell Blog · AI Factory Announcements DTW ↗</a></p>
-
-        <h3>IA empresarial — automatización y servicios</h3>
-        <p>Dell ofrece una capa de automatización vía <strong>Dell Automation Platform</strong> integrada al AI Factory, que permite implantar soluciones validadas con framework seguro y resultados reproducibles. Los <strong>Dell Professional Services</strong> ofrecen pilotos interactivos turnkey de casos de uso de IA usando datos reales del cliente, con métricas de ROI definidas antes de escalar las inversiones.</p>
-        <p>Dell también atiende la demanda de <strong>IA soberana</strong> de gobiernos que exigen control sobre sus modelos y datos, con infraestructura que permite residencia de datos, seguridad y cumplimiento regulatorio sin sacrificar rendimiento.</p>
-        <p class="src-line">Fuente: <a href="https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2025~11~dell-technologies-accelerates-enterprise-ai-with-powerful-automated-solutions.htm" target="_blank">Dell · SC25 Press Release · Nov 2025 ↗</a></p>
-
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-top:28px;">
-        <a class="article-source-link" href="https://www.dell.com/en-us/shop/scc/sc/artificial-intelligence" target="_blank">🔗 Dell AI Solutions — página oficial ↗</a>
-        <a class="article-source-link" href="https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~03~dell-ai-factory-with-nvidia-delivers-proven-path-to-enterprise-ai-roi.htm" target="_blank">🔗 Dell AI Factory · GTC 2026 Press Release ↗</a>
-        <a class="article-source-link" href="https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2025~11~dell-technologies-accelerates-enterprise-ai-with-powerful-automated-solutions.htm" target="_blank">🔗 Dell AI Factory · SC25 Press Release ↗</a>
-      </div>
-    </div>
-
+<div id="sp-modal" onclick="if(event.target===this)closeSpModal()">
+  <div class="sp-sheet">
+    <button class="sp-close" onclick="closeSpModal()">&#x2715;</button>
+    <div id="sp-content"></div>
   </div>
 </div>
 
+<script>
+var SPOKESPERSONS = {
+  sp_drew: {
+    name: 'Drew Schulke',
+    role: 'VP de Product Management, Primary Storage — Dell Technologies',
+    photo: 'https://dellpr.github.io/presstripWallace/ds.jpg',
+    time: 'Qua 15/04 · 14:30 — 15:00 (30 min)',
+    topic: 'Primary Storage Portfolio',
+    li: 'https://www.linkedin.com/in/drewschulke/',
+    session_desc: 'Sessão 1:many no EBC. Drew cobrirá o portfólio completo de Primary Storage da Dell: PowerMax, PowerStore, PowerVault e PowerFlex. Foco em como storage é a infraestrutura crítica que viabiliza IA em escala.',
+    talking_points: [
+      'Storage como backbone invisível da IA — sem armazenamento confiável, não existe IA em escala',
+      'PowerMax: tier máximo de performance e resiliência para workloads críticos de negócio',
+      'PowerStore: all-flash escalável para modernização de data center',
+      'PowerFlex: software-defined storage para ambientes de IA e HPC',
+      '25+ anos na Dell — da engenharia ao produto enterprise'
+    ],
+    pr_hint: 'Para Roberta (Convergência Digital), explorar storage como investimento estratégico B2B. Para Rodrigo (El Economista), ângulo de ROI e competitividade empresarial. Para Bruno (Super Interessante), storage como a infraestrutura que permite IA médica e científica em escala.',
+    dontsay: 'Não falar sobre pricing específico, roadmap futuro além do portfólio atual, ou comparar diretamente com concorrentes (Pure Storage, NetApp). Se perguntado sobre supply chain ou tarifas, redirecionar.'
+  },
+  sp_aa: {
+    name: 'Armando Acosta & David Schmidt',
+    role: 'AI Servers & PowerEdge Product Management — Dell Technologies',
+    photo: 'https://dellpr.github.io/presstripWallace/aa.jpg',
+    photo2: 'https://dellpr.github.io/presstripWallace/davidschm.jpg',
+    time: 'Qua 15/04 · 15:00 — 15:30 (30 min)',
+    topic: 'AI Servers & PowerEdge',
+    li: 'https://www.linkedin.com/in/armando-acosta-078a311/',
+    li2: 'https://www.linkedin.com/in/davidtschmidt/',
+    session_desc: 'Sessão 1:many no EBC. Armando e David cobrem juntos o espectro completo de servidores de IA da Dell — da arquitetura de produto ao impacto para o cliente. PowerEdge como plataforma de AI Factory.',
+    talking_points: [
+      'PowerEdge XE9680/XE9685L: purpose-built para IA, até 8 GPUs NVIDIA, liquid cooling nativo',
+      'Dell como primeiro OEM a entregar servidores validados para GB200 NVL72 da NVIDIA',
+      'AI Factory: do servidor isolado à infraestrutura completa de IA — Dell + NVIDIA',
+      '$43B em backlog de IA, 4.000+ clientes, orientação FY27 de $50B',
+      'TACC Frontera como prova real: Dell co-projetou +12 supercomputadores com TACC'
+    ],
+    pr_hint: 'Efrén (DPL News) é o mais técnico — vai querer profundidade em arquitetura e soberania de dados. Rodrigo (El Economista) quer impacto econômico: AI Factory como habilitador de novos modelos de negócio LATAM. Roberta (Convergência Digital) quer casos enterprise reais.',
+    dontsay: 'Não especular sobre roadmap de novos servidores além do portfólio anunciado. Não mencionar parceiros específicos sem aprovação. Não falar sobre pricing ou margens.'
+  },
+  sp_alex: {
+    name: 'Alex Tyltin',
+    role: 'Workstations Lead & AI Strategy — Dell Technologies',
+    photo: 'https://dellpr.github.io/presstripWallace/at.jpg',
+    time: 'Qua 15/04 · 15:30 — 16:00 (30 min)',
+    topic: 'Dell Pro Max com GB10 & GB300 Workstations',
+    li: 'https://www.linkedin.com/in/alextyltin/',
+    session_desc: '🔥 SESSÃO MAIS QUENTE DO DIA. Alex apresentará os Dell Pro Max com GB10 e GB300 — as primeiras desktops do mundo com o NVIDIA Grace Blackwell Ultra superchip. William (Loop Infinito) quase certamente vai querer filmar. Preparar espaço e confirmar permissão de gravação com Alex.',
+    talking_points: [
+      'GB300: 20 petaFLOPS FP4 + 748GB memória unificada — capacidade de data center numa caixa de desktop',
+      'GB10: entry point para IA local — roda modelos de 400B de parâmetros no desktop',
+      'Primeiros do MUNDO: Dell foi o primeiro OEM a enviar desktop com NVIDIA Grace Blackwell Ultra',
+      'Use cases: cientistas de dados, engenheiros de IA, pesquisadores — IA local sem latência de cloud',
+      'Dell Pro Max com GB300 entrega o que um data center de $10M entregava há 3 anos — na mesa do dev'
+    ],
+    pr_hint: '⭐ PRIORIDADE MÁXIMA: William (Loop Infinito, 1,18M subs) vai querer filmar — confirmar com Alex se pode usar câmera própria. Um vídeo do William com o GB300 pode alcançar 500K+ views. Wallace (TudoCelular, 8,6M visitas/mês) vai querer specs detalhados. Bruno (Super Interessante) vai querer o ângulo humano: quem usa isso e por quê.',
+    dontsay: 'Não especular sobre preços além do MSRP público. Não falar sobre roadmap de futuros chips. Não comparar diretamente com Apple Mac Pro ou outros concorrentes.'
+  },
+  sp_zach: {
+    name: 'Zach Noskey',
+    role: 'Head of Product, Commercial Notebooks & Education — Dell Technologies',
+    photo: 'https://www.dell.com/wp-uploads/2026/03/Zach-N.jpg',
+    time: 'Qua 15/04 · 16:00 — 16:30 (30 min)',
+    topic: 'AI PCs & Commercial Notebooks',
+    li: 'https://www.linkedin.com/in/zachnoskey2813308004/',
+    session_desc: 'Sessão 1:many no EBC. Zach cobrirá a estratégia de AI PCs da Dell para o segmento comercial — da estratégia de portfólio ao PC refresh cycle e o impacto do Windows 10 EOL. Porta-voz ideal para Wallace (TudoCelular).',
+    talking_points: [
+      'PC refresh cycle: base instalada global de 1,5B PCs, muitos com 3-5 anos de uso — momento histórico',
+      'Windows 10 EOL: 500M+ PCs precisam de update de hardware — catalisa uma das maiores ondas de renovação',
+      'AI PCs Dell: NPU integrada para inferência local, privacidade de dados, sem dependência de cloud',
+      'Dell #1 em Commercial PCs, workstations e displays — escala sem precedentes',
+      '100+ ISVs desenvolvendo aplicações que aproveitam NPU nos dispositivos Dell'
+    ],
+    pr_hint: 'Wallace (TudoCelular, 8,6M/mês) é o match perfeito: PC refresh + Windows 10 EOL é o ângulo ideal para o público consumer/profissional. Rodrigo (El Economista) vai querer dados de mercado LATAM — mencionar que o refresh é especialmente relevante em economias emergentes. William pode querer review de AI PC — confirmar se há demo hands-on.',
+    dontsay: 'Não mencionar pricing específico de modelos. Não especular sobre futuras gerações de NPU. Não comentar sobre performance vs Apple Silicon sem dados validados.'
+  },
+  sp_travis: {
+    name: 'Travis North',
+    role: 'Thermal Cooling Expert — Dell Technologies',
+    photo: 'https://dellpr.github.io/presstripWallace/tn.jpg',
+    time: 'Qui 16/04 · 11:15 — 11:30 (15 min)',
+    topic: 'Thermal Engineering & Cooling Solutions',
+    li: 'https://www.linkedin.com/in/travis-north-8b12415/',
+    session_desc: 'Briefing 1:many de 15 min após o Rugged Lab Tour. Travis é especialista em soluções térmicas para sistemas de alta performance. Sessão técnica focada em como a engenharia de resfriamento é fundamental para IA em escala.',
+    talking_points: [
+      'Thermal design como decisão de produto — não como afterthought de engenharia',
+      'Liquid cooling para AI servers: por que ar não é suficiente para workloads de IA de próxima geração',
+      'Acoustic Chamber connection: como engenharia térmica e acústica são inseparáveis no design moderno',
+      'Boeing feedback loop: como clientes enterprise exigentes moldam o design térmico dos produtos Dell',
+      'Performance sustentada: thermal throttling como inimigo silencioso da produtividade'
+    ],
+    pr_hint: 'Bruno (Super Interessante) vai adorar o ângulo humano: a engenharia invisível que faz tudo funcionar. Wallace (TudoCelular) pode conectar thermal management a battery life e performance sustentada em laptops. Esta é uma sessão mais técnica — se o grupo estiver cansado após os tours, manter a energia alta com perguntas direcionadas.',
+    dontsay: 'Evitar detalhes de roadmap de future cooling solutions. Não fazer comparações diretas com soluções de concorrentes.'
+  }
+};
+
+window.showSpokesperson = function(id) {
+  var s = SPOKESPERSONS[id];
+  if (!s) return;
+  var h = '<div class="sp-hero">';
+  h += '<div class="sp-hero-row">';
+  if (s.photo2) {
+    h += '<div style="display:flex;gap:4px;flex-shrink:0">';
+    h += '<img src="'+s.photo+'" class="sp-photo" style="width:50px;height:50px">';
+    h += '<img src="'+s.photo2+'" class="sp-photo" style="width:50px;height:50px">';
+    h += '</div>';
+  } else if (s.photo) {
+    h += '<img src="'+s.photo+'" class="sp-photo">';
+  }
+  h += '<div><div class="sp-name">'+s.name+'</div><div class="sp-role">'+s.role+'</div></div>';
+  h += '</div>';
+  h += '<div class="sp-time-badge">🕐 '+s.time+'</div>';
+  h += '</div>';
+
+  h += '<div class="sp-section"><div class="sp-label">Tópico da Sessão</div>';
+  h += '<div class="sp-text"><strong>'+s.topic+'</strong></div>';
+  h += '<div class="sp-text">'+s.session_desc+'</div></div>';
+
+  h += '<div class="sp-section"><div class="sp-label">Talking Points esperados</div>';
+  s.talking_points.forEach(function(tp) { h += '<div class="sp-bullet">'+tp+'</div>'; });
+  h += '</div>';
+
+  h += '<div class="sp-section"><div class="sp-label">🎯 Estratégia PR</div>';
+  h += '<div class="sp-hint">'+s.pr_hint+'</div></div>';
+
+  h += '<div class="sp-section"><div class="sp-label">⚠️ Não falar sobre</div>';
+  h += '<div class="sp-dontsay">'+s.dontsay+'</div></div>';
+
+  h += '<div class="sp-section" style="display:flex;gap:8px;flex-wrap:wrap">';
+  h += '<a class="sp-li-btn" href="'+s.li+'" target="_blank">in LinkedIn</a>';
+  if (s.li2) h += '<a class="sp-li-btn" href="'+s.li2+'" target="_blank">in LinkedIn David Schmidt</a>';
+  h += '</div>';
+
+  document.getElementById('sp-content').innerHTML = h;
+  document.getElementById('sp-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeSpModal = function() {
+  document.getElementById('sp-modal').classList.remove('open');
+  document.body.style.overflow = '';
+};
+</script>
 </body>
 </html>
